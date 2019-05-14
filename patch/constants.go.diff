@@ -1,32 +1,8 @@
 diff --git a/pkg/minikube/constants/constants.go b/pkg/minikube/constants/constants.go
-index 92a349e6c..ffe4a805e 100644
+index 92a349e6c..e77c83362 100644
 --- a/pkg/minikube/constants/constants.go
 +++ b/pkg/minikube/constants/constants.go
-@@ -266,52 +266,52 @@ func GetKubeadmCachedImages(imageRepository string, kubernetesVersionStr string)
- 	var images []string
- 	if v1_12plus(kubernetesVersion) {
- 		images = append(images, []string{
--			imageRepository + "kube-proxy:" + kubernetesVersionStr,
--			imageRepository + "kube-scheduler:" + kubernetesVersionStr,
--			imageRepository + "kube-controller-manager:" + kubernetesVersionStr,
--			imageRepository + "kube-apiserver:" + kubernetesVersionStr,
-+			imageRepository + "kube-proxy-s390x:" + kubernetesVersionStr,
-+			imageRepository + "kube-scheduler-s390x:" + kubernetesVersionStr,
-+			imageRepository + "kube-controller-manager-s390x:" + kubernetesVersionStr,
-+			imageRepository + "kube-apiserver-s390x:" + kubernetesVersionStr,
- 		}...)
- 	} else {
- 		images = append(images, []string{
--			imageRepository + "kube-proxy-amd64:" + kubernetesVersionStr,
--			imageRepository + "kube-scheduler-amd64:" + kubernetesVersionStr,
--			imageRepository + "kube-controller-manager-amd64:" + kubernetesVersionStr,
--			imageRepository + "kube-apiserver-amd64:" + kubernetesVersionStr,
-+			imageRepository + "kube-proxy-s390x:" + kubernetesVersionStr,
-+			imageRepository + "kube-scheduler-s390x:" + kubernetesVersionStr,
-+			imageRepository + "kube-controller-manager-s390x:" + kubernetesVersionStr,
-+			imageRepository + "kube-apiserver-s390x:" + kubernetesVersionStr,
- 		}...)
- 	}
+@@ -282,25 +282,25 @@ func GetKubeadmCachedImages(imageRepository string, kubernetesVersionStr string)
  
  	var podInfraContainerImage string
  	if v1_14plus(kubernetesVersion) {
@@ -64,33 +40,3 @@ index 92a349e6c..ffe4a805e 100644
  		}...)
  
  	} else if v1_12(kubernetesVersion) {
--		podInfraContainerImage = imageRepository + "pause:3.1"
-+		podInfraContainerImage = imageRepository + "pause-s390x:3.1"
- 		images = append(images, []string{
- 			podInfraContainerImage,
--			imageRepository + "k8s-dns-kube-dns-amd64:1.14.8",
--			imageRepository + "k8s-dns-dnsmasq-nanny-amd64:1.14.8",
--			imageRepository + "k8s-dns-sidecar-amd64:1.14.8",
--			imageRepository + "etcd:3.2.24",
--			imageRepository + "coredns:1.2.2",
-+			imageRepository + "k8s-dns-kube-dns-s390x:1.14.8",
-+			imageRepository + "k8s-dns-dnsmasq-nanny-s390x:1.14.8",
-+			imageRepository + "k8s-dns-sidecar-s390x:1.14.8",
-+			imageRepository + "etcd-s390x:3.2.24",
-+			imageRepository + "coredns-s390x:1.2.2",
- 		}...)
- 
- 	} else if v1_11(kubernetesVersion) {
-@@ -360,9 +360,9 @@ func GetKubeadmCachedImages(imageRepository string, kubernetesVersionStr string)
- 	}
- 
- 	images = append(images, []string{
--		imageRepository + "kubernetes-dashboard-amd64:v1.10.1",
--		imageRepository + "kube-addon-manager:v9.0",
--		minikubeRepository + "storage-provisioner:v1.8.1",
-+		imageRepository + "kubernetes-dashboard-s390x:v1.10.1",
-+		imageRepository + "kube-addon-manager-s390x:v9.0",
-+		minikubeRepository + "storage-provisioner-s390x:v1.8.1",
- 	}...)
- 
- 	return podInfraContainerImage, images
