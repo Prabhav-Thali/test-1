@@ -1,0 +1,18 @@
+diff --git a/buildSrc/src/main/groovy/org/elasticsearch/gradle/BuildPlugin.groovy b/buildSrc/src/main/groovy/org/elasticsearch/gradle/BuildPlugin.groovy
+index ad06e19d266..59c58c486f6 100644
+--- a/buildSrc/src/main/groovy/org/elasticsearch/gradle/BuildPlugin.groovy
++++ b/buildSrc/src/main/groovy/org/elasticsearch/gradle/BuildPlugin.groovy
+@@ -1027,6 +1027,13 @@ class BuildPlugin implements Plugin<Project> {
+                     if (name == "physical id") {
+                         currentID = value
+                     }
++		    // for s390x
++		    if (name == "vendor_id"){
++			currentID = value
++		    }
++                    if(name == "# processors"){
++                           socketToCore[currentID] = Integer.valueOf(value)
++                           }
+                     // Number  of cores not including hyper-threading
+                     if (name == "cpu cores") {
+                         assert currentID.isEmpty() == false
