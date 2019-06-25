@@ -1,0 +1,34 @@
+./test.sh
+= go mod ================================================================
+ok
+= make lint =============================================================
+ok
+= boilerplate ===========================================================
+ok
+= schema_check ==========================================================
+ok
+= go test ===============================================================
+ok  	k8s.io/minikube/cmd/minikube/cmd	0.154s	coverage: 17.1% of statements
+ok  	k8s.io/minikube/cmd/minikube/cmd/config	0.190s	coverage: 21.3% of statements
+ok  	k8s.io/minikube/cmd/util	0.060s	coverage: 7.1% of statements
+ok  	k8s.io/minikube/pkg/drivers	0.080s	coverage: 19.6% of statements
+ok  	k8s.io/minikube/pkg/drivers/kvm	0.188s	coverage: 2.4% of statements
+ok  	k8s.io/minikube/pkg/minikube/assets	0.093s	coverage: 62.1% of statements
+ok  	k8s.io/minikube/pkg/minikube/bootstrapper	4.723s	coverage: 21.9% of statements
+ok  	k8s.io/minikube/pkg/minikube/bootstrapper/kubeadm	0.193s	coverage: 33.1% of statements
+ok  	k8s.io/minikube/pkg/minikube/cluster	360.799s	coverage: 53.2% of statements
+ok  	k8s.io/minikube/pkg/minikube/config	0.125s	coverage: 17.6% of statements
+ok  	k8s.io/minikube/pkg/minikube/console	0.039s	coverage: 77.9% of statements
+ok  	k8s.io/minikube/pkg/minikube/cruntime	0.100s	coverage: 62.7% of statements
+ok  	k8s.io/minikube/pkg/minikube/extract	0.035s	coverage: 83.0% of statements
+ok  	k8s.io/minikube/pkg/minikube/logs	0.144s	coverage: 1.5% of statements
+ok  	k8s.io/minikube/pkg/minikube/machine	0.049s	coverage: 12.5% of statements
+ok  	k8s.io/minikube/pkg/minikube/notify	0.112s	coverage: 76.9% of statements
+ok  	k8s.io/minikube/pkg/minikube/problem	0.053s	coverage: 42.9% of statements
+ok  	k8s.io/minikube/pkg/minikube/proxy	0.013s	coverage: 67.3% of statements
+ok  	k8s.io/minikube/pkg/minikube/registry	0.108s	coverage: 81.8% of statements
+ok  	k8s.io/minikube/pkg/minikube/service	0.050s	coverage: 40.7% of statements
+ok  	k8s.io/minikube/pkg/minikube/sshutil	1.308s	coverage: 75.0% of statements
+ok  	k8s.io/minikube/pkg/minikube/tunnel	1.780s	coverage: 64.5% of statements
+ok  	k8s.io/minikube/pkg/util	32.650s	coverage: 50.8% of statements
+ok
