@@ -1,0 +1,13 @@
+diff --git a/deploy/addons/dashboard/dashboard-dp.yaml.tmpl b/deploy/addons/dashboard/dashboard-dp.yaml.tmpl
+index 6572f032d..e4846062e 100644
+--- a/deploy/addons/dashboard/dashboard-dp.yaml.tmpl
++++ b/deploy/addons/dashboard/dashboard-dp.yaml.tmpl
+@@ -37,7 +37,7 @@ spec:
+     spec:
+       containers:
+       - name: kubernetes-dashboard
+-        image: {{default "k8s.gcr.io" .ImageRepository}}/kubernetes-dashboard-{{.Arch}}:v1.10.1
++        image: {{default "k8s.gcr.io" .ImageRepository}}/kubernetes-dashboard-{{.ExoticArch}}:v1.10.1
+         imagePullPolicy: IfNotPresent
+         ports:
+         - containerPort: 9090
