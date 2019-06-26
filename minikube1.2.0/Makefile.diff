@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index 0d0865188..bfaedb367 100755
+index 0d0865188..abd1b75fb 100755
 --- a/Makefile
 +++ b/Makefile
 @@ -176,7 +176,7 @@ integration: out/minikube
@@ -11,21 +11,7 @@ index 0d0865188..bfaedb367 100755
  
  .PHONY: integration-versioned
  integration-versioned: out/minikube
-@@ -195,11 +195,11 @@ pkg/minikube/assets/assets.go: $(shell find deploy/addons -type f)
- cross: out/minikube-linux-$(GOARCH) out/minikube-darwin-amd64 out/minikube-windows-amd64.exe
- 
- .PHONY: e2e-cross
--e2e-cross: e2e-linux-amd64 e2e-darwin-amd64 e2e-windows-amd64.exe
-+e2e-cross: e2e-linux-390x e2e-darwin-amd64 e2e-windows-amd64.exe
- 
- .PHONY: checksum
- checksum:
--	for f in out/minikube-linux-$(GOARCH) out/minikube-darwin-amd64 out/minikube-windows-amd64.exe out/minikube.iso \
-+	for f in out/minikube-linux-$(GOARCH) out/minikube-darwin-390x out/minikube-windows-amd64.exe out/minikube.iso \
- 		 out/docker-machine-driver-kvm2 out/docker-machine-driver-hyperkit; do \
- 		if [ -f "$${f}" ]; then \
- 			openssl sha256 "$${f}" | awk '{print $$2}' > "$${f}.sha256" ; \
-@@ -262,7 +262,7 @@ mdlint:
+@@ -262,16 +262,16 @@ mdlint:
  out/docs/minikube.md: $(shell find cmd) $(shell find pkg/minikube/constants) pkg/minikube/assets/assets.go
  	go run -ldflags="$(MINIKUBE_LDFLAGS)" hack/help_text/gen_help_text.go
  
@@ -34,7 +20,9 @@ index 0d0865188..bfaedb367 100755
  	cp -r installers/linux/deb/minikube_deb_template out/minikube_$(DEB_VERSION)
  	chmod 0755 out/minikube_$(DEB_VERSION)/DEBIAN
  	sed -E -i 's/--VERSION--/'$(DEB_VERSION)'/g' out/minikube_$(DEB_VERSION)/DEBIAN/control
-@@ -271,7 +271,7 @@ out/minikube_$(DEB_VERSION).deb: out/minikube-linux-amd64
+ 	mkdir -p out/minikube_$(DEB_VERSION)/usr/bin
+-	cp out/minikube-linux-amd64 out/minikube_$(DEB_VERSION)/usr/bin/minikube
++	cp out/minikube-linux-s390x out/minikube_$(DEB_VERSION)/usr/bin/minikube
  	fakeroot dpkg-deb --build out/minikube_$(DEB_VERSION)
  	rm -rf out/minikube_$(DEB_VERSION)
  
