@@ -1,0 +1,376 @@
+NAME="SLES"
+VERSION="12-SP4"
+VERSION_ID="12.4"
+PRETTY_NAME="SUSE Linux Enterprise Server 12 SP4"
+ID="sles"
+ANSI_COLOR="0;32"
+CPE_NAME="cpe:/o:suse:sles:12:sp4"
+Linux version 4.12.14-95.13-default (geeko@buildhost) (gcc version 4.8.5 (SUSE Linux) ) #1 SMP Fri Mar 22 06:04:58 UTC 2019 (c01bf34)
+Request details : PACKAGE NAME= minikube , VERSION= 1.2.0 
+Sudo : Yes
+docker : Yes
+User responded with Yes. 
+Installing minikube 1.2.0 for sles-12.4 
+Loading repository data...
+Reading installed packages...
+'patch' is already installed.
+No update candidate for 'patch-2.7.5-8.5.1.s390x'. The highest available version is already installed.
+'tar' is already installed.
+No update candidate for 'tar-1.27.1-15.3.7.s390x'. The highest available version is already installed.
+'python' is already installed.
+No update candidate for 'python-2.7.13-28.26.1.s390x'. The highest available version is already installed.
+'libvirt-devel' is already installed.
+No update candidate for 'libvirt-devel-4.0.0-8.15.2.s390x'. The highest available version is already installed.
+'gcc' is already installed.
+No update candidate for 'gcc-4.8-6.189.s390x'. The highest available version is already installed.
+'curl' is already installed.
+No update candidate for 'curl-7.60.0-4.3.1.s390x'. The highest available version is already installed.
+'make' is already installed.
+No update candidate for 'make-4.0-4.1.s390x'. The highest available version is already installed.
+'git' is already installed.
+No update candidate for 'git-2.12.3-27.14.1.s390x'. The highest available version is already installed.
+'wget' is already installed.
+No update candidate for 'wget-1.14-21.10.1.s390x'. The highest available version is already installed.
+Resolving package dependencies...
+
+Nothing to do.
+install Go success
+Configuration and Installation started 
+Installing Go... 
+Setting default value for GOPATH 
+LESSKEY=/etc/lesskey.bin
+MANPATH=/usr/share/man:/usr/local/man
+NNTPSERVER=news
+HOSTNAME=mini
+XKEYSYMDB=/usr/X11R6/lib/X11/XKeysymDB
+TERM=xterm
+SHELL=/bin/bash
+HOST=mini
+HISTSIZE=1000
+PROFILEREAD=true
+MORE=-sl
+OLDPWD=/root/vibhuti
+USER=root
+LS_COLORS=no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:
+SUDO_USER=sles
+SUDO_UID=1000
+XNLSPATH=/usr/X11R6/lib/X11/nls
+HOSTTYPE=s390x
+USERNAME=root
+FROM_HEADER=
+PAGER=less
+CSHEDIT=emacs
+XDG_CONFIG_DIRS=/etc/xdg
+MINICOM=-c on
+MAIL=/var/mail/root
+PATH=/usr/local/go/bin:/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/root/go/bin
+CPU=s390x
+PWD=/root/vibhuti
+INPUTRC=/etc/inputrc
+LANG=POSIX
+PYTHONSTARTUP=/etc/pythonstart
+GPG_TTY=/dev/pts/0
+HOME=/root
+SUDO_COMMAND=/usr/bin/su
+SHLVL=2
+OSTYPE=linux
+LESS_ADVANCED_PREPROCESSOR=no
+LS_OPTIONS=-A -N --color=tty -T 0
+LOGNAME=root
+MACHTYPE=s390x-suse-linux
+LESS=-M -I -R
+LC_CTYPE=C.UTF-8
+XDG_DATA_DIRS=/usr/share
+GOPATH=/root/go
+LESSOPEN=lessopen.sh %s
+SUDO_GID=100
+LESSCLOSE=lessclose.sh %s %s
+G_BROKEN_FILENAMES=1
+COLORTERM=1
+_=/usr/bin/printenv
+patching file /root/go/src/k8s.io/minikube/Makefile
+Updated Makefile : success
+patching file /root/go/src/k8s.io/minikube/deploy/addons/addon-manager.yaml.tmpl
+Updated addon-manager.yaml : success
+patching file /root/go/src/k8s.io/minikube/deploy/addons/storage-provisioner/storage-provisioner.yaml.tmpl
+Updated storage-provisioner.yaml.tmpl : success
+patching file /root/go/src/k8s.io/minikube/deploy/storage-provisioner/Dockerfile
+Updated Dockerfile : success
+which go-bindata || GO111MODULE=off GOBIN=/root/go/bin go get github.com/jteeuwen/go-bindata/...
+which: no go-bindata in (/usr/local/go/bin:/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/root/go/bin)
+PATH="/usr/local/go/bin:/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/root/go/bin:/root/go/bin" go-bindata -nomemcopy -o pkg/minikube/assets/assets.go -pkg assets deploy/addons/...
+GOOS="linux" GOARCH="s390x" go build -tags "container_image_ostree_stub containers_image_openpgp" -ldflags="-X k8s.io/minikube/pkg/version.version=v1.2.0 -X k8s.io/minikube/pkg/version.isoVersion=v1.2.0 -X k8s.io/minikube/pkg/version.isoPath=minikube/iso" -a -o out/minikube-linux-s390x k8s.io/minikube/cmd/minikube
+go: finding github.com/zchee/go-vmnet v0.0.0-20161021174912-97ebf9174097
+go: finding github.com/johanneswuerbach/nfsexports v0.0.0-20181204082207-1aa528dcb345
+go: finding github.com/peterbourgon/diskv v2.0.1+incompatible
+go: finding github.com/mattn/go-isatty v0.0.5
+go: finding github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
+go: finding github.com/machine-drivers/docker-machine-driver-vmware v0.1.1
+go: finding github.com/r2d4/external-storage v0.0.0-20171222174501-8c0e8605dc7b
+go: finding github.com/spf13/pflag v1.0.1
+go: finding github.com/golang/groupcache v0.0.0-20160516000752-02826c3e7903
+go: finding k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede
+go: finding github.com/xeipuuv/gojsonschema v0.0.0-20160623135812-c539bca196be
+go: finding github.com/jimmidyson/go-download v0.0.0-20161028105827-7f9a90c8c95b
+go: finding github.com/hashicorp/golang-lru v0.0.0-20160207214719-a0d98a5f2880
+go: finding k8s.io/kubernetes v1.11.3
+go: finding golang.org/x/sys v0.0.0-20190507160741-ecd444e8653b
+go: finding golang.org/x/text v0.3.2
+go: finding github.com/hashicorp/go-version v1.1.0
+go: finding github.com/pelletier/go-buffruneio v0.1.0
+go: finding github.com/hooklift/iso9660 v0.0.0-20170318115843-1cf07e5970d8
+go: finding github.com/spf13/cobra v0.0.0-20180228053838-6644d46b81fa
+go: finding github.com/google/go-containerregistry v0.0.0-20190318164241-019cdfc6adf9
+go: finding github.com/libvirt/libvirt-go v3.4.0+incompatible
+go: finding github.com/docker/docker v1.13.1
+go: finding github.com/xeipuuv/gojsonreference v0.0.0-20150808065054-e02fc20de94c
+go: finding github.com/pborman/uuid v0.0.0-20150603214016-ca53cad383ca
+go: finding github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3
+go: finding github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78
+go: finding github.com/pkg/browser v0.0.0-20160118053552-9302be274faa
+go: finding github.com/onsi/ginkgo v1.8.0
+go: finding github.com/hooklift/assert v0.0.0-20170704181755-9d1defd6d214
+go: finding k8s.io/client-go v0.0.0-20180806134042-1f13a808da65
+go: finding github.com/spf13/afero v0.0.0-20160816080757-b28a7effac97
+go: finding github.com/pkg/profile v0.0.0-20161223203901-3a8809bd8a80
+go: finding github.com/cloudfoundry-attic/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
+go: finding github.com/moby/hyperkit v0.0.0-20171020124204-a12cd7250bcd
+go: finding github.com/Parallels/docker-machine-parallels v1.3.0
+go: finding golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
+go: finding github.com/spf13/jwalterweatherman v0.0.0-20160311093646-33c24e77fb80
+go: finding github.com/mattn/go-colorable v0.1.1
+go: finding github.com/pmezard/go-difflib v1.0.0
+go: finding golang.org/x/sync v0.0.0-20190423024810-112230192c58
+go: finding github.com/spf13/viper v1.0.0
+go: finding github.com/shurcooL/sanitized_anchor_name v0.0.0-20151028001915-10ef21a441db
+go: finding gopkg.in/inf.v0 v0.9.0
+go: finding gopkg.in/airbrake/gobrake.v2 v2.0.9
+go: finding github.com/russross/blackfriday v0.0.0-20151117072312-300106c228d5
+go: finding github.com/pkg/errors v0.8.0
+go: finding github.com/xeipuuv/gojsonpointer v0.0.0-20151027082146-e0fe6f683076
+go: finding github.com/json-iterator/go v1.1.5
+go: finding github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7
+go: finding github.com/Sirupsen/logrus v0.0.0-20170822132746-89742aefa4b2
+go: finding k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
+go: finding github.com/hashicorp/go-multierror v0.0.0-20160811015721-8c5f0ad93604
+go: finding gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2
+go: finding github.com/magiconair/properties v0.0.0-20160816085511-61b492c03cf4
+go: finding gopkg.in/cheggaaa/pb.v1 v1.0.6
+go: finding github.com/sirupsen/logrus v1.4.1
+go: finding github.com/kr/pretty v0.1.0
+go: finding github.com/spf13/cast v0.0.0-20160730092037-e31f36ffc91a
+go: finding github.com/mitchellh/go-ps v0.0.0-20170309133038-4fdf99ab2936
+go: finding github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
+go: finding github.com/onsi/gomega v1.5.0
+go: finding github.com/inconshreveable/mousetrap v1.0.0
+go: finding github.com/cpuguy83/go-md2man v1.0.4
+go: finding github.com/kr/text v0.1.0
+go: finding golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284
+go: finding golang.org/x/time v0.0.0-20161028155119-f51c12702a4d
+go: finding github.com/blang/semver v3.5.0+incompatible
+go: finding github.com/google/go-cmp v0.2.0
+go: finding github.com/mitchellh/mapstructure v0.0.0-20170307201123-53818660ed49
+go: finding github.com/fatih/color v1.7.0
+go: finding gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
+go: finding gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
+go: finding github.com/gogo/protobuf v0.0.0-20170330071051-c0656edd0d9e
+go: finding github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+go: finding github.com/gorilla/mux v1.7.1
+go: finding github.com/mattn/go-runewidth v0.0.0-20161012013512-737072b4e32b
+go: finding golang.org/x/oauth2 v0.0.0-20190115181402-5dab4167f31c
+go: finding github.com/docker/go-units v0.0.0-20170127094116-9e638d38cf69
+go: finding github.com/elazarl/goproxy v0.0.0-20190421051319-9d40249d3c2f
+go: finding github.com/c4milo/gotoolkit v0.0.0-20170318115440-bcc06269efa9
+go: finding github.com/hpcloud/tail v1.0.0
+go: finding github.com/golang/protobuf v1.2.0
+go: finding golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
+go: finding golang.org/x/sys v0.0.0-20180909124046-d0be0721c37e
+go: finding golang.org/x/text v0.3.0
+go: finding github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
+go: finding gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
+go: finding k8s.io/apiserver v0.0.0-20180914001516-67c892841170
+go: finding golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f
+go: finding github.com/google/btree v1.0.0
+go: finding golang.org/x/sys v0.0.0-20190412213103-97732733099d
+go: finding github.com/google/gofuzz v0.0.0-20161122191042-44d81051d367
+go: finding github.com/samalba/dockerclient v0.0.0-20160414174713-91d7393ff859
+go: finding golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4
+go: finding github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2
+go: finding github.com/davecgh/go-spew v1.1.1
+go: finding github.com/pelletier/go-toml v0.0.0-20160822122712-0049ab3dc4c4
+go: finding github.com/docker/machine v0.16.1
+go: finding github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680
+go: finding github.com/google/go-github/v25 v25.0.2
+go: finding github.com/stretchr/objx v0.1.1
+go: finding golang.org/x/net v0.0.0-20190108225652-1e06a53dbb7e
+go: finding github.com/stretchr/testify v1.2.2
+go: finding github.com/stretchr/testify v1.3.0
+go: finding github.com/elazarl/goproxy/ext v0.0.0-20190421051319-9d40249d3c2f
+go: finding golang.org/x/net v0.0.0-20190311183353-d8887717615a
+go: finding github.com/rogpeppe/go-charset v0.0.0-20180617210344-2471d30d28b4
+go: finding github.com/kr/pty v1.1.1
+go: finding github.com/cloudfoundry/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
+go: finding golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
+go: finding github.com/intel-go/cpuid v0.0.0-20181003105527-1a4a6f06a1c6
+go: finding golang.org/x/sys v0.0.0-20180905080454-ebe1bf3edb33
+go: finding github.com/olekukonko/tablewriter v0.0.0-20160923125401-bdcc175572fd
+go: finding google.golang.org/appengine v1.4.0
+go: finding gopkg.in/yaml.v2 v2.2.1
+go: finding golang.org/x/sync v0.0.0-20190227155943-e225da77a7e6
+go: finding github.com/konsorten/go-windows-terminal-sequences v1.0.1
+go: finding golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223
+go: finding github.com/pkg/sftp v0.0.0-20160930220758-4d0e916071f6
+go: finding github.com/fsnotify/fsnotify v1.4.7
+go: finding google.golang.org/appengine v1.1.0
+go: finding github.com/google/go-querystring v1.0.0
+go: finding github.com/hashicorp/go-retryablehttp v0.5.4
+go: finding github.com/hashicorp/hcl v0.0.0-20160711231752-d8c773c4cba1
+go: finding github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
+go: finding github.com/davecgh/go-spew v1.1.0
+go: finding k8s.io/api v0.0.0-20180712090710-2d6f90ab1293
+go: finding github.com/stretchr/objx v0.1.0
+go: finding github.com/imdario/mergo v0.0.0-20141206190957-6633656539c1
+go: finding github.com/onsi/ginkgo v1.6.0
+go: finding github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d
+go: finding golang.org/x/net v0.0.0-20180724234803-3673e40ba225
+go: finding gopkg.in/fsnotify.v1 v1.4.7
+go: finding github.com/hashicorp/go-cleanhttp v0.5.0
+go: finding golang.org/x/net v0.0.0-20180906233101-161cd47e91fd
+go: finding golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+go: finding gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405
+go: finding golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a
+go: finding cloud.google.com/go v0.34.0
+go: downloading github.com/docker/machine v0.16.1
+go: downloading github.com/spf13/pflag v1.0.1
+go: downloading golang.org/x/text v0.3.2
+go: downloading github.com/pkg/profile v0.0.0-20161223203901-3a8809bd8a80
+go: downloading k8s.io/client-go v0.0.0-20180806134042-1f13a808da65
+go: extracting github.com/pkg/profile v0.0.0-20161223203901-3a8809bd8a80
+go: extracting github.com/spf13/pflag v1.0.1
+go: extracting k8s.io/client-go v0.0.0-20180806134042-1f13a808da65
+go: downloading k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
+go: downloading github.com/olekukonko/tablewriter v0.0.0-20160923125401-bdcc175572fd
+go: downloading k8s.io/api v0.0.0-20180712090710-2d6f90ab1293
+go: extracting github.com/olekukonko/tablewriter v0.0.0-20160923125401-bdcc175572fd
+go: extracting github.com/docker/machine v0.16.1
+go: downloading github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7
+go: downloading github.com/mattn/go-runewidth v0.0.0-20161012013512-737072b4e32b
+go: downloading github.com/golang/protobuf v1.2.0
+go: downloading github.com/jimmidyson/go-download v0.0.0-20161028105827-7f9a90c8c95b
+go: extracting github.com/mattn/go-runewidth v0.0.0-20161012013512-737072b4e32b
+go: extracting github.com/jimmidyson/go-download v0.0.0-20161028105827-7f9a90c8c95b
+go: extracting github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7
+go: downloading github.com/google/go-containerregistry v0.0.0-20190318164241-019cdfc6adf9
+go: extracting k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
+go: downloading golang.org/x/sync v0.0.0-20190423024810-112230192c58
+go: downloading golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
+go: downloading gopkg.in/cheggaaa/pb.v1 v1.0.6
+go: downloading github.com/hashicorp/go-multierror v0.0.0-20160811015721-8c5f0ad93604
+go: extracting k8s.io/api v0.0.0-20180712090710-2d6f90ab1293
+go: extracting github.com/golang/protobuf v1.2.0
+go: downloading github.com/spf13/cobra v0.0.0-20180228053838-6644d46b81fa
+go: downloading github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d
+go: downloading github.com/samalba/dockerclient v0.0.0-20160414174713-91d7393ff859
+go: extracting golang.org/x/sync v0.0.0-20190423024810-112230192c58
+go: extracting github.com/hashicorp/go-multierror v0.0.0-20160811015721-8c5f0ad93604
+go: extracting gopkg.in/cheggaaa/pb.v1 v1.0.6
+go: downloading github.com/blang/semver v3.5.0+incompatible
+go: downloading github.com/pkg/browser v0.0.0-20160118053552-9302be274faa
+go: extracting github.com/samalba/dockerclient v0.0.0-20160414174713-91d7393ff859
+go: extracting github.com/spf13/cobra v0.0.0-20180228053838-6644d46b81fa
+go: downloading github.com/cloudfoundry-attic/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
+go: extracting github.com/pkg/browser v0.0.0-20160118053552-9302be274faa
+go: downloading github.com/mitchellh/go-ps v0.0.0-20170309133038-4fdf99ab2936
+go: extracting github.com/mitchellh/go-ps v0.0.0-20170309133038-4fdf99ab2936
+go: downloading github.com/peterbourgon/diskv v2.0.1+incompatible
+go: extracting github.com/blang/semver v3.5.0+incompatible
+go: downloading github.com/pkg/errors v0.8.0
+go: extracting github.com/peterbourgon/diskv v2.0.1+incompatible
+go: downloading github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
+go: extracting github.com/cloudfoundry-attic/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
+go: downloading github.com/gogo/protobuf v0.0.0-20170330071051-c0656edd0d9e
+go: extracting github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d
+go: extracting github.com/pkg/errors v0.8.0
+go: downloading github.com/spf13/viper v1.0.0
+go: downloading golang.org/x/time v0.0.0-20161028155119-f51c12702a4d
+go: extracting github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
+go: downloading gopkg.in/yaml.v2 v2.2.1
+go: extracting github.com/spf13/viper v1.0.0
+go: downloading github.com/fsnotify/fsnotify v1.4.7
+go: extracting golang.org/x/time v0.0.0-20161028155119-f51c12702a4d
+go: downloading github.com/google/btree v1.0.0
+go: extracting gopkg.in/yaml.v2 v2.2.1
+go: downloading github.com/spf13/afero v0.0.0-20160816080757-b28a7effac97
+go: extracting github.com/google/btree v1.0.0
+go: extracting github.com/fsnotify/fsnotify v1.4.7
+go: downloading golang.org/x/sys v0.0.0-20190507160741-ecd444e8653b
+go: extracting github.com/spf13/afero v0.0.0-20160816080757-b28a7effac97
+go: downloading github.com/hashicorp/hcl v0.0.0-20160711231752-d8c773c4cba1
+go: extracting github.com/hashicorp/hcl v0.0.0-20160711231752-d8c773c4cba1
+go: downloading golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284
+go: extracting golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
+go: downloading github.com/spf13/jwalterweatherman v0.0.0-20160311093646-33c24e77fb80
+go: extracting github.com/spf13/jwalterweatherman v0.0.0-20160311093646-33c24e77fb80
+go: downloading github.com/pelletier/go-toml v0.0.0-20160822122712-0049ab3dc4c4
+go: extracting github.com/pelletier/go-toml v0.0.0-20160822122712-0049ab3dc4c4
+go: downloading github.com/pelletier/go-buffruneio v0.1.0
+go: extracting github.com/pelletier/go-buffruneio v0.1.0
+go: extracting golang.org/x/sys v0.0.0-20190507160741-ecd444e8653b
+go: downloading github.com/google/gofuzz v0.0.0-20161122191042-44d81051d367
+go: extracting golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284
+go: downloading github.com/imdario/mergo v0.0.0-20141206190957-6633656539c1
+go: extracting github.com/google/gofuzz v0.0.0-20161122191042-44d81051d367
+go: extracting github.com/imdario/mergo v0.0.0-20141206190957-6633656539c1
+go: downloading github.com/mattn/go-isatty v0.0.5
+go: extracting github.com/mattn/go-isatty v0.0.5
+go: downloading github.com/docker/go-units v0.0.0-20170127094116-9e638d38cf69
+go: extracting github.com/docker/go-units v0.0.0-20170127094116-9e638d38cf69
+go: downloading k8s.io/kubernetes v1.11.3
+go: extracting github.com/google/go-containerregistry v0.0.0-20190318164241-019cdfc6adf9
+go: downloading github.com/mitchellh/mapstructure v0.0.0-20170307201123-53818660ed49
+go: downloading github.com/docker/docker v1.13.1
+go: downloading github.com/magiconair/properties v0.0.0-20160816085511-61b492c03cf4
+go: extracting github.com/mitchellh/mapstructure v0.0.0-20170307201123-53818660ed49
+go: downloading github.com/json-iterator/go v1.1.5
+go: extracting github.com/magiconair/properties v0.0.0-20160816085511-61b492c03cf4
+go: downloading github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680
+go: extracting github.com/json-iterator/go v1.1.5
+go: downloading github.com/pkg/sftp v0.0.0-20160930220758-4d0e916071f6
+go: extracting github.com/gogo/protobuf v0.0.0-20170330071051-c0656edd0d9e
+go: extracting github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680
+go: downloading k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede
+go: extracting github.com/pkg/sftp v0.0.0-20160930220758-4d0e916071f6
+go: downloading github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
+go: downloading github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
+go: extracting github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
+go: downloading github.com/hashicorp/go-retryablehttp v0.5.4
+go: extracting github.com/hashicorp/go-retryablehttp v0.5.4
+go: extracting github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
+go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+go: downloading github.com/hashicorp/go-cleanhttp v0.5.0
+go: extracting k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede
+go: extracting github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+go: downloading github.com/spf13/cast v0.0.0-20160730092037-e31f36ffc91a
+go: extracting github.com/hashicorp/go-cleanhttp v0.5.0
+go: downloading gopkg.in/inf.v0 v0.9.0
+go: extracting gopkg.in/inf.v0 v0.9.0
+go: downloading github.com/machine-drivers/docker-machine-driver-vmware v0.1.1
+go: extracting github.com/spf13/cast v0.0.0-20160730092037-e31f36ffc91a
+go: downloading github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
+go: extracting github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
+go: extracting golang.org/x/text v0.3.2
+go: extracting github.com/machine-drivers/docker-machine-driver-vmware v0.1.1
+go: downloading github.com/davecgh/go-spew v1.1.1
+go: extracting github.com/davecgh/go-spew v1.1.1
+go: downloading github.com/hashicorp/golang-lru v0.0.0-20160207214719-a0d98a5f2880
+go: extracting github.com/hashicorp/golang-lru v0.0.0-20160207214719-a0d98a5f2880
+go: extracting github.com/docker/docker v1.13.1
+go: extracting k8s.io/kubernetes v1.11.3
+go: downloading k8s.io/apiserver v0.0.0-20180914001516-67c892841170
+go: extracting k8s.io/apiserver v0.0.0-20180914001516-67c892841170
+# runtime/cgo
+exec: "s390x-linux-gnu-gcc": executable file not found in $PATH
+Makefile:113: recipe for target 'out/minikube-linux-s390x' failed
+make: *** [out/minikube-linux-s390x] Error 2
+Cleaned up the artifacts
+Cleaned up the artifacts
