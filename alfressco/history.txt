@@ -1,55 +1,70 @@
-
-
-
-1
-1
-
-/
-
-
-
-
-
-
-
-
-
-
-N
-
-
-
-
-a
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+cd
+sudo apt-get update
+sudo apt-get install -y wget tar subversion
+wgte https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/tag/jdk-11.0.4%2B11
+wget https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/tag/jdk-11.0.4%2B11
+ls
+wget https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.4%2B11/OpenJDK11U-jdk_s390x_linux_hotspot_11.0.4_11.tar.gz
+tar -xvzf OpenJDK11U-jdk_s390x_linux_hotspot_11.0.4_11.tar.gz 
+ls
+cd jdk-11.0.4+11/
+ls
+pwd
+export JAVA_HOME=/home/test/jdk-11.0.4+11
+export PATH=$JAVA_HOME/bin:$PATH
+java -version
+cd
+sudo apt-get install -y maven
+svn co https://svn.alfresco.com/repos/alfresco-open-mirror/alfresco/COMMUNITYTAGS/5.2.g/
+export MAVEN_OPTS="-Xmx1024m"
+cd 5.2.g/root/
+ls
+sudo apt-get install -y vim
+vi projects/solr4/source/java/org/alfresco/solr/AlfrescoSolrCloseHook.java
+mvn clean install -DskipTests | teee build.log
+mvn clean install -DskipTests | tee build.log
+cd projects/
+ls
+cd web-client/
+ls
+mvn clean install -DskipTests | tee build.log
+grep -inr "maven-compiler-plugin" .
+cd ..
+ls
+grep -inr "maven-compiler-plugin" .
+vim ./projects/office-application/pom.xml
+java -version
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-s390x
+export PATH=$JAVA_HOME/bin:$PATH
+java -version
+cd projects/web-client/e
+cd projects/web-client/
+mvn clean install -DskipTests | tee build1.log
+history
+cd ..
+mvn clean install -DskipTests | tee build22.log
+history
+cat build22.log | grep plexus-cipher/1.7
+ls
+cat build.log | grep plexus-cipher/1.7
+git diff
+ls
+vim ./projects/office-application/pom.xml
+ls
+git clone https://github.com/vibhutisawant/test.git
+history | cut -c 81 > history.txt
+ls
+cd test/
+mkdir alfressco 
+mv ../build.log ../build22.log ../history.txt alfressco/
+git config user.name "Vibhuti"
+git config user.email "vibhuti_sawant@persistent.com"
+git add .
+git commit -m "added logs" .
+git push
+ls
+cd alfressco/
+ls
+rm -rf history.txt 
+history | cut -c 8-
+history | cut -c 8- >> history.txt
