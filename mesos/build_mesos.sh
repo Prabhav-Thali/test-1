@@ -12,7 +12,7 @@ PACKAGE_NAME="mesos"
 PACKAGE_VERSION="1.8.1"
 CURDIR="$(pwd)"
 
-REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/ApacheMesos/1.8.1/patch"
+REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/mesos"
 
 TESTS="false"
 FORCE="false"
