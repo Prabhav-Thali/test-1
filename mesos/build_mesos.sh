@@ -145,7 +145,7 @@ function configureAndInstall() {
     if [ "$DISTRO" == "ubuntu-19.04" ] ;then
         curl -o "boost-1.65.0.patch"  $REPO_URL/boost-1.65.0.patch
         cat boost-1.65.0.patch >> 3rdparty/boost-1.65.0.patch
-        rm protobuf-3.5.0.patch
+        rm boost-1.65.0.patch
     fi
 
     # Building and installing Mesos
