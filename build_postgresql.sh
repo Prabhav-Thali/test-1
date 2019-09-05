@@ -9,7 +9,7 @@
 set -e -o pipefail
 
 PACKAGE_NAME="postgresql"
-PACKAGE_VERSION="11.4"
+PACKAGE_VERSION="11.5"
 CURDIR="$(pwd)"
 POSTGRES_DIR="/home/postgres/"
 
