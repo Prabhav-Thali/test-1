@@ -73,8 +73,8 @@ export LOGDIR=${WORKDIR}/logs
 #Create configuration log file
 export CONF_LOG="${LOGDIR}/configuration-$(date +"%F-%T").log"
 touch $CONF_LOG
-PATCH_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Calico/${CALICO_VERSION}/patch"
-GO_INSTALL_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
+PATCH_URL="https://github.com/vibhutisawant/test/blob/master/calico/3.9.0/patch/"
+GO_INSTALL_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/calico/3.9.0/build_go.sh"
 GO_DEFAULT="$HOME/go"
 GO_FLAG="DEFAULT"
 
