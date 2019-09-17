@@ -4,7 +4,7 @@
 
 ################################################################################################################################################################
 #Script     :   build_Calico.sh
-#Description:   The script builds Calico version v3.8.1 on Linux on IBM Z for Rhel(7.5, 7.6), Ubuntu(16.04, 18.04, 19.04) and SLES(12SP4, 15, 15 SP1).
+#Description:   The script builds Calico version v3.9.0 on Linux on IBM Z for Rhel(7.5, 7.6, 7.7), Ubuntu(16.04).
 #Maintainer :   LoZ Open Source Ecosystem (https://www.ibm.com/developerworks/community/groups/community/lozopensource) 
 #Info/Notes :   Please refer to the instructions first for Building Calico mentioned in wiki( https://github.com/linux-on-ibm-z/docs/wiki/Building-Calico-3.x ).
 #               This script doesn't handle Docker installation. Install docker first before proceeding.
@@ -52,8 +52,8 @@ while getopts "h?dyt" opt; do
 done
 
 NAME_PACKAGE="Calico"
-VERSION_PACKAGE="v3.8.1"
-CALICO_VERSION="3.8.1"
+VERSION_PACKAGE="v3.9.0"
+CALICO_VERSION="3.9.0"
 ETCD_VERSION="3.3.7"
 GOBUILD_VERSION="0.20"
 BIRD_VERSION="0.3.3"
@@ -112,7 +112,7 @@ case "$DISTRO" in
 	sudo apt-get install -y patch git curl tar gcc wget make 2>&1 | tee -a "$CONF_LOG"
 	;;
 
-"rhel-7.5" | "rhel-7.6")
+"rhel-7.5" | "rhel-7.6" | "rhel-7.7")
 	printf -- "Installing %s %s for %s \n" "$NAME_PACKAGE" "$VERSION_PACKAGE" "$DISTRO" | tee -a "$CONF_LOG"
 	printf -- "Installing dependencies . . .  it may take some time.\n"
 	sudo yum install -y curl git wget tar gcc glibc-static.s390x make which patch 2>&1 | tee -a "$CONF_LOG"
