@@ -170,6 +170,7 @@ printf -- "\nInstalling Go . . . \n"  | tee -a "$CONF_LOG"
 printf -- "\nDownloading Build Script for Go . . . \n"  | tee -a "$CONF_LOG"
 rm -rf build_go.sh
 wget -O build_go.sh $GO_INSTALL_URL 2>&1 | tee -a "$CONF_LOG"
+sed -i '8i source /home/test/.bashrc' build_go.sh
 bash build_go.sh -v 1.11.4 2>&1 | tee -a "$CONF_LOG"
 rm -rf build_go.sh
 
