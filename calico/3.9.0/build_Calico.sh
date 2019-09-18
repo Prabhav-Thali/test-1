@@ -233,6 +233,10 @@ rm -rf $GOPATH/src/github.com/projectcalico/go-build
 git clone https://github.com/projectcalico/go-build $GOPATH/src/github.com/projectcalico/go-build 2>&1 | tee -a "$GOBUILD_LOG"
 cd $GOPATH/src/github.com/projectcalico/go-build
 git checkout v${GOBUILD_VERSION} 2>&1 | tee -a "$GOBUILD_LOG"
+sed -i '57d' Dockerfile.s390x
+sed -i '58d' Dockerfile.s390x
+sed -i '59i RUN go get -u github.com/golangci/golangci-lint/cmd/golangci-lint ' Dockerfile.s390x
+
 
 ## Then  build `calico/go-build-s390x` image
 ARCH=s390x make image 2>&1 | tee -a "$GOBUILD_LOG"
