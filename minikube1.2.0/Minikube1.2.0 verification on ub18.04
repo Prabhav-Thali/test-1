@@ -1,0 +1,370 @@
+root@vibhuti:/mnt/go/src/k8s.io/minikube# service docker stop
+root@vibhuti:/mnt/go/src/k8s.io/minikube# systemctl daemon-reload
+root@vibhuti:/mnt/go/src/k8s.io/minikube# service docker start
+root@vibhuti:/mnt/go/src/k8s.io/minikube# service docker status
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: active (running) since Fri 2019-09-27 04:54:44 UTC; 3s ago
+     Docs: https://docs.docker.com
+ Main PID: 5003 (dockerd)
+    Tasks: 22
+   CGroup: /system.slice/docker.service
+           ├─5003 /usr/bin/dockerd -H fd:// --storage-driver=devicemapper --storage-opt dm.basesize=150G -g /mnt/vibhuti/docker_
+           └─5027 docker-containerd --config /var/run/docker/containerd/containerd.toml
+
+Sep 27 04:54:43 vibhuti dockerd[5003]: time="2019-09-27T04:54:43.298321500Z" level=info msg="ClientConn switching balancer to \"
+Sep 27 04:54:43 vibhuti dockerd[5003]: time="2019-09-27T04:54:43.298468023Z" level=info msg="pickfirstBalancer: HandleSubConnSta
+Sep 27 04:54:43 vibhuti dockerd[5003]: time="2019-09-27T04:54:43.298727378Z" level=info msg="pickfirstBalancer: HandleSubConnSta
+Sep 27 04:54:43 vibhuti dockerd[5003]: time="2019-09-27T04:54:43.298829517Z" level=info msg="Loading containers: start."
+Sep 27 04:54:43 vibhuti dockerd[5003]: time="2019-09-27T04:54:43.758378437Z" level=info msg="Default bridge (docker0) is assigne
+Sep 27 04:54:44 vibhuti dockerd[5003]: time="2019-09-27T04:54:44.066975971Z" level=info msg="Loading containers: done."
+Sep 27 04:54:44 vibhuti dockerd[5003]: time="2019-09-27T04:54:44.080994928Z" level=info msg="Docker daemon" commit=d7080c1 graph
+Sep 27 04:54:44 vibhuti dockerd[5003]: time="2019-09-27T04:54:44.081210875Z" level=info msg="Daemon has completed initialization
+Sep 27 04:54:44 vibhuti systemd[1]: Started Docker Application Container Engine.
+Sep 27 04:54:44 vibhuti dockerd[5003]: time="2019-09-27T04:54:44.091893741Z" level=info msg="API listen on /var/run/docker.sock"
+root@vibhuti:/mnt/go/src/k8s.io/minikube# make storage-provisioner-image
+docker build -t gcr.io/k8s-minikube/storage-provisioner-s390x:v1.8.1 -f deploy/storage-provisioner/Dockerfile-s390x .
+Sending build context to Docker daemon  229.7MB
+Step 1/3 : FROM s390x/ubuntu:16.04
+16.04: Pulling from s390x/ubuntu
+4091065d9f5f: Pull complete
+e7e3c9b31820: Pull complete
+414ad9fc64d3: Pull complete
+d9a641d225ff: Pull complete
+Digest: sha256:ad4e0625be7885c2d212c3a765b3aa5c27a787a55c69532621305d4e648bc479
+Status: Downloaded newer image for s390x/ubuntu:16.04
+ ---> d72cc5531576
+Step 2/3 : COPY out/storage-provisioner storage-provisioner
+ ---> ac53cba84bb1
+Step 3/3 : CMD ["/storage-provisioner"]
+ ---> Running in e2bd08749472
+Removing intermediate container e2bd08749472
+ ---> a69a222f7aa9
+Successfully built a69a222f7aa9
+Successfully tagged gcr.io/k8s-minikube/storage-provisioner-s390x:v1.8.1
+root@vibhuti:/mnt/go/src/k8s.io/minikube# export MINIKUBE_WANTUPDATENOTIFICATION=false
+root@vibhuti:/mnt/go/src/k8s.io/minikube# export MINIKUBE_WANTREPORTERRORPROMPT=false
+root@vibhuti:/mnt/go/src/k8s.io/minikube# export MINIKUBE_HOME=$HOME
+root@vibhuti:/mnt/go/src/k8s.io/minikube# export CHANGE_MINIKUBE_NONE_USER=true
+root@vibhuti:/mnt/go/src/k8s.io/minikube# mkdir $HOME/.kube
+root@vibhuti:/mnt/go/src/k8s.io/minikube# touch $HOME/.kube/config
+root@vibhuti:/mnt/go/src/k8s.io/minikube# export KUBECONFIG=$HOME/.kube/config
+root@vibhuti:/mnt/go/src/k8s.io/minikube# sudo -E ./out/minikube-linux-s390x start --vm-driver=none
+* minikube v1.2.0 on linux (s390x)
+* Creating none VM (CPUs=2, Memory=2048MB, Disk=20000MB) ...
+* Configuring environment for Kubernetes v1.15.0 on Docker 18.06.3-ce
+  - kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+* Downloading kubeadm v1.15.0
+* Downloading kubelet v1.15.0
+* Pulling images ...
+* Launching Kubernetes ...
+* Configuring local host environment ...
+
+! The 'none' driver provides limited isolation and may reduce system security and reliability.
+! For more information, see:
+  - https://github.com/kubernetes/minikube/blob/master/docs/vmdriver-none.md
+
+* Verifying: apiserver proxy etcd scheduler controller dns
+* Done! kubectl is now configured to use "minikube"
+root@vibhuti:/mnt/go/src/k8s.io/minikube# kubectl get pods --all-namespaces
+NAMESPACE     NAME                               READY   STATUS    RESTARTS   AGE
+kube-system   coredns-5c98db65d4-qj96h           1/1     Running   0          84s
+kube-system   coredns-5c98db65d4-xlx5f           1/1     Running   1          84s
+kube-system   etcd-minikube                      1/1     Running   0          24s
+kube-system   kube-addon-manager-minikube        1/1     Running   0          25s
+kube-system   kube-apiserver-minikube            1/1     Running   0          25s
+kube-system   kube-controller-manager-minikube   1/1     Running   0          20s
+kube-system   kube-proxy-cznwj                   1/1     Running   0          84s
+kube-system   kube-scheduler-minikube            1/1     Running   0          40s
+kube-system   storage-provisioner                1/1     Running   0          81s
+root@vibhuti:/mnt/go/src/k8s.io/minikube# cat /etc/os-release
+NAME="Ubuntu"
+VERSION="18.04.2 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.2 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+root@vibhuti:/mnt/go/src/k8s.io/minikube# docker ps
+CONTAINER ID        IMAGE                  COMMAND                  CREATED              STATUS              PORTS               NAMES
+be7c5bcd705f        0fac95c036ef           "/coredns -conf /etc…"   About a minute ago   Up About a minute                       k8s_coredns_coredns-5c98db65d4-xlx5f_kube-system_e0b2ccc5-2a0f-4b64-a993-8f5923eefe32_1
+76ee093248ad        a69a222f7aa9           "/storage-provisioner"   About a minute ago   Up About a minute                       k8s_storage-provisioner_storage-provisioner_kube-system_c8e1f1c6-8b55-4120-8356-b68612c83685_0
+abf014f6b8ef        k8s.gcr.io/pause:3.1   "/pause"                 About a minute ago   Up About a minute                       k8s_POD_storage-provisioner_kube-system_c8e1f1c6-8b55-4120-8356-b68612c83685_0
+73c726992c09        0fac95c036ef           "/coredns -conf /etc…"   About a minute ago   Up About a minute                       k8s_coredns_coredns-5c98db65d4-qj96h_kube-system_a8e0ab46-1b3e-4cef-84f2-c93bbeb7c2fe_0
+5eb519a52311        1055e292487f           "/usr/local/bin/kube…"   About a minute ago   Up About a minute                       k8s_kube-proxy_kube-proxy-cznwj_kube-system_af4523c3-b620-4a02-b3c8-dbc3d65c70fe_0
+20ef2d0f3205        k8s.gcr.io/pause:3.1   "/pause"                 About a minute ago   Up About a minute                       k8s_POD_kube-proxy-cznwj_kube-system_af4523c3-b620-4a02-b3c8-dbc3d65c70fe_0
+966f14c68d47        k8s.gcr.io/pause:3.1   "/pause"                 About a minute ago   Up About a minute                       k8s_POD_coredns-5c98db65d4-qj96h_kube-system_a8e0ab46-1b3e-4cef-84f2-c93bbeb7c2fe_0
+e79c542d26d9        k8s.gcr.io/pause:3.1   "/pause"                 About a minute ago   Up About a minute                       k8s_POD_coredns-5c98db65d4-xlx5f_kube-system_e0b2ccc5-2a0f-4b64-a993-8f5923eefe32_0
+00decc087366        a54cbcd94f7b           "kube-scheduler --bi…"   2 minutes ago        Up 2 minutes                            k8s_kube-scheduler_kube-scheduler-minikube_kube-system_31d9ee8b7fb12e797dc981a8686f6b2b_0
+a3d64b1e89f1        3f04f982e7e0           "kube-controller-man…"   2 minutes ago        Up 2 minutes                            k8s_kube-controller-manager_kube-controller-manager-minikube_kube-system_b57a53dbade90e266fa007fcac077bfa_0
+9d9ef13bba2d        2da568830e7a           "kube-apiserver --ad…"   2 minutes ago        Up 2 minutes                            k8s_kube-apiserver_kube-apiserver-minikube_kube-system_2a28d06448197cc8172a1a9e1c4a652d_0
+2776bb5db3ef        0b9e77bdceb6           "etcd --advertise-cl…"   2 minutes ago        Up 2 minutes                            k8s_etcd_etcd-minikube_kube-system_1521f3fd82db285b6177b25b0e366022_0
+456c2bcf134f        7621f777c56d           "/opt/kube-addons.sh"    2 minutes ago        Up 2 minutes                            k8s_kube-addon-manager_kube-addon-manager-minikube_kube-system_d42a417da4eeb279ff2ef296df0eb720_0
+a5fa8c4598e8        k8s.gcr.io/pause:3.1   "/pause"                 2 minutes ago        Up 2 minutes                            k8s_POD_kube-scheduler-minikube_kube-system_31d9ee8b7fb12e797dc981a8686f6b2b_0
+200eb08f3852        k8s.gcr.io/pause:3.1   "/pause"                 2 minutes ago        Up 2 minutes                            k8s_POD_kube-controller-manager-minikube_kube-system_b57a53dbade90e266fa007fcac077bfa_0
+1c2fad6cf89c        k8s.gcr.io/pause:3.1   "/pause"                 2 minutes ago        Up 2 minutes                            k8s_POD_kube-apiserver-minikube_kube-system_2a28d06448197cc8172a1a9e1c4a652d_0
+56c41efaea57        k8s.gcr.io/pause:3.1   "/pause"                 2 minutes ago        Up 2 minutes                            k8s_POD_etcd-minikube_kube-system_1521f3fd82db285b6177b25b0e366022_0
+ce60d36d5524        k8s.gcr.io/pause:3.1   "/pause"                 2 minutes ago        Up 2 minutes                            k8s_POD_kube-addon-manager-minikube_kube-system_d42a417da4eeb279ff2ef296df0eb720_0
+root@vibhuti:/mnt/go/src/k8s.io/minikube# kubectl version
+Client Version: version.Info{Major:"1", Minor:"16", GitVersion:"v1.16.0", GitCommit:"2bd9643cee5b3b3a5ecbd3af49d09018f0773c77", GitTreeState:"clean", BuildDate:"2019-09-18T14:36:53Z", GoVersion:"go1.12.9", Compiler:"gc", Platform:"linux/s390x"}
+Server Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.0", GitCommit:"e8462b5b5dc2584fdcd18e6bcfe9f1e4d970a529", GitTreeState:"clean", BuildDate:"2019-06-19T16:32:14Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/s390x"}
+root@vibhuti:/mnt/go/src/k8s.io/minikube# mkdir application
+root@vibhuti:/mnt/go/src/k8s.io/minikube# cd application/
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# vi deployment.yaml
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+deployment.apps/nginx-deployment created
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl describe deployment nginx-deployment
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Fri, 27 Sep 2019 05:00:37 +0000
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kubectl.kubernetes.io/last-applied-configuration:
+                          {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"replica...
+Selector:               app=nginx
+Replicas:               2 desired | 2 updated | 2 total | 0 available | 2 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.7.9
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      False   MinimumReplicasUnavailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-5754944d6c (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  10s   deployment-controller  Scaled up replica set nginx-deployment-5754944d6c to 2
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods -l app=nginx
+NAME                                READY   STATUS             RESTARTS   AGE
+nginx-deployment-5754944d6c-m2k7h   0/1     CrashLoopBackOff   1          26s
+nginx-deployment-5754944d6c-p5kpx   0/1     CrashLoopBackOff   1          26s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods -l app=nginx
+NAME                                READY   STATUS   RESTARTS   AGE
+nginx-deployment-5754944d6c-m2k7h   0/1     Error    2          39s
+nginx-deployment-5754944d6c-p5kpx   0/1     Error    2          39s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods -l app=nginx
+NAME                                READY   STATUS             RESTARTS   AGE
+nginx-deployment-5754944d6c-m2k7h   0/1     CrashLoopBackOff   2          43s
+nginx-deployment-5754944d6c-p5kpx   0/1     Error              2          43s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl describe pod nginx-deployment-5754944d6c-m2k7h
+Name:           nginx-deployment-5754944d6c-m2k7h
+Namespace:      default
+Priority:       0
+Node:           minikube/192.168.0.156
+Start Time:     Fri, 27 Sep 2019 05:00:37 +0000
+Labels:         app=nginx
+                pod-template-hash=5754944d6c
+Annotations:    <none>
+Status:         Running
+IP:             172.17.0.5
+IPs:            <none>
+Controlled By:  ReplicaSet/nginx-deployment-5754944d6c
+Containers:
+  nginx:
+    Container ID:   docker://a5a14fdd5abab4729ee3b3255a4bd6791362bb37918454c18aabde757d66c5cb
+    Image:          nginx:1.7.9
+    Image ID:       docker-pullable://nginx@sha256:e3456c851a152494c3e4ff5fcc26f240206abac0c9d794affb40e0714846c451
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Fri, 27 Sep 2019 05:01:05 +0000
+      Finished:     Fri, 27 Sep 2019 05:01:05 +0000
+    Ready:          False
+    Restart Count:  2
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-4bqw8 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
+Volumes:
+  default-token-4bqw8:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-4bqw8
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  56s                default-scheduler  Successfully assigned default/nginx-deployment-5754944d6c-m2k7h to minikube
+  Normal   Pulling    54s                kubelet, minikube  Pulling image "nginx:1.7.9"
+  Normal   Pulled     46s                kubelet, minikube  Successfully pulled image "nginx:1.7.9"
+  Warning  BackOff    16s (x4 over 42s)  kubelet, minikube  Back-off restarting failed container
+  Normal   Pulled     1s (x3 over 44s)   kubelet, minikube  Container image "nginx:1.7.9" already present on machine
+  Normal   Created    0s (x4 over 45s)   kubelet, minikube  Created container nginx
+  Normal   Started    0s (x4 over 45s)   kubelet, minikube  Started container nginx
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods -l app=nginx
+NAME                                READY   STATUS             RESTARTS   AGE
+nginx-deployment-5754944d6c-m2k7h   0/1     CrashLoopBackOff   3          71s
+nginx-deployment-5754944d6c-p5kpx   0/1     CrashLoopBackOff   3          71s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods -l app=nginx
+NAME                                READY   STATUS             RESTARTS   AGE
+nginx-deployment-5754944d6c-m2k7h   0/1     CrashLoopBackOff   3          75s
+nginx-deployment-5754944d6c-p5kpx   0/1     CrashLoopBackOff   3          75s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods -l app=nginx
+NAME                                READY   STATUS             RESTARTS   AGE
+nginx-deployment-5754944d6c-m2k7h   0/1     CrashLoopBackOff   3          108s
+nginx-deployment-5754944d6c-p5kpx   0/1     Error              4          108s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl delete deployment nginx-deployment
+deployment.extensions "nginx-deployment" deleted
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
+cronjob.batch/hello created
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
+kubectl run --generator=cronjob/v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.
+Error from server (AlreadyExists): cronjobs.batch "hello" already exists
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get cronjob hello
+NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+hello   */1 * * * *   False     0        <none>          25s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get jobs --watch
+NAME               COMPLETIONS   DURATION   AGE
+hello-1569560640   1/1           3s         6s
+kubectl get cronjob hello
+^Croot@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get cronjob hello
+NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+hello   */1 * * * *   False     0        29s             60s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl delete cronjob hello
+cronjob.batch "hello" deleted
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+deployment.apps/hello-minikube created
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl expose deployment hello-minikube --type=NodePort --port=8080
+service/hello-minikube exposed
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pod
+NAME                              READY   STATUS             RESTARTS   AGE
+hello-minikube-6fb6cb79cc-m8svk   0/1     CrashLoopBackOff   1          27s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectld describe hello-minikube-6fb6cb79cc-m8svk
+
+Command 'kubectld' not found, did you mean:
+
+  command 'kubectl' from snap kubectl (1.15.2)
+
+See 'snap info <snapname>' for additional versions.
+
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl describe hello-minikube-6fb6cb79cc-m8svk
+error: the server doesn't have a resource type "hello-minikube-6fb6cb79cc-m8svk"
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl describe hello-minikube-6fb6cb79cc-m8svk -n default
+error: the server doesn't have a resource type "hello-minikube-6fb6cb79cc-m8svk"
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods --all-namespace
+Error: unknown flag: --all-namespace
+
+
+Examples:
+  # List all pods in ps output format.
+  kubectl get pods
+
+  # List all pods in ps output format with more information (such as node name).
+  kubectl get pods -o wide
+
+  # List a single replication controller with specified NAME in ps output format.
+  kubectl get replicationcontroller web
+
+  # List deployments in JSON output format, in the "v1" version of the "apps" API group:
+  kubectl get deployments.v1.apps -o json
+
+  # List a single pod in JSON output format.
+  kubectl get -o json pod web-pod-13je7
+
+  # List a pod identified by type and name specified in "pod.yaml" in JSON output format.
+  kubectl get -f pod.yaml -o json
+
+  # List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml.
+  kubectl get -k dir/
+
+  # Return only the phase value of the specified pod.
+  kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}
+
+  # List resource information in custom columns.
+  kubectl get pod test-pod -o custom-columns=CONTAINER:.spec.containers[0].name,IMAGE:.spec.containers[0].image
+
+  # List all replication controllers and services together in ps output format.
+  kubectl get rc,services
+
+  # List one or more resources by their type and names.
+  kubectl get rc/web service/frontend pods/web-pod-13je7
+
+Options:
+  -A, --all-namespaces=false: If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
+      --allow-missing-template-keys=true: If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+      --chunk-size=500: Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future.
+      --field-selector='': Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
+  -f, --filename=[]: Filename, directory, or URL to files identifying the resource to get from a server.
+      --ignore-not-found=false: If the requested object does not exist the command will return exit code 0.
+  -k, --kustomize='': Process the kustomization directory. This flag can't be used together with -f or -R.
+  -L, --label-columns=[]: Accepts a comma separated list of labels that are going to be presented as columns. Names are case-sensitive. You can also use multiple flag options like -L label1 -L label2...
+      --no-headers=false: When using the default or custom-column output format, don't print headers (default print headers).
+  -o, --output='': Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+      --output-watch-events=false: Output watch event objects when --watch or --watch-only is used. Existing objects are output as initial ADDED events.
+      --raw='': Raw URI to request from the server.  Uses the transport specified by the kubeconfig file.
+  -R, --recursive=false: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
+  -l, --selector='': Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)
+      --server-print=true: If true, have the server return the appropriate table output. Supports extension APIs and CRDs.
+      --show-kind=false: If present, list the resource type for the requested object(s).
+      --show-labels=false: When printing, show all labels as the last column (default hide labels column)
+      --sort-by='': If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --template='': Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+  -w, --watch=false: After listing/getting the requested object, watch for changes. Uninitialized objects are excluded if no object name is provided.
+      --watch-only=false: Watch for changes to the requested object(s), without listing/getting first.
+
+Usage:
+  kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags] [options]
+
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods --all-namespaces
+NAMESPACE     NAME                               READY   STATUS             RESTARTS   AGE
+default       hello-minikube-6fb6cb79cc-m8svk    0/1     CrashLoopBackOff   3          78s
+kube-system   coredns-5c98db65d4-qj96h           1/1     Running            0          11m
+kube-system   coredns-5c98db65d4-xlx5f           1/1     Running            1          11m
+kube-system   etcd-minikube                      1/1     Running            0          10m
+kube-system   kube-addon-manager-minikube        1/1     Running            0          10m
+kube-system   kube-apiserver-minikube            1/1     Running            0          10m
+kube-system   kube-controller-manager-minikube   1/1     Running            0          10m
+kube-system   kube-proxy-cznwj                   1/1     Running            0          11m
+kube-system   kube-scheduler-minikube            1/1     Running            0          10m
+kube-system   storage-provisioner                1/1     Running            0          11m
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl describe hello-minikube-6fb6cb79cc-m8svk -n default
+error: the server doesn't have a resource type "hello-minikube-6fb6cb79cc-m8svk"
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pod
+NAME                              READY   STATUS             RESTARTS   AGE
+hello-minikube-6fb6cb79cc-m8svk   0/1     CrashLoopBackOff   4          111s
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl describe hello-minikube -n default
+error: the server doesn't have a resource type "hello-minikube"
+root@vibhuti:/mnt/go/src/k8s.io/minikube/application# kubectl get pods --all-namespaces
+NAMESPACE     NAME                               READY   STATUS             RESTARTS   AGE
+default       hello-minikube-6fb6cb79cc-m8svk    0/1     CrashLoopBackOff   4          2m51s
+kube-system   coredns-5c98db65d4-qj96h           1/1     Running            0          12m
+kube-system   coredns-5c98db65d4-xlx5f           1/1     Running            1          12m
+kube-system   etcd-minikube                      1/1     Running            0          11m
+kube-system   kube-addon-manager-minikube        1/1     Running            0          11m
+kube-system   kube-apiserver-minikube            1/1     Running            0          11m
+kube-system   kube-controller-manager-minikube   1/1     Running            0          11m
+kube-system   kube-proxy-cznwj                   1/1     Running            0          12m
+kube-system   kube-scheduler-minikube            1/1     Running            0          12m
+kube-system   storage-provisioner                1/1     Running            0          12m
