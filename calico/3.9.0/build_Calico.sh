@@ -148,7 +148,7 @@ if [[ "$FORCE" == "true" ]]; then
 	printf -- 'Force attribute provided hence continuing with install without confirmation message\n' | tee -a "$CONF_LOG"
 else
 	# Ask user for prerequisite installation
-	printf -- "\nAs part of the installation, Go 1.11.4 will be installed. \n" | tee -a "$CONF_LOG"
+	printf -- "\nAs part of the installation, Go 1.13 will be installed. \n" | tee -a "$CONF_LOG"
 	while true; do
 		read -r -p "Do you want to continue (y/n) ? :  " yn
 		case $yn in
@@ -171,7 +171,7 @@ printf -- "\nDownloading Build Script for Go . . . \n"  | tee -a "$CONF_LOG"
 rm -rf build_go.sh
 wget -O build_go.sh $GO_INSTALL_URL 2>&1 | tee -a "$CONF_LOG"
 sed -i '8i source /home/test/.bashrc' build_go.sh
-bash build_go.sh -v 1.11.4 2>&1 | tee -a "$CONF_LOG"
+bash build_go.sh 2>&1 | tee -a "$CONF_LOG"
 rm -rf build_go.sh
 
 
