@@ -3,7 +3,7 @@
 # LICENSE: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 #
 # Instructions:
-# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh
+# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.13/build_go.sh
 # Execute build script: bash build_go.sh    (provide -h for help)
 #
 
@@ -11,7 +11,7 @@
 set -e -o pipefail
 
 PACKAGE_NAME="go"
-PACKAGE_VERSION="1.12.5"
+PACKAGE_VERSION="1.13"
 LOG_FILE="logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
 OVERRIDE=false
 FORCE="false"
@@ -82,7 +82,6 @@ function configureAndInstall()
   sudo tar -C /usr/local -xzf go"${PACKAGE_VERSION}".linux-s390x.tar.gz
 
   sudo ln -sf /usr/local/go/bin/go /usr/bin/ 
-  sudo ln -sf /usr/local/go/bin/godoc /usr/bin/
   sudo ln -sf /usr/local/go/bin/gofmt /usr/bin/
 
   printf -- 'Extracted the tar in /usr/local and created symlink\n'
@@ -178,21 +177,14 @@ case "$DISTRO" in
   configureAndInstall |& tee -a "${LOG_FILE}"
   ;;
 
-"rhel-7.3" | "rhel-7.4" | "rhel-7.5" | "rhel-7.6" | "rhel-7.7" | "rhel-6.x" | "rhel-8.0")
+"rhel-7.5" | "rhel-7.6" | "rhel-7.7" | "rhel-6.x" | "rhel-8.0")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
 	sudo yum install -y  tar wget gcc  |& tee -a "${LOG_FILE}"
 	configureAndInstall |& tee -a "${LOG_FILE}"
   ;;
 
-"sles-12.3" | "sles-12.4" | "sles-15")
-	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
-	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
-	sudo zypper  install -y  tar wget gcc |& tee -a "${LOG_FILE}" 
-	configureAndInstall |& tee -a "${LOG_FILE}"
-  ;;
-
-"sles-15.1")
+"sles-12.4" | "sles-15" | "sles-15.1")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
 	sudo zypper  install -y  tar wget gcc gzip |& tee -a "${LOG_FILE}" 
@@ -203,5 +195,4 @@ case "$DISTRO" in
   printf -- "%s not supported \n" "$DISTRO"|& tee -a "$LOG_FILE"
   exit 1 ;;
 esac
-
 gettingStarted |& tee -a "${LOG_FILE}"
