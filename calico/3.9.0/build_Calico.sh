@@ -234,6 +234,8 @@ git clone https://github.com/projectcalico/go-build $GOPATH/src/github.com/proje
 cd $GOPATH/src/github.com/projectcalico/go-build
 git checkout v${GOBUILD_VERSION} 2>&1 | tee -a "$GOBUILD_LOG"
 
+#change the base image
+sed -i 's/FROM s390x\/golang:1.11.9-alpine3.8/FROM s390x\/golang:1.13.1-alpine3.10/g' Dockerfile.s390x
 #sed -i '57,58d' Dockerfile.s390x
 sed -i '57d' Dockerfile.s390x
 sed -i '57i RUN GO111MODULE=on go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.19.1' Dockerfile.s390x
