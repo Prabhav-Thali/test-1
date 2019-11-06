@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Docker installation on Ubuntu"
 sudo apt-get update
 				cat /etc/os*
 				if [ -f "/etc/os-release" ]; then
@@ -38,3 +39,5 @@ sudo apt-get update
                     docker ps
                     sudo free -mh && sudo sync && sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches' && sudo free -mh
 				fi  
+
+        echo "Docker installation complete"
