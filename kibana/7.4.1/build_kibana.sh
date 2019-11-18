@@ -14,7 +14,7 @@ PACKAGE_VERSION="7.4.1"
 FORCE=false
 CURDIR="$(pwd)"
 LOG_FILE="${CURDIR}/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
-REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Kibana/${PACKAGE_VERSION}/patch"
+REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/kibana/7.4.1/"
 NON_ROOT_USER="$(whoami)"
 
 trap cleanup 1 2 ERR
