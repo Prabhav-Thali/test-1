@@ -11,7 +11,7 @@ set -e -o pipefail
 PACKAGE_NAME="elasticsearch"
 PACKAGE_VERSION="7.4.1"
 CURDIR="$(pwd)"
-REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Elasticsearch/${PACKAGE_VERSION}/patch"
+REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/elasticsearch_7.4.1"
 ES_REPO_URL="https://github.com/elastic/elasticsearch"
 
 LOG_FILE="$CURDIR/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
