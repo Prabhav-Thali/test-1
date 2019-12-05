@@ -1,0 +1,66 @@
+**************************** SYSTEM DETAILS *************************************************************
+NAME="Ubuntu"
+VERSION="16.04.6 LTS (Xenial Xerus)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 16.04.6 LTS"
+VERSION_ID="16.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+VERSION_CODENAME=xenial
+UBUNTU_CODENAME=xenial
+Linux version 4.4.0-151-generic (buildd@bos02-s390x-016) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.10) ) #178-Ubuntu SMP Tue Jun 11 08:33:12 UTC 2019
+*********************************************************************************************************
+Request details : PACKAGE NAME= puppet , VERSION= 6.5.0 
+Sudo : Yes
+User responded with Yes. 
+Installing puppet 6.5.0 for ubuntu-16.04 
+Installing the dependencies for puppet from repository 
+Reading package lists...
+Building dependency tree...
+Reading state information...
+cron is already the newest version (3.0pl1-128ubuntu2).
+g++ is already the newest version (4:5.3.1-1ubuntu1).
+iptables is already the newest version (1.6.0-2ubuntu3).
+libreadline6 is already the newest version (6.3-8ubuntu2).
+libreadline6-dev is already the newest version (6.3-8ubuntu2).
+libyaml-dev is already the newest version (0.1.6-3).
+make is already the newest version (4.1-6).
+ruby is already the newest version (1:2.3.0+1).
+ruby-dev is already the newest version (1:2.3.0+1).
+unzip is already the newest version (6.0-20ubuntu1).
+zip is already the newest version (3.0-11).
+git is already the newest version (1:2.7.4-0ubuntu1.6).
+libc6-dev is already the newest version (2.23-0ubuntu11).
+libsqlite3-dev is already the newest version (3.11.0-1ubuntu1.3).
+libssl-dev is already the newest version (1.0.2g-1ubuntu4.15).
+locales is already the newest version (2.23-0ubuntu11).
+openssl is already the newest version (1.0.2g-1ubuntu4.15).
+tar is already the newest version (1.28-2.1ubuntu0.1).
+wget is already the newest version (1.17.1-1ubuntu1.5).
+ant is already the newest version (1.9.6-1ubuntu1.1).
+0 upgraded, 0 newly installed, 0 to remove and 65 not upgraded.
+Configuration and Installation started 
+Successfully installed bundler-2.0.2
+Parsing documentation for bundler-2.0.2
+Done installing documentation for bundler after 3 seconds
+Successfully installed rake-compiler-1.0.8
+Parsing documentation for rake-compiler-1.0.8
+Done installing documentation for rake-compiler after 0 seconds
+2 gems installed
+Successfully installed puppet-6.5.0
+Parsing documentation for puppet-6.5.0
+Done installing documentation for puppet after 21 seconds
+1 gem installed
+/etc/puppetlabs/puppet
+
+
+Usage: 
+  puppet installed successfully 
+     For server installation, Set a user specified password for puppet user.
+      	-Running "sudo passwd puppet" will prompt for new password.
+     	-And please follow from step 2.12 in build instructions.
+     For agent installation, please follow from step 3.7 in build instructions
+  More information can be found here : https://puppetlabs.com/
+
