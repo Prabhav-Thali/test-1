@@ -1,0 +1,18 @@
+diff --git a/bin/init.sh b/bin/init.sh
+index cac741807..28f341c68 100755
+--- a/bin/init.sh
++++ b/bin/init.sh
+@@ -96,13 +96,11 @@ function download_envoy_if_necessary () {
+ 
+     # Download and extract the binary to the output directory.
+     echo "Downloading Envoy: ${DOWNLOAD_COMMAND} $1 to $2"
+-    time ${DOWNLOAD_COMMAND} "$1" | tar xz
+ 
+     # Copy the extracted binary to the output location
+     cp usr/local/bin/envoy "$2"
+ 
+     # Remove the extracted binary.
+-    rm -rf usr
+ 
+     # Make a copy named just "envoy" in the same directory (overwrite if necessary).
+     echo "Copying $2 to $(dirname "$2")/envoy"
