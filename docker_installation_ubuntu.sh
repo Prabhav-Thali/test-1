@@ -8,8 +8,8 @@ sudo apt-get update
 				fi
 				DISTRO="$ID-$VERSION_ID"
 				echo $DISTRO
-				if [[ "$DISTRO" == "ubuntu-19.04"  ]]; then
-				    echo "Inside Ubuntu 19.04"
+				if [[ "$DISTRO" == "ubuntu-19.10"  ]]; then
+				    echo "Inside Ubuntu 19.10"
 				    sudo apt-get update
 					sudo apt install -y wget tar iptables patch libdevmapper-dev 
 					wget https://download.docker.com/linux/static/stable/s390x/docker-18.06.0-ce.tgz
