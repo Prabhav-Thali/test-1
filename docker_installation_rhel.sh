@@ -2,7 +2,6 @@
 
 
 echo "Docker installation on RHEL"
-source /home/test/.bashrc
 				cat /etc/os*
 				cd $WORK_DIR
 				sudo yum install -y vim iptables-devel.s390x iptables-utils.s390x
