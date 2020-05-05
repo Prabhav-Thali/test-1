@@ -1,0 +1,27 @@
+diff --git a/Makefile b/Makefile
+index 64d25650..50cb882e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -43,6 +43,8 @@ else ifeq ($(shell echo $(LOCAL_ARCH) | head -c 5),armv8)
+     TARGET_ARCH ?= arm64
+ else ifeq ($(LOCAL_ARCH),aarch64)
+     TARGET_ARCH ?= arm64
++else ifeq ($(LOCAL_ARCH),s390x)
++    TARGET_ARCH ?= s390x
+ else ifeq ($(shell echo $(LOCAL_ARCH) | head -c 4),armv)
+     TARGET_ARCH ?= arm
+ else
+@@ -61,11 +63,11 @@ else
+ endif
+ 
+ export TARGET_OUT ?= $(shell pwd)/out/$(TARGET_OS)_$(TARGET_ARCH)
+-export TARGET_OUT_LINUX ?= $(shell pwd)/out/linux_amd64
++export TARGET_OUT_LINUX ?= $(shell pwd)/out/linux_s390x
+ 
+ ifeq ($(BUILD_WITH_CONTAINER),1)
+ export TARGET_OUT = /work/out/$(TARGET_OS)_$(TARGET_ARCH)
+-export TARGET_OUT_LINUX = /work/out/linux_amd64
++export TARGET_OUT_LINUX = /work/out/linux_s390x
+ CONTAINER_CLI ?= docker
+ DOCKER_SOCKET_MOUNT ?= -v /var/run/docker.sock:/var/run/docker.sock
+ IMG ?= gcr.io/istio-testing/$(IMAGE_NAME):$(IMAGE_VERSION)

@@ -1,0 +1,12 @@
+diff --git a/src/istio/utils/logger_test.cc b/src/istio/utils/logger_test.cc
+index d0e8f695..6603d9aa 100644
+--- a/src/istio/utils/logger_test.cc
++++ b/src/istio/utils/logger_test.cc
+@@ -50,6 +50,7 @@ class CountingLogger : public Logger {
+       case Level::ERROR_:
+         return true;
+     }
++    return false;
+   }
+ 
+   virtual void writeBuffer(Level level, const char* buffer) override {
