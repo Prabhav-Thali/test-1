@@ -10,9 +10,9 @@
 set -e -o pipefail
 
 PACKAGE_NAME="Istio Proxy"
-PACKAGE_VERSION="1.3.6"
+PACKAGE_VERSION="1.5.1"
 CURDIR="$(pwd)"
-REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/IstioProxy/1.3.6/patch"
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/istio_1.5.1"
 
 ISTIO_PROXY_REPO_URL="https://github.com/istio/proxy.git"
 LOG_FILE="$CURDIR/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
