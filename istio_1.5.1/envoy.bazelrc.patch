@@ -1,0 +1,13 @@
+diff --git a/envoy.bazelrc b/envoy.bazelrc
+index f1c01584..aecbe7d7 100644
+--- a/envoy.bazelrc
++++ b/envoy.bazelrc
+@@ -18,7 +18,7 @@ build --action_env=BAZEL_LINKLIBS=-l%:libstdc++.a
+ build --action_env=BAZEL_LINKOPTS=-lm
+ build --host_javabase=@bazel_tools//tools/jdk:remote_jdk11
+ build --javabase=@bazel_tools//tools/jdk:remote_jdk11
+-build --enable_platform_specific_config
++#build --enable_platform_specific_config
+ 
+ # Enable position independent code, this option is not supported on Windows and default on on macOS.
+ build:linux --copt=-fPIC
