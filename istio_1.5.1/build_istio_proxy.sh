@@ -120,7 +120,7 @@ function cleanup() {
 	rm -rf "${CURDIR}/l1_pos.patch"
 	rm -rf "${CURDIR}/l1_lin.patch"
 	rm -rf "${CURDIR}/repositories-envoy.bzl.ub1910.patch"
-	rm -rf "${CURDIR}/patch_wee8.patch"
+	rm -rf "${CURDIR}/wee8.genrule_cmd.patch"
 	rm -rf "${CURDIR}/patch_logger.patch"
 	rm -rf "${CURDIR}/http_integration.patch"
 	rm -rf "${CURDIR}/BUILD_ext.diff"
@@ -307,9 +307,9 @@ function configureAndInstall() {
 	curl -o BUILD-envoy.patch $REPO_URL/BUILD-envoy.patch
 	patch "${CURDIR}/envoy/bazel/BUILD" BUILD-envoy.patch
 
-        curl -o patch_wee8.patch $REPO_URL/patch_wee8.patch
-        sed -i "s|\$SOURCE_ROOT|${CURDIR}|" patch_wee8.patch
-        patch "${CURDIR}/envoy/bazel/external/wee8.genrule_cmd" patch_wee8.patch
+        curl -o wee8.genrule_cmd.patch $REPO_URL/wee8.genrule_cmd.patch
+        sed -i "s|\$SOURCE_ROOT|${CURDIR}|" wee8.genrule_cmd.patch
+        patch "${CURDIR}/envoy/bazel/external/wee8.genrule_cmd" wee8.genrule_cmd.patch
 
 	curl -o luajit-patch.patch $REPO_URL/luajit-patch.patch
 	patch "${CURDIR}/envoy/bazel/foreign_cc/luajit.patch" luajit-patch.patch
