@@ -12,7 +12,7 @@ set -e -o pipefail
 PACKAGE_NAME="Istio Proxy"
 PACKAGE_VERSION="1.5.1"
 CURDIR="$(pwd)"
-PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/istio_1.5.1"
+REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/istio_1.5.1"
 
 ISTIO_PROXY_REPO_URL="https://github.com/istio/proxy.git"
 LOG_FILE="$CURDIR/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
@@ -299,7 +299,7 @@ function configureAndInstall() {
 	printf -- '\nDownloading Envoy\n'
 	git clone https://github.com/istio/envoy/
 	cd envoy/
-        git checkout release-1.3
+        git checkout release-1.5
 
 	#multiple patches to be user here
 	cd "${CURDIR}"
