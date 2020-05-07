@@ -401,6 +401,9 @@ function configureAndInstall() {
                         patch "${CURDIR}/proxy/extensions/stats/BUILD" BUILD_ext.diff
 			curl -o patch_logger.patch $REPO_URL/patch_logger.patch
                         patch "${CURDIR}/proxy/src/istio/utils/logger_test.cc" patch_logger.patch
+			curl -o envoy.bazelrc.patch $REPO_URL/envoy.bazelrc.patch
+                        patch "${CURDIR}/proxy/envoy.bazelrc" envoy.bazelrc.patch
+			
 		fi
 		
 		cd "${CURDIR}/proxy"
