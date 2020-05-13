@@ -1,0 +1,30 @@
+diff --git a/bazel/repository_locations.bzl b/bazel/repository_locations.bzl
+index 9e79863a26..9311e97351 100644
+--- a/bazel/repository_locations.bzl
++++ b/bazel/repository_locations.bzl
+@@ -104,9 +104,9 @@ REPOSITORY_LOCATIONS = dict(
+         # TODO(cmluciano): Bump to release 2.8
+         # This sha is specifically chosen to fix ppc64le builds that require inclusion
+         # of asm/ptrace.h
+-        sha256 = "18574813a062eee487bc1b761e8024a346075a7cb93da19607af362dc09565ef",
+-        strip_prefix = "gperftools-fc00474ddc21fff618fc3f009b46590e241e425e",
+-        urls = ["https://github.com/gperftools/gperftools/archive/fc00474ddc21fff618fc3f009b46590e241e425e.tar.gz"],
++        sha256 = "1ee8c8699a0eff6b6a203e59b43330536b22bbcbe6448f54c7091e5efb0763c9",
++        strip_prefix = "gperftools-2.7",
++        urls = ["https://github.com/gperftools/gperftools/releases/download/gperftools-2.7/gperftools-2.7.tar.gz"],    
+     ),
+     com_github_grpc_grpc = dict(
+         sha256 = "bbc8f020f4e85ec029b047fab939b8c81f3d67254b5c724e1003a2bc49ddd123",
+@@ -114,9 +114,9 @@ REPOSITORY_LOCATIONS = dict(
+         urls = ["https://github.com/grpc/grpc/archive/d8f4928fa779f6005a7fe55a176bdb373b0f910f.tar.gz"],
+     ),
+     com_github_luajit_luajit = dict(
+-        sha256 = "409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8",
+-        strip_prefix = "LuaJIT-2.1.0-beta3",
+-        urls = ["https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz"],
++        #sha256 = "409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8",
++        strip_prefix = "LuaJIT-2.1",
++        urls = ["https://github.com/linux-on-ibm-z/LuaJIT/archive/v2.1.zip"],
+     ),
+     com_github_nghttp2_nghttp2 = dict(
+         sha256 = "eb9d9046495a49dd40c7ef5d6c9907b51e5a6b320ea6e2add11eb8b52c982c47",

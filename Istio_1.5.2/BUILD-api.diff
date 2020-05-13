@@ -1,0 +1,20 @@
+diff --git a/source/common/api/BUILD b/source/common/api/BUILD
+index b8b60aab61..7a44326717 100644
+--- a/source/common/api/BUILD
++++ b/source/common/api/BUILD
+@@ -26,6 +26,7 @@ envoy_cc_library(
+         "//bazel:linux_x86_64": ["os_sys_calls_impl_linux.cc"],
+         "//bazel:linux_aarch64": ["os_sys_calls_impl_linux.cc"],
+         "//bazel:linux_ppc": ["os_sys_calls_impl_linux.cc"],
++	"//bazel:linux_s390x": ["os_sys_calls_impl_linux.cc"],
+         "//bazel:linux_mips64": ["os_sys_calls_impl_linux.cc"],
+         "//conditions:default": [],
+     }) + envoy_select_hot_restart(["os_sys_calls_impl_hot_restart.cc"]),
+@@ -33,6 +34,7 @@ envoy_cc_library(
+         "//bazel:linux_x86_64": ["os_sys_calls_impl_linux.h"],
+         "//bazel:linux_aarch64": ["os_sys_calls_impl_linux.h"],
+         "//bazel:linux_ppc": ["os_sys_calls_impl_linux.h"],
++	"//bazel:linux_s390x": ["os_sys_calls_impl_linux.h"],
+         "//bazel:linux_mips64": ["os_sys_calls_impl_linux.h"],
+         "//conditions:default": [],
+     }) + envoy_select_hot_restart(["os_sys_calls_impl_hot_restart.h"]),

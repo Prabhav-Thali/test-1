@@ -1,0 +1,12 @@
+diff --git a/test/integration/http_integration.cc b/test/integration/http_integration.cc
+index b827486643..bb3a9a2a35 100644
+--- a/test/integration/http_integration.cc
++++ b/test/integration/http_integration.cc
+@@ -367,6 +367,7 @@ absl::optional<uint64_t>
+ HttpIntegrationTest::waitForNextUpstreamRequest(const std::vector<uint64_t>& upstream_indices,
+                                                 std::chrono::milliseconds connection_wait_timeout) {
+   absl::optional<uint64_t> upstream_with_request;
++  upstream_with_request.assign(upstream_with_request.size(),0);
+   // If there is no upstream connection, wait for it to be established.
+   if (!fake_upstream_connection_) {
+ 
