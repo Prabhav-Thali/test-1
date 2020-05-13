@@ -1,0 +1,91 @@
+diff --git a/WORKSPACE b/WORKSPACE
+index 62276915..2d00ca6e 100644
+--- a/WORKSPACE
++++ b/WORKSPACE
+@@ -20,7 +20,6 @@ workspace(name = "io_istio_proxy")
+ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+ load(
+     "//:repositories.bzl",
+-    "docker_dependencies",
+     "googletest_repositories",
+     "mixerapi_dependencies",
+ )
+@@ -34,6 +33,14 @@ bind(
+     actual = "//external:ssl",
+ )
+ 
++local_repository(
++     name = "boringssl",
++     path = "//root/boringssl",
++)
++bind(
++     name = "ssl",
++     actual = "@boringssl//:ssl",
++)
+ # 1. Determine SHA256 `wget https://github.com/istio/envoy/archive/$COMMIT.tar.gz && sha256sum $COMMIT.tar.gz`
+ # 2. Update .bazelversion, envoy.bazelrc and .bazelrc if needed.
+ #
+@@ -42,17 +49,15 @@ ENVOY_PROJECT = "istio"
+ 
+ ENVOY_REPO = "envoy"
+ 
+-ENVOY_SHA = "fccea1f2b320fa56f4deae6c35007479e4fc3404"
++#ENVOY_SHA = "fccea1f2b320fa56f4deae6c35007479e4fc3404"
+ 
+ ENVOY_SHA256 = "1078c146d15d4edd25c848bc318b67702e89ee6e618f0eea639711a526cad242"
+ 
+ # To override with local envoy, just pass `--override_repository=envoy=/PATH/TO/ENVOY` to Bazel or
+ # persist the option in `user.bazelrc`.
+-http_archive(
++local_repository(
+     name = "envoy",
+-    sha256 = ENVOY_SHA256,
+-    strip_prefix = ENVOY_REPO + "-" + ENVOY_SHA,
+-    url = "https://github.com/" + ENVOY_PROJECT + "/" + ENVOY_REPO + "/archive/" + ENVOY_SHA + ".tar.gz",
++    path = "/root/envoy"
+ )
+ 
+ load("@envoy//bazel:api_binding.bzl", "envoy_api_binding")
+@@ -74,42 +79,3 @@ envoy_dependency_imports()
+ load("@rules_antlr//antlr:deps.bzl", "antlr_dependencies")
+ 
+ antlr_dependencies(471)
+-
+-# Docker dependencies
+-
+-docker_dependencies()
+-
+-load(
+-    "@io_bazel_rules_docker//repositories:repositories.bzl",
+-    container_repositories = "repositories",
+-)
+-
+-container_repositories()
+-
+-load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+-
+-container_deps()
+-
+-load(
+-    "@io_bazel_rules_docker//container:container.bzl",
+-    "container_pull",
+-)
+-
+-container_pull(
+-    name = "distroless_cc",
+-    # Latest as of 10/21/2019. To update, remove this line, re-build, and copy the suggested digest.
+-    digest = "sha256:86f16733f25964c40dcd34edf14339ddbb2287af2f7c9dfad88f0366723c00d7",
+-    registry = "gcr.io",
+-    repository = "distroless/cc",
+-)
+-
+-container_pull(
+-    name = "bionic",
+-    # Latest as of 10/21/2019. To update, remove this line, re-build, and copy the suggested digest.
+-    digest = "sha256:3e83eca7870ee14a03b8026660e71ba761e6919b6982fb920d10254688a363d4",
+-    registry = "index.docker.io",
+-    repository = "library/ubuntu",
+-    tag = "bionic",
+-)
+-
+-# End of docker dependencies

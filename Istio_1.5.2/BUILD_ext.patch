@@ -1,0 +1,30 @@
+diff --git a/extensions/stats/BUILD b/extensions/stats/BUILD
+index 12f87a50..02540ea0 100644
+--- a/extensions/stats/BUILD
++++ b/extensions/stats/BUILD
+@@ -59,14 +59,14 @@ proto_library(
+     ],
+ )
+ 
+-envoy_cc_test(
+-    name = "plugin_test",
+-    size = "small",
+-    srcs = ["plugin_test.cc"],
+-    repository = "@envoy",
+-    deps = [
+-        ":stats_plugin",
+-        "//external:abseil_hash_testing",
+-        "@envoy//source/extensions/common/wasm:wasm_lib",
+-    ],
+-)
++#envoy_cc_test(
++#    name = "plugin_test",
++#    size = "small",
++#    srcs = ["plugin_test.cc"],
++#    repository = "@envoy",
++#    deps = [
++#        ":stats_plugin",
++#        "//external:abseil_hash_testing",
++#        "@envoy//source/extensions/common/wasm:wasm_lib",
++#    ],
++#)
