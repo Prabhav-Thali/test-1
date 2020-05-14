@@ -18,11 +18,11 @@ index 9103dfb4d9..533b321854 100644
 -else
 -  buildtools/linux64/gn gen out/wee8 --args="$$WEE8_BUILD_ARGS"
 +else 
-+  /root/gn/out/gn gen out/wee8 --args="$$WEE8_BUILD_ARGS"
++  /$SOURCE_ROOT/gn/out/gn gen out/wee8 --args="$$WEE8_BUILD_ARGS"
  fi
 -third_party/depot_tools/ninja -C out/wee8 wee8
 -
-+/root/ninja/ninja -C out/wee8 wee8
++/$SOURCE_ROOT/ninja/ninja -C out/wee8 wee8
  # Move compiled library to the expected destinations.
  popd
  mv $$ROOT/wee8/out/wee8/obj/libwee8.a $(execpath libwee8.a)
