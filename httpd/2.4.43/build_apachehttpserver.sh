@@ -62,7 +62,7 @@ function cleanup() {
 
 function configureAndInstall() {
 	printf -- 'Configuration and Installation started \n'
-	 if [[ "$ID-$VERSION_ID" == "rhel-8.0" ]] || [[ "$ID-$VERSION_ID" == "rhel-8.1" ]]; then
+	 if [[ "$ID-$VERSION_ID" == "rhel-8.1" ]] || [[ "$ID-$VERSION_ID" == "rhel-8.2" ]]; then
          sudo alternatives --set python /usr/bin/python2
          fi
 	#Download the source code
