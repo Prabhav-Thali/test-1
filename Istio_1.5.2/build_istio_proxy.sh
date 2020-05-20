@@ -227,8 +227,8 @@ function installDependency() {
 		#Bazel download
 		cd "${CURDIR}"
 		mkdir bazel && cd bazel
-		wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
-		unzip bazel-0.28.1-dist.zip
+		wget https://github.com/bazelbuild/bazel/releases/download/2.0.0/bazel-2.0.0-dist.zip
+                unzip bazel-2.0.0-dist.zip
 		chmod -R +w .
 		export CC=/usr/bin/gcc
 		export CXX=/usr/bin/g++
@@ -400,7 +400,7 @@ function configureAndInstall() {
 			patch "${CURDIR}/proxy/Makefile" Makefile_debug.diff
 			curl -o BUILD_ext.diff $REPO_URL/BUILD_ext.diff
                         patch "${CURDIR}/proxy/extensions/stats/BUILD" BUILD_ext.diff
-			#curl -o patch_logger.patch $REPO_URL/patch_logger.patch
+			curl -o patch_logger.patch $REPO_URL/patch_logger.patch
        #                 patch "${CURDIR}/proxy/src/istio/utils/logger_test.cc" patch_logger.patch
        
        curl -o Makefile.core.mk.patch $REPO_URL/Makefile.core.mk.patch
