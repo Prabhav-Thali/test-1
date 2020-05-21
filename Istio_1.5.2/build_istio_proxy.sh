@@ -303,6 +303,7 @@ function configureAndInstall() {
 
 	#multiple patches to be user here
 	cd "${CURDIR}"
+	
 
 	curl -o BUILD-envoy.patch $REPO_URL/BUILD-envoy.patch
 	patch "${CURDIR}/envoy/bazel/BUILD" BUILD-envoy.patch
@@ -366,8 +367,7 @@ function configureAndInstall() {
 	sleep 2
 	cd "${CURDIR}"
 
-	#Patch Applied
-  rm -rf tools/docker/BUILD
+	#Patch Appliedrm -rf tools/docker/BUILD
 	curl -o WORKSPACE.diff $REPO_URL/WORKSPACE.diff
 	sed -i "s|\$SOURCE_ROOT|${CURDIR}|" WORKSPACE.diff
 	cat WORKSPACE.diff
@@ -410,6 +410,12 @@ function configureAndInstall() {
 		fi
 		
 		cd "${CURDIR}/proxy"
+		rm -rf tools/docker/BUILD
+		export PATH=/usr/lib/llvm-9/bin/:$PATH
+		ldconfig /usr/lib/llvm-9/
+
+		export 'BAZEL_BUILD_ARGS=--local_ram_resources=12288 --local_cpu_resources=8 --verbose_failures --test_env=ENVOY_IP_TEST_VERSIONS=v4only --test_output=errors'
+
 		make build
 		mkdir -p "${PROXY_DEBUG_BIN_PATH}"
 		cp -r "${CURDIR}/proxy/bazel-bin/src/envoy/envoy" "${PROXY_DEBUG_BIN_PATH}/"
