@@ -237,7 +237,7 @@ function installDependency() {
 		curl -o compile.sh.diff $REPO_URL/compile.sh.diff
 		patch "${CURDIR}/bazel/scripts/bootstrap/compile.sh" compile.sh.diff
 		cd "${CURDIR}"
-		curl -o patch_BUILD.diff $REPO_URL/patch_BUILD.diff
+		curl -o patch_BUILD.patch $REPO_URL/patch_BUILD.patch
                 patch "${CURDIR}/bazel/third_party/BUILD" patch_BUILD.patch
 		cd "${CURDIR}"
 		curl -o patch_cond.diff $REPO_URL/patch_cond.diff
