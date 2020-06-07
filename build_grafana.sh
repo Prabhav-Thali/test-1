@@ -13,7 +13,7 @@ PACKAGE_VERSION="6.7.3"
 CURDIR="$(pwd)"
 
 PHANTOMJS_INSTALL_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/PhantomJS/build_phantomjs.sh"
-GRAFANA_TESTS_PATCH_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Grafana/6.7.3/patch/ArrowDataFrame.test.ts.patch"
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/ArrowDataFrame.test.ts.patch"
 
 GO_VERSION="1.14.2"
 NODE_JS_VERSION="12.9.1"
@@ -159,7 +159,7 @@ function configureAndInstall() {
 
     # Apply test case patch
     cd $GOPATH/src/github.com/grafana/grafana
-    wget -O ArrowDataFrame.test.ts.patch  $GRAFANA_TESTS_PATCH_URL
+    wget -O ArrowDataFrame.test.ts.patch  $PATCH_URL
     patch --ignore-whitespace packages/grafana-data/src/dataframe/ArrowDataFrame.test.ts < ArrowDataFrame.test.ts.patch
     rm ArrowDataFrame.test.ts.patch
 
