@@ -1,23 +1,22 @@
 #!/bin/bash
-# © Copyright IBM Corporation 2019.
+# © Copyright IBM Corporation 2020.
 # LICENSE: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 #
 # Instructions:
-# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Grafana/6.4.2/build_grafana.sh
+# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Grafana/6.7.3/build_grafana.sh
 # Execute build script: bash build_grafana.sh    (provide -h for help)
 
 set -e -o pipefail
 
 PACKAGE_NAME="grafana"
-PACKAGE_VERSION="6.4.2"
+PACKAGE_VERSION="6.7.3"
 CURDIR="$(pwd)"
 
-GO_INSTALL_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.13/build_go.sh"
 PHANTOMJS_INSTALL_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/PhantomJS/build_phantomjs.sh"
-#GRAFANA_CONFIG_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Grafana/6.4.2/conf/grafana.ini"
+GRAFANA_TESTS_PATCH_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Grafana/6.7.3/patch/ArrowDataFrame.test.ts.patch"
 
-GO_VERSION="1.12.9"
-NODE_JS_VERSION="10.16.3"
+GO_VERSION="1.14.2"
+NODE_JS_VERSION="12.9.1"
 PHANTOMJS_VERSION="2.1.1"
 
 GO_DEFAULT="$HOME/go"
@@ -25,24 +24,15 @@ GO_DEFAULT="$HOME/go"
 FORCE="false"
 TESTS="false"
 LOG_FILE="${CURDIR}/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
-BUILD_DIR="/usr/local"
 
 trap cleanup 0 1 2 ERR
 
-#Check if directory exists
+# Check if directory exists
 if [ ! -d "$CURDIR/logs/" ]; then
 	mkdir -p "$CURDIR/logs/"
 fi
 
-# Need handling for RHEL 6.10 as it doesn't have os-release file
-if [ -f "/etc/os-release" ]; then
-	source "/etc/os-release"
-else
-	cat /etc/redhat-release >>"${LOG_FILE}"
-	export ID="rhel"
-	export VERSION_ID="6.x"
-	export PRETTY_NAME="Red Hat Enterprise Linux 6.x"
-fi
+source "/etc/os-release"
 
 function prepare() {
 	if command -v "sudo" >/dev/null; then
@@ -73,13 +63,16 @@ function prepare() {
 }
 
 function cleanup() {
-
-	if [ -f /usr/local/node-v${NODE_JS_VERSION}-linux-s390x/bin/yarn ]; then
-		sudo rm /usr/local/node-v${NODE_JS_VERSION}-linux-s390x/bin/yarn
+	if [ -f $CURDIR/node-v${NODE_JS_VERSION}-linux-s390x/bin/yarn ]; then
+		rm $CURDIR/node-v${NODE_JS_VERSION}-linux-s390x/bin/yarn
 	fi
 
-	if [ -f "$BUILD_DIR/node-v${NODE_JS_VERSION}-linux-s390x.tar.xz" ]; then
-		sudo rm "$BUILD_DIR/node-v${NODE_JS_VERSION}-linux-s390x.tar.xz"
+	if [ -f "$CURDIR/node-v${NODE_JS_VERSION}-linux-s390x.tar.xz" ]; then
+		rm "$CURDIR/node-v${NODE_JS_VERSION}-linux-s390x.tar.xz"
+	fi
+
+	if [ -f "$CURDIR/go${GO_VERSION}.linux-s390x.tar.gz" ]; then
+		rm "$CURDIR/go${GO_VERSION}.linux-s390x.tar.gz"
 	fi
 
 	printf -- 'Cleaned up the artifacts\n' >>"$LOG_FILE"
@@ -93,28 +86,11 @@ function configureAndInstall() {
 
 	# Grafana installation
 
-	#Install GCC for rhel distro
-	if [[ "$ID" == "rhel" ]]; then
-		cd
-		sudo yum install -y wget tar make flex gcc gcc-c++ binutils-devel bzip2
-		wget https://ftpmirror.gnu.org/gcc/gcc-5.4.0/gcc-5.4.0.tar.gz
-		tar -xf gcc-5.4.0.tar.gz && cd gcc-5.4.0/
-		./contrib/download_prerequisites && cd ..
-		mkdir gccbuild && cd gccbuild
-		../gcc-5.4.0/configure --prefix=/opt/gcc-5.4.0 --enable-checking=release --enable-languages=c,c++ --disable-multilib
-		make && sudo make install
-		export PATH=/opt/gcc-5.4.0/bin:$PATH
-		export LD_LIBRARY_PATH=/opt/gcc-5.4.0/lib64/
-		cd .. && rm -rf gccbuild gcc-5.4.0 gcc-5.4.0.tar.gz
-		gcc --version
-		printf -- 'Installed GCC(v5.4.0), Required for nodejs on RHEL \n'
-	fi
-
-	#Install NodeJS
-	cd "$BUILD_DIR"
-	sudo wget https://nodejs.org/dist/v${NODE_JS_VERSION}/node-v${NODE_JS_VERSION}-linux-s390x.tar.xz
-	sudo chmod ugo+r node-v${NODE_JS_VERSION}-linux-s390x.tar.xz
-	sudo tar -C "$BUILD_DIR" -xf node-v${NODE_JS_VERSION}-linux-s390x.tar.xz
+	# Install NodeJS
+	cd "$CURDIR"
+	wget https://nodejs.org/dist/v${NODE_JS_VERSION}/node-v${NODE_JS_VERSION}-linux-s390x.tar.xz
+	chmod ugo+r node-v${NODE_JS_VERSION}-linux-s390x.tar.xz
+	sudo tar -C /usr/local -xf node-v${NODE_JS_VERSION}-linux-s390x.tar.xz
 	export PATH=$PATH:/usr/local/node-v${NODE_JS_VERSION}-linux-s390x/bin
 
 	printf -- 'Install NodeJS success \n'
@@ -123,8 +99,12 @@ function configureAndInstall() {
 
 	# Install go
 	printf -- "Installing Go... \n"
-	curl $GO_INSTALL_URL | bash -s -- -v $GO_VERSION
-	#rm build_go.sh
+	wget https://dl.google.com/go/go${GO_VERSION}.linux-s390x.tar.gz
+    chmod ugo+r go${GO_VERSION}.linux-s390x.tar.gz
+    sudo tar -C /usr/local -xf go${GO_VERSION}.linux-s390x.tar.gz
+    sudo ln -sf /usr/local/go/bin/go /usr/bin/ 
+  	sudo ln -sf /usr/local/go/bin/gofmt /usr/bin/
+  	printf -- 'Extracted the tar in /usr/local and created symlink\n'
 
 	if [[ "${ID}" != "ubuntu" ]]; then
 		sudo ln -sf /usr/bin/gcc /usr/bin/s390x-linux-gnu-gcc
@@ -136,7 +116,7 @@ function configureAndInstall() {
 
 		#Check if go directory exists
 		if [ ! -d "$HOME/go" ]; then
-			sudo mkdir "$HOME/go"
+			mkdir "$HOME/go"
 		fi
 		export GOPATH="${GO_DEFAULT}"
 	else
@@ -149,23 +129,20 @@ function configureAndInstall() {
 
 	#Check if Grafana directory exists
 	if [ ! -d "$GOPATH/src/github.com/grafana" ]; then
-		sudo mkdir -p "$GOPATH/src/github.com/grafana"
+		mkdir -p "$GOPATH/src/github.com/grafana"
 		printf -- "Created grafana Directory at GOPATH"
 	fi
 
 	cd "$GOPATH/src/github.com/grafana"
 	if [ -d "$GOPATH/src/github.com/grafana/grafana" ]; then
-		sudo rm -rf "$GOPATH/src/github.com/grafana/grafana"
+		rm -rf "$GOPATH/src/github.com/grafana/grafana"
 		printf -- "Removing Existing grafana Directory at GOPATH"
 	fi
-	#Give permission
-	sudo chown -R "$USER" "$GOPATH/src/github.com/grafana/"
 
 	git clone -b v"${PACKAGE_VERSION}" https://github.com/grafana/grafana.git
 
 	printf -- "Created grafana Directory at 1"
 	#Give permission
-	sudo chown -R "$USER" "$GOPATH/src/github.com/grafana/grafana/" "$GOPATH/src/github.com/" "$GOPATH/"
 	cd grafana
 	make deps-go
 	make build-go
@@ -178,13 +155,18 @@ function configureAndInstall() {
 	printf -- 'Add grafana to /usr/bin success \n'
 
 	cd "${CURDIR}"
-
 	# Build Grafana frontend assets
+
+    # Apply test case patch
+    cd $GOPATH/src/github.com/grafana/grafana
+    wget -O ArrowDataFrame.test.ts.patch  $GRAFANA_TESTS_PATCH_URL
+    patch --ignore-whitespace packages/grafana-data/src/dataframe/ArrowDataFrame.test.ts < ArrowDataFrame.test.ts.patch
+    rm ArrowDataFrame.test.ts.patch
 
 	# Install PhantomJS
 	printf -- "Installing PhantomJS... \n"
 
-	sudo curl -o "phantom_setup.sh" $PHANTOMJS_INSTALL_URL
+	sudo wget -O "phantom_setup.sh" $PHANTOMJS_INSTALL_URL
 	bash phantom_setup.sh -y
 
 	printf -- 'PhantomJS install success \n'
@@ -193,7 +175,7 @@ function configureAndInstall() {
 	cd $GOPATH/src/github.com/grafana/grafana
 	if [[ "$ID" == "rhel" ]]; then
 		sudo env PATH=$PATH LD_LIBRARY_PATH=$LD_LIBRARY_PATH npm install -g yarn
-	elif [[ "$ID" == "sles" && ("$VERSION_ID" == "15" || "$VERSION_ID" == "15.1") ]]; then
+	elif [[ "$DISTRO" == "sles-15.1" ]]; then
 	    sudo sed -i'' -r 's/^( +, uidSupport = ).+$/\1false/' /usr/local/node-v${NODE_JS_VERSION}-linux-s390x/lib/node_modules/npm/node_modules/uid-number/uid-number.js
         sudo env PATH=$PATH npm install -g yarn
 	else
@@ -202,14 +184,19 @@ function configureAndInstall() {
 	printf -- 'yarn install success \n'
 
 	if [[ "$ID" == "ubuntu" ]]; then
-		sudo chown -R $USER:$GROUP ~/.npm
-		sudo chown -R $USER:$GROUP ~/.config
+	{
+		if [[ "$DISTRO" == "ubuntu-16.04" || "$DISTRO" == "ubuntu-18.04" ]]; then
+			sudo chmod +x ~/.npm
+			sudo chmod +x ~/.config
+		fi
 		# export  QT_QPA_PLATFORM on Ubuntu
 		export QT_QPA_PLATFORM=offscreen
+	}
 	fi
 
 	# Build Grafana frontend assets
 	make deps-js
+	yarn run jest-ci -u 
 	make build-js
 
 	printf -- 'Grafana frontend assets build success \n'
@@ -236,7 +223,7 @@ function configureAndInstall() {
 	printf -- 'Add grafana config success \n'
 
 	#Create alias
-	echo "alias grafana-server='grafana-server -homepath /usr/local/share/grafana -config /etc/grafana/grafana.ini'" >>~/.bashrc
+	echo "alias grafana-server='sudo grafana-server -homepath /usr/local/share/grafana -config /etc/grafana/grafana.ini'" >> ~/.bashrc
 
 	# Run Tests
 	runTest
@@ -326,27 +313,40 @@ function gettingStarted() {
 
 ###############################################################################################################
 
-logDetails
-prepare #Check Prequisites
+ARGUMENTS=$*
+shift $(( $OPTIND-1 ))
+# Only run logDetails and prepare for main process
+if [[ ! "$1" == "RHEL7" ]]; then
+	logDetails
+	prepare # Check Prequisites
+fi
 
 DISTRO="$ID-$VERSION_ID"
 case "$DISTRO" in
-"ubuntu-16.04" | "ubuntu-18.04" | "ubuntu-19.04")
+"ubuntu-16.04" | "ubuntu-18.04" )
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	sudo apt-get update
-	sudo apt-get install -y python build-essential gcc tar wget git make unzip curl |& tee -a "$LOG_FILE"
+	sudo apt-get install -y python build-essential gcc tar wget git make unzip patch |& tee -a "$LOG_FILE"
 	configureAndInstall |& tee -a "$LOG_FILE"
 	;;
 
-"rhel-7.5" | "rhel-7.6" | "rhel-7.7")
+"rhel-7.6" | "rhel-7.7")
+	#  Install the package with GCC >= 7
+	if [[ "$1" == "RHEL7" ]]; then
+		gcc --version
+		LOG_FILE="$2"
+        configureAndInstall |& tee -a "$LOG_FILE"
+        exit 0
+    fi
+    #  Prepare and finish
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
-	sudo yum install -y make gcc tar wget git unzip curl |& tee -a "$LOG_FILE"
-	configureAndInstall |& tee -a "$LOG_FILE"
+	sudo yum install -y make gcc tar wget git unzip scl-utils patch xz devtoolset-7 devtoolset-7-libatomic-devel.s390x|& tee -a "$LOG_FILE"
+	echo "bash $0 $ARGUMENTS RHEL7 $LOG_FILE" | scl enable devtoolset-7 -
 	;;
 
-"sles-12.4" | "sles-15" | "sles-15.1")
+"sles-12.4" | "sles-15.1")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
-	sudo zypper install -y make gcc wget tar git unzip curl xz gzip |& tee -a "$LOG_FILE"
+	sudo zypper install -y make gcc wget tar git unzip xz gzip curl patch |& tee -a "$LOG_FILE"
 	configureAndInstall |& tee -a "$LOG_FILE"
 	;;
 
