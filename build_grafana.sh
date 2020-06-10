@@ -14,6 +14,7 @@ CURDIR="$(pwd)"
 
 PHANTOMJS_INSTALL_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/PhantomJS/build_phantomjs.sh"
 PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/ArrowDataFrame.test.ts.patch"
+RICHHISTORY_URL="https://raw.githubusercontent.com/grafana/grafana/3acc318d728cd147971ef1b871bd85237c57a5de/public/app/core/utils/richHistory.test.ts"
 
 GO_VERSION="1.14.2"
 NODE_JS_VERSION="12.9.1"
@@ -195,6 +196,7 @@ function configureAndInstall() {
 	fi
 
 	# Build Grafana frontend assets
+    sudo wget -O public/app/core/utils/richHistory.test.ts $RICHHISTORY_URL
 	make deps-js
 	yarn run jest-ci -u 
 	make build-js
@@ -323,7 +325,7 @@ fi
 
 DISTRO="$ID-$VERSION_ID"
 case "$DISTRO" in
-"ubuntu-16.04" | "ubuntu-18.04" )
+"ubuntu-16.04" | "ubuntu-18.04")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	sudo apt-get update
 	sudo apt-get install -y python build-essential gcc tar wget git make unzip patch |& tee -a "$LOG_FILE"
