@@ -13,9 +13,9 @@ PACKAGE_NAME="istio"
 PACKAGE_VERSION="1.3.6"
 HELM_VERSION="2.9.1"
 CURDIR="$(pwd)"
-REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Istio/1.3.6/patch"
+REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/1.3.6/istio/patch"
 
-PROXY_REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/IstioProxy/1.3.6/build_istio_proxy.sh"
+PROXY_REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/1.3.6/IstioProxy/build_istio_proxy.sh"
 
 HELM_REPO_URL="https://github.com/kubernetes/helm.git"
 ISTIO_REPO_URL="https://github.com/istio/istio.git"
@@ -251,7 +251,7 @@ prepare |& tee -a "$LOG_FILE"
 
 DISTRO="$ID-$VERSION_ID"
 case "$DISTRO" in
-"ubuntu-16.04" | "ubuntu-18.04")
+"ubuntu-16.04" | "ubuntu-18.04" | "ubuntu-20.04")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- '\nInstalling dependencies \n' |& tee -a "$LOG_FILE"
 	sudo apt-get update
