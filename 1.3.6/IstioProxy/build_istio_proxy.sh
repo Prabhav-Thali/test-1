@@ -9,13 +9,13 @@
 
 set -e -o pipefail
 
-PACKAGE_NAME="Istio Proxy"
+PACKAGE_NAME="Istio-Proxy"
 PACKAGE_VERSION="1.3.6"
 CURDIR="$(pwd)"
 REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/1.3.6/patch"
 
 ISTIO_PROXY_REPO_URL="https://github.com/istio/proxy.git"
-LOG_FILE="$CURDIR/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
+LOG_FILE="$CURDIR/logs/${}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
 FORCE="false"
 TESTS="false"
 PROXY_DEBUG_BIN_PATH="$CURDIR/proxy/debug"
