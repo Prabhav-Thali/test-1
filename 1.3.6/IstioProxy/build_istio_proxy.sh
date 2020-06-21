@@ -227,23 +227,37 @@ function installDependency() {
 		#Bazel download
 		cd "${CURDIR}"
 		mkdir bazel && cd bazel
-		wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
+		
+		if [ "${VERSION_ID}" == "20.04" ]; then
+                  sudo ln -sf /usr/bin/python2 /usr/bin/python
+		  wget https://github.com/bazelbuild/bazel/releases/download/2.0.0/bazel-2.0.0-dist.zip
+		  unzip bazel-2.0.0-dist.zip
+		  chmod -R +w .
+		  export CC=/usr/bin/gcc
+		  export CXX=/usr/bin/g++
+		  REPO_URL1="https://raw.githubusercontent.com/vibhutisawant/test/master/Istio_1.5.2"
+		  cd "${CURDIR}"
+		  curl -o patch_BUILD.patch $REPO_URL1/patch_BUILD.patch
+		  patch "${CURDIR}/bazel/third_party/BUILD" patch_BUILD.patch
+		  cd "${CURDIR}"
+		  curl -o patch_cond.diff $REPO_URL1/patch_cond.diff
+		  patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff 
+		  
+		  #cd "${CURDIR}"
+		  #curl -o ev_epollex_linux.cc.diff $REPO_URL/ev_epollex_linux.cc.diff
+		  #patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc" ev_epollex_linux.cc.diff
+		  #cd "${CURDIR}"
+		  #curl -o log_linux.cc.diff $REPO_URL/log_linux.cc.diff
+		  #patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_linux.cc" log_linux.cc.diff
+		  #cd "${CURDIR}"
+		  #curl -o log_posix.cc.diff $REPO_URL/log_posix.cc.diff
+		  #patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_posix.cc" log_posix.cc.diff
+		else
+		  wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
 		unzip bazel-0.28.1-dist.zip
 		chmod -R +w .
 		export CC=/usr/bin/gcc
 		export CXX=/usr/bin/g++ 
-		if [ "${VERSION_ID}" == "20.04" ]; then
-                  sudo ln -sf /usr/bin/python2 /usr/bin/python
-		  cd "${CURDIR}"
-		  curl -o ev_epollex_linux.cc.diff $REPO_URL/ev_epollex_linux.cc.diff
-		  patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc" ev_epollex_linux.cc.diff
-		  cd "${CURDIR}"
-		  curl -o log_linux.cc.diff $REPO_URL/log_linux.cc.diff
-		  patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_linux.cc" log_linux.cc.diff
-		  cd "${CURDIR}"
-		  curl -o log_posix.cc.diff $REPO_URL/log_posix.cc.diff
-		  patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_posix.cc" log_posix.cc.diff
-		fi
 		cd "${CURDIR}"
 		curl -o compile.sh.diff $REPO_URL/compile.sh.diff
 		patch "${CURDIR}/bazel/scripts/bootstrap/compile.sh" compile.sh.diff
@@ -254,6 +268,8 @@ function installDependency() {
 		curl -o patch_cond.diff $REPO_URL/patch_cond.diff
                 patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff  
         	cd ${CURDIR}/bazel
+		fi
+		
 		env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
 		export PATH=${CURDIR}/bazel/output/:$PATH
 		bazel version |& tee -a "$LOG_FILE"
