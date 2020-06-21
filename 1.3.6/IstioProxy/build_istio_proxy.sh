@@ -227,18 +227,23 @@ function installDependency() {
 		#Bazel download
 		cd "${CURDIR}"
 		mkdir bazel && cd bazel
-		if [ "${VERSION_ID}" == "20.04" ]; then
-                  sudo ln -sf /usr/bin/python2 /usr/bin/python
-		  wget https://github.com/bazelbuild/bazel/releases/download/2.0.0/bazel-2.0.0-dist.zip
-		  unzip bazel-2.0.0-dist.zip
-                else
 		wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
 		unzip bazel-0.28.1-dist.zip
-		fi
 		chmod -R +w .
 		export CC=/usr/bin/gcc
-		export CXX=/usr/bin/g++
-
+		export CXX=/usr/bin/g++ 
+		if [ "${VERSION_ID}" == "20.04" ]; then
+                  sudo ln -sf /usr/bin/python2 /usr/bin/python
+		  cd "${CURDIR}"
+		  curl -o ev_epollex_linux.cc.diff $REPO_URL/ev_epollex_linux.cc.diff
+		  patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc" ev_epollex_linux.cc.diff
+		  cd "${CURDIR}"
+		  curl -o log_linux.cc.diff $REPO_URL/log_linux.cc.diff
+		  patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_linux.cc" log_linux.cc.diff
+		  cd "${CURDIR}"
+		  curl -o log_posix.cc.diff $REPO_URL/log_posix.cc.diff
+		  patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_posix.cc" log_posix.cc.diff
+		fi
 		cd "${CURDIR}"
 		curl -o compile.sh.diff $REPO_URL/compile.sh.diff
 		patch "${CURDIR}/bazel/scripts/bootstrap/compile.sh" compile.sh.diff
