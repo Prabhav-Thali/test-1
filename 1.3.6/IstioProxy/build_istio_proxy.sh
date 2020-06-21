@@ -227,8 +227,14 @@ function installDependency() {
 		#Bazel download
 		cd "${CURDIR}"
 		mkdir bazel && cd bazel
+		if  if [ "${VERSION_ID}" == "20.04" ]; then
+                  sudo ln -sf /usr/bin/python2 /usr/bin/python
+		  wget https://github.com/bazelbuild/bazel/releases/download/2.0.0/bazel-2.0.0-dist.zip
+		  unzip bazel-2.0.0-dist.zip
+                else
 		wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
 		unzip bazel-0.28.1-dist.zip
+		fi
 		chmod -R +w .
 		export CC=/usr/bin/gcc
 		export CXX=/usr/bin/g++
