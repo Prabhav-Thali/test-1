@@ -1,0 +1,20 @@
+--- ./third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc	1980-01-01 00:00:00.000000000 +0000
++++ ../third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc	2020-06-21 07:28:57.581158578 +0000
+@@ -1150,7 +1150,7 @@
+ }
+ 
+ #ifndef NDEBUG
+-static long gettid(void) { return syscall(__NR_gettid); }
++static long sys_gettid(void) { return syscall(__NR_gettid); }
+ #endif
+ 
+ /* pollset->mu lock must be held by the caller before calling this.
+@@ -1170,7 +1170,7 @@
+ #define WORKER_PTR (&worker)
+ #endif
+ #ifndef NDEBUG
+-  WORKER_PTR->originator = gettid();
++  WORKER_PTR->originator = sys_gettid();
+ #endif
+   if (grpc_polling_trace.enabled()) {
+     gpr_log(GPR_INFO,
