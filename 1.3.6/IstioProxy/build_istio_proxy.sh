@@ -267,9 +267,8 @@ function installDependency() {
 		cd "${CURDIR}"
 		curl -o patch_cond.diff $REPO_URL/patch_cond.diff
                 patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff  
-        	cd ${CURDIR}/bazel
-		fi
-		
+        	fi
+		cd ${CURDIR}/bazel
 		env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
 		export PATH=${CURDIR}/bazel/output/:$PATH
 		bazel version |& tee -a "$LOG_FILE"
