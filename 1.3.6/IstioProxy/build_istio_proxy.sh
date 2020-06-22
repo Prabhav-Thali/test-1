@@ -227,33 +227,7 @@ function installDependency() {
 		#Bazel download
 		cd "${CURDIR}"
 		mkdir bazel && cd bazel
-		
-		if [ "${VERSION_ID}" == "20.04" ]; then
-                  sudo ln -sf /usr/bin/python2 /usr/bin/python
-		  wget https://github.com/bazelbuild/bazel/releases/download/2.0.0/bazel-2.0.0-dist.zip
-		  unzip bazel-2.0.0-dist.zip
-		  chmod -R +w .
-		  export CC=/usr/bin/gcc
-		  export CXX=/usr/bin/g++
-		  REPO_URL1="https://raw.githubusercontent.com/vibhutisawant/test/master/Istio_1.5.2"
-		  cd "${CURDIR}"
-		  curl -o patch_BUILD.patch $REPO_URL1/patch_BUILD.patch
-		  patch "${CURDIR}/bazel/third_party/BUILD" patch_BUILD.patch
-		  cd "${CURDIR}"
-		  curl -o patch_cond.diff $REPO_URL1/patch_cond.diff
-		  patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff 
-		  
-		  #cd "${CURDIR}"
-		  #curl -o ev_epollex_linux.cc.diff $REPO_URL/ev_epollex_linux.cc.diff
-		  #patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc" ev_epollex_linux.cc.diff
-		  #cd "${CURDIR}"
-		  #curl -o log_linux.cc.diff $REPO_URL/log_linux.cc.diff
-		  #patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_linux.cc" log_linux.cc.diff
-		  #cd "${CURDIR}"
-		  #curl -o log_posix.cc.diff $REPO_URL/log_posix.cc.diff
-		  #patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_posix.cc" log_posix.cc.diff
-		else
-		  wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
+		wget https://github.com/bazelbuild/bazel/releases/download/0.28.1/bazel-0.28.1-dist.zip
 		unzip bazel-0.28.1-dist.zip
 		chmod -R +w .
 		export CC=/usr/bin/gcc
@@ -267,7 +241,15 @@ function installDependency() {
 		cd "${CURDIR}"
 		curl -o patch_cond.diff $REPO_URL/patch_cond.diff
                 patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff  
-        	fi
+		if [ "${VERSION_ID}" == "20.04" ]; then
+                	curl -o l1_epo.patch $REPO_URL/l1_epo.patch
+                	curl -o l1_lin.patch $REPO_URL/l1_lin.patch
+                	curl -o l1_pos.patch $REPO_URL/l1_pos.patch
+			patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/iomgr/ev_epollex_linux.cc" l1_epo.patch
+			patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_linux.cc" l1_lin.patch
+			patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_posix.cc" l1_pos.patch
+		fi
+      
 		cd ${CURDIR}/bazel
 		env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
 		export PATH=${CURDIR}/bazel/output/:$PATH
@@ -331,9 +313,17 @@ function configureAndInstall() {
 
 	curl -o luajit-patch.patch $REPO_URL/luajit-patch.patch
 	patch "${CURDIR}/envoy/bazel/foreign_cc/luajit.patch" luajit-patch.patch
+	if [ "${VERSION_ID}" == "20.04" ]; then
+		curl -o "${CURDIR}/envoy/bazel/l1_epo.patch" $REPO_URL/l1_epo.patch
+		curl -o "${CURDIR}/envoy/bazel/l1_lin.patch" $REPO_URL/l1_lin.patch
+		curl -o "${CURDIR}/envoy/bazel/l1_pos.patch" $REPO_URL/l1_pos.patch
+		curl -o repositories-envoy.bzl.ub1910.patch $REPO_URL/repositories-envoy.bzl.ub1910.patch
+		patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.ub1910.patch 
+        else
 
         curl -o repositories-envoy.bzl.patch $REPO_URL/repositories-envoy.bzl.patch
         patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.patch
+	fi
 
         if [ "${ID}" == "rhel" ]; then
 		curl -o patch_rhel_foreign.patch $REPO_URL/patch_rhel_foreign.patch
