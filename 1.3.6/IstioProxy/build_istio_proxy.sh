@@ -134,7 +134,7 @@ function buildGCC() {
 	wget https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz
 	tar -xf gcc-7.3.0.tar.xz
 	cd gcc-7.3.0/
-	if [ "${VERSION_ID}" == "8.1" || ${VERSION_ID}" == "8.2" ]; then
+	if [ "${VERSION_ID}" == "8.1" || "${VERSION_ID}" == "8.2" ]; then
 	 curl -o gcc_rhel8_patch.diff $REPO_URL/gcc_rhel8_patch.diff
 	 patch "${CURDIR}/gcc-7.3.0/libsanitizer/sanitizer_common/sanitizer_platform_limits_posix.cc" gcc_rhel8_patch.diff
 	fi
