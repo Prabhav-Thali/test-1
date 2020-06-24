@@ -12,7 +12,7 @@ set -e -o pipefail
 PACKAGE_NAME="Istio-Proxy"
 PACKAGE_VERSION="1.3.6"
 CURDIR="$(pwd)"
-REPO_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/1.3.6/patch"
+REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/IstioProxy/1.3.6/patch"
 
 ISTIO_PROXY_REPO_URL="https://github.com/istio/proxy.git"
 LOG_FILE="$CURDIR/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
@@ -119,7 +119,7 @@ function cleanup() {
 	rm -rf "${CURDIR}/l1_epo.patch"
 	rm -rf "${CURDIR}/l1_pos.patch"
 	rm -rf "${CURDIR}/l1_lin.patch"
-	rm -rf "${CURDIR}/repositories-envoy.bzl.ub1910.patch"
+	rm -rf "${CURDIR}/repositories-envoy.bzl.ub2004.patch"
 	rm -rf "${CURDIR}/patch_wee8.patch"
 	rm -rf "${CURDIR}/patch_logger.patch"
 	rm -rf "${CURDIR}/http_integration.patch"
@@ -231,17 +231,20 @@ function installDependency() {
 		unzip bazel-0.28.1-dist.zip
 		chmod -R +w .
 		export CC=/usr/bin/gcc
-		export CXX=/usr/bin/g++ 
+		export CXX=/usr/bin/g++
+		
 		cd "${CURDIR}"
 		curl -o compile.sh.diff $REPO_URL/compile.sh.diff
 		patch "${CURDIR}/bazel/scripts/bootstrap/compile.sh" compile.sh.diff
 		cd "${CURDIR}"
 		curl -o patch_BUILD.diff $REPO_URL/patch_BUILD.diff
-                patch "${CURDIR}/bazel/third_party/BUILD" patch_BUILD.diff
+        patch "${CURDIR}/bazel/third_party/BUILD" patch_BUILD.diff
 		cd "${CURDIR}"
 		curl -o patch_cond.diff $REPO_URL/patch_cond.diff
-                patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff  
+        patch "${CURDIR}/bazel/src/conditions/BUILD" patch_cond.diff  
+		cd ${CURDIR}/bazel
 		if [ "${VERSION_ID}" == "20.04" ]; then
+		        sudo ln -sf /usr/bin/python2 /usr/bin/python
                 	curl -o l1_epo.patch $REPO_URL/l1_epo.patch
                 	curl -o l1_lin.patch $REPO_URL/l1_lin.patch
                 	curl -o l1_pos.patch $REPO_URL/l1_pos.patch
@@ -249,8 +252,6 @@ function installDependency() {
 			patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_linux.cc" l1_lin.patch
 			patch "${CURDIR}/bazel/third_party/grpc/src/core/lib/gpr/log_posix.cc" l1_pos.patch
 		fi
-      
-		cd ${CURDIR}/bazel
 		env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
 		export PATH=${CURDIR}/bazel/output/:$PATH
 		bazel version |& tee -a "$LOG_FILE"
@@ -317,14 +318,13 @@ function configureAndInstall() {
 		curl -o "${CURDIR}/envoy/bazel/l1_epo.patch" $REPO_URL/l1_epo.patch
 		curl -o "${CURDIR}/envoy/bazel/l1_lin.patch" $REPO_URL/l1_lin.patch
 		curl -o "${CURDIR}/envoy/bazel/l1_pos.patch" $REPO_URL/l1_pos.patch
-		curl -o repositories-envoy.bzl.ub1910.patch $REPO_URL/repositories-envoy.bzl.ub1910.patch
-		patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.ub1910.patch 
+		curl -o repositories-envoy.bzl.ub2004.patch $REPO_URL/repositories-envoy.bzl.ub2004.patch
+		patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.ub2004.patch 
         else
-
         curl -o repositories-envoy.bzl.patch $REPO_URL/repositories-envoy.bzl.patch
         patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.patch
 	fi
-
+	
         if [ "${ID}" == "rhel" ]; then
 		curl -o patch_rhel_foreign.patch $REPO_URL/patch_rhel_foreign.patch
 		sed -i "s|\$SOURCE_ROOT|${CURDIR}|" patch_rhel_foreign.patch
@@ -512,7 +512,7 @@ case "$DISTRO" in
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- '\nInstalling dependencies \n' |& tee -a "$LOG_FILE"
 	sudo apt-get update
-	sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git pkg-config zip zlib1g-dev unzip python3 libtool automake cmake curl wget build-essential rsync clang gcc-7 g++-7 libgtk2.0-0 ninja-build clang-format-6.0 
+	sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git pkg-config zip zlib1g-dev unzip python3 libtool automake cmake curl wget build-essential rsync clang gcc-7 g++-7 libgtk2.0-0 ninja-build clang-format-6.0 python
 	sudo rm -rf /usr/bin/gcc /usr/bin/g++ /usr/bin/cc
 	sudo ln -sf /usr/bin/gcc-7 /usr/bin/gcc
 	sudo ln -sf /usr/bin/g++-7 /usr/bin/g++
