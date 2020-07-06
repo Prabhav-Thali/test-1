@@ -1,0 +1,684 @@
+SYSTEM DETAILS
+NAME="Red Hat Enterprise Linux Server"
+VERSION="7.6 (Maipo)"
+ID="rhel"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="7.6"
+PRETTY_NAME="Red Hat Enterprise Linux Server 7.6 (Maipo)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:7.6:GA:server"
+HOME_URL="https://www.redhat.com/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 7"
+REDHAT_BUGZILLA_PRODUCT_VERSION=7.6
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="7.6"
+Linux version 5.4.0-26-generic (buildd@bos02-s390x-015) (gcc version 9.3.0 (Ubuntu 9.3.0-10ubuntu2)) #30-Ubuntu SMP Mon Apr 20 16:57:22 UTC 2020
+Request details : PACKAGE NAME= istio , VERSION= 1.3.6 
+Force attribute provided hence continuing with install without confirmation message
+Installing istio 1.3.6 for rhel-7.6 
+
+Installing dependencies 
+Building dependencies
+Building Istio Proxy
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 20205  100 20205    0     0  31471      0 --:--:-- --:--:-- --:--:-- 31521
+Istio Proxy installed successfully
+helm installed
+
+Configuration and Installation started 
+User responded with Yes. 
+
+Downloading Istio. Please wait.
+Cloning into 'istio'...
+Checking out files:  63% (2834/4498)   Checking out files:  64% (2879/4498)   Checking out files:  65% (2924/4498)   Checking out files:  66% (2969/4498)   Checking out files:  67% (3014/4498)   Checking out files:  68% (3059/4498)   Checking out files:  69% (3104/4498)   Checking out files:  70% (3149/4498)   Checking out files:  71% (3194/4498)   Checking out files:  72% (3239/4498)   Checking out files:  73% (3284/4498)   Checking out files:  74% (3329/4498)   Checking out files:  75% (3374/4498)   Checking out files:  76% (3419/4498)   Checking out files:  77% (3464/4498)   Checking out files:  78% (3509/4498)   Checking out files:  79% (3554/4498)   Checking out files:  80% (3599/4498)   Checking out files:  81% (3644/4498)   Checking out files:  82% (3689/4498)   Checking out files:  83% (3734/4498)   Checking out files:  84% (3779/4498)   Checking out files:  85% (3824/4498)   Checking out files:  86% (3869/4498)   Checking out files:  87% (3914/4498)   Checking out files:  88% (3959/4498)   Checking out files:  89% (4004/4498)   Checking out files:  90% (4049/4498)   Checking out files:  91% (4094/4498)   Checking out files:  92% (4139/4498)   Checking out files:  93% (4184/4498)   Checking out files:  94% (4229/4498)   Checking out files:  95% (4274/4498)   Checking out files:  96% (4319/4498)   Checking out files:  97% (4364/4498)   Checking out files:  98% (4409/4498)   Checking out files:  99% (4454/4498)   Checking out files: 100% (4498/4498)   Checking out files: 100% (4498/4498), done.
+Note: checking out '1.3.6'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 48148f5be update istio proxy sha (#9)
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   727    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   727  100   727    0     0   1228      0 --:--:-- --:--:-- --:--:--  1228
+patching file /home/test/workspace/Istio_rhel/src/istio.io/istio/bin/init.sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   680  100   680    0     0   1194      0 --:--:-- --:--:-- --:--:--  1195
+patching file /home/test/workspace/Istio_rhel/src/istio.io/istio/bin/init_helm.sh
+
+Building Istio 
+ISTIO_OUT=/home/test/workspace/Istio_rhel/out/linux_s390x/release bin/init.sh
+/home/test/workspace/Istio_rhel/out/linux_amd64/debug /home/test/workspace/Istio_rhel/src/istio.io/istio
+Downloading Envoy: curl -fLSs https://storage.googleapis.com/istio-build/proxy/envoy-debug-166fb911bc47c062981b3d8d9520ed985ab7e364.tar.gz to /home/test/workspace/Istio_rhel/out/linux_amd64/debug/envoy-debug-166fb911bc47c062981b3d8d9520ed985ab7e364
+Copying /home/test/workspace/Istio_rhel/out/linux_amd64/debug/envoy-debug-166fb911bc47c062981b3d8d9520ed985ab7e364 to /home/test/workspace/Istio_rhel/out/linux_amd64/debug/envoy
+/home/test/workspace/Istio_rhel/src/istio.io/istio
+/home/test/workspace/Istio_rhel/out/linux_amd64/release /home/test/workspace/Istio_rhel/src/istio.io/istio
+Downloading Envoy: curl -fLSs https://storage.googleapis.com/istio-build/proxy/envoy-alpha-166fb911bc47c062981b3d8d9520ed985ab7e364.tar.gz to /home/test/workspace/Istio_rhel/out/linux_amd64/release/envoy-166fb911bc47c062981b3d8d9520ed985ab7e364
+Copying /home/test/workspace/Istio_rhel/out/linux_amd64/release/envoy-166fb911bc47c062981b3d8d9520ed985ab7e364 to /home/test/workspace/Istio_rhel/out/linux_amd64/release/envoy
+/home/test/workspace/Istio_rhel/src/istio.io/istio
+Copying /home/test/workspace/Istio_rhel/out/linux_amd64/debug/envoy-debug-166fb911bc47c062981b3d8d9520ed985ab7e364 to /home/test/workspace/Istio_rhel/out/linux_s390x/release/envoy
+Copying /home/test/workspace/Istio_rhel/out/linux_s390x/release/envoy to /home/test/workspace/Istio_rhel/bin/envoy
+Downloading istio.deps from https://raw.githubusercontent.com/istio/proxy/166fb911bc47c062981b3d8d9520ed985ab7e364/istio.deps to /home/test/workspace/Istio_rhel/out/linux_s390x/release/istio_proxy.deps
+touch /home/test/workspace/Istio_rhel/out/linux_s390x/release/istio_is_init
+mkdir -p /home/test/workspace/Istio_rhel/out/logs
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/pilot-discovery ./pilot/cmd/pilot-discovery
+go: downloading istio.io/pkg v0.0.0-20190731230704-fcbac27d69d5
+go: downloading k8s.io/apimachinery v0.0.0-20190221213512-86fb29eff628
+go: downloading github.com/spf13/cobra v0.0.3
+go: downloading github.com/hashicorp/go-multierror v1.0.0
+go: downloading github.com/gogo/protobuf v1.3.0
+go: extracting github.com/hashicorp/go-multierror v1.0.0
+go: downloading github.com/spf13/pflag v1.0.3
+go: extracting github.com/spf13/cobra v0.0.3
+go: downloading google.golang.org/grpc v1.23.0
+go: downloading k8s.io/client-go v10.0.0+incompatible
+go: extracting github.com/spf13/pflag v1.0.3
+go: extracting istio.io/pkg v0.0.0-20190731230704-fcbac27d69d5
+go: extracting google.golang.org/grpc v1.23.0
+go: extracting k8s.io/apimachinery v0.0.0-20190221213512-86fb29eff628
+go: downloading github.com/istio/viper v1.3.3-0.20190515210538-2789fed3109c
+go: downloading github.com/hashicorp/consul v1.3.0
+go: downloading github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
+go: downloading go.uber.org/zap v1.10.0
+go: extracting k8s.io/client-go v10.0.0+incompatible
+go: downloading github.com/google/gofuzz v1.0.0
+go: extracting github.com/gogo/protobuf v1.3.0
+go: extracting github.com/google/gofuzz v1.0.0
+go: downloading github.com/davecgh/go-spew v1.1.1
+go: extracting github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
+go: downloading github.com/gorilla/mux v1.7.2
+go: downloading github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829
+go: extracting go.uber.org/zap v1.10.0
+go: extracting github.com/istio/viper v1.3.3-0.20190515210538-2789fed3109c
+go: downloading github.com/envoyproxy/go-control-plane v0.8.7-0.20190821215049-f062b07a671a
+go: downloading github.com/hashicorp/hcl v1.0.0
+go: extracting github.com/davecgh/go-spew v1.1.1
+go: extracting github.com/gorilla/mux v1.7.2
+go: extracting github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829
+go: downloading golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
+go: downloading contrib.go.opencensus.io/exporter/prometheus v0.1.0
+go: downloading github.com/spf13/cast v1.3.0
+go: downloading github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
+go: downloading golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+go: extracting contrib.go.opencensus.io/exporter/prometheus v0.1.0
+go: extracting github.com/hashicorp/hcl v1.0.0
+go: downloading gopkg.in/yaml.v2 v2.2.2
+go: extracting github.com/envoyproxy/go-control-plane v0.8.7-0.20190821215049-f062b07a671a
+go: extracting github.com/spf13/cast v1.3.0
+go: extracting github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
+go: downloading github.com/spf13/jwalterweatherman v1.0.0
+go: downloading go.uber.org/multierr v1.1.0
+go: downloading go.opencensus.io v0.22.0
+go: extracting golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
+go: downloading istio.io/api v0.0.0-20190820204432-483f2547d882
+go: downloading github.com/istio/klog v0.0.0-20190424230111-fb7481ea8bcf
+go: extracting gopkg.in/yaml.v2 v2.2.2
+go: extracting github.com/spf13/jwalterweatherman v1.0.0
+go: downloading github.com/fsnotify/fsnotify v1.4.7
+go: extracting go.opencensus.io v0.22.0
+go: extracting go.uber.org/multierr v1.1.0
+go: downloading k8s.io/api v0.0.0-20190222213804-5cb15d344471
+go: extracting golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+go: downloading github.com/prometheus/procfs v0.0.0-20190425082905-87a4384529e0
+go: downloading github.com/envoyproxy/protoc-gen-validate v0.1.0
+go: extracting github.com/istio/klog v0.0.0-20190424230111-fb7481ea8bcf
+go: downloading gopkg.in/inf.v0 v0.9.1
+go: downloading github.com/magiconair/properties v1.8.0
+go: extracting github.com/fsnotify/fsnotify v1.4.7
+go: downloading github.com/beorn7/perks v1.0.0
+go: extracting github.com/hashicorp/consul v1.3.0
+go: extracting istio.io/api v0.0.0-20190820204432-483f2547d882
+go: extracting gopkg.in/inf.v0 v0.9.1
+go: downloading golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
+go: extracting github.com/envoyproxy/protoc-gen-validate v0.1.0
+go: extracting github.com/magiconair/properties v1.8.0
+go: extracting github.com/prometheus/procfs v0.0.0-20190425082905-87a4384529e0
+go: downloading github.com/pelletier/go-toml v1.2.0
+go: extracting k8s.io/api v0.0.0-20190222213804-5cb15d344471
+go: downloading github.com/golang/protobuf v1.3.2
+go: extracting github.com/beorn7/perks v1.0.0
+go: downloading github.com/prometheus/common v0.4.0
+go: downloading github.com/mitchellh/mapstructure v1.1.2
+go: downloading github.com/natefinch/lumberjack v2.0.0+incompatible
+go: downloading istio.io/gogo-genproto v0.0.0-20190819131816-7a8328e41c1a
+go: downloading github.com/ghodss/yaml v1.0.0
+go: extracting github.com/pelletier/go-toml v1.2.0
+go: downloading github.com/yl2chen/cidranger v0.0.0-20180214081945-928b519e5268
+go: extracting github.com/golang/protobuf v1.3.2
+go: extracting github.com/prometheus/common v0.4.0
+go: extracting golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
+go: extracting github.com/natefinch/lumberjack v2.0.0+incompatible
+go: extracting github.com/ghodss/yaml v1.0.0
+go: extracting github.com/mitchellh/mapstructure v1.1.2
+go: downloading github.com/spf13/afero v1.2.2
+go: extracting github.com/yl2chen/cidranger v0.0.0-20180214081945-928b519e5268
+go: downloading github.com/mitchellh/copystructure v1.0.0
+go: downloading github.com/howeyc/fsnotify v0.9.0
+go: downloading github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc
+go: extracting istio.io/gogo-genproto v0.0.0-20190819131816-7a8328e41c1a
+go: downloading sigs.k8s.io/yaml v1.1.0
+go: downloading github.com/prometheus/prom2json v1.2.1
+go: downloading github.com/imdario/mergo v0.3.7
+go: downloading go.uber.org/atomic v1.4.0
+go: downloading github.com/emicklei/go-restful v2.9.3+incompatible
+go: extracting github.com/spf13/afero v1.2.2
+go: extracting github.com/howeyc/fsnotify v0.9.0
+go: extracting github.com/mitchellh/copystructure v1.0.0
+go: downloading github.com/peterbourgon/diskv v2.0.1+incompatible
+go: downloading github.com/json-iterator/go v1.1.6
+go: extracting github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc
+go: downloading golang.org/x/text v0.3.2
+go: downloading golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+go: extracting sigs.k8s.io/yaml v1.1.0
+go: downloading github.com/matttproud/golang_protobuf_extensions v1.0.1
+go: extracting github.com/prometheus/prom2json v1.2.1
+go: extracting go.uber.org/atomic v1.4.0
+go: extracting github.com/imdario/mergo v0.3.7
+go: downloading github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90
+go: downloading github.com/cpuguy83/go-md2man v1.0.10
+go: extracting github.com/emicklei/go-restful v2.9.3+incompatible
+go: downloading github.com/mitchellh/reflectwalk v1.0.1
+go: extracting github.com/peterbourgon/diskv v2.0.1+incompatible
+go: downloading github.com/hashicorp/errwrap v1.0.0
+go: extracting github.com/json-iterator/go v1.1.6
+go: downloading golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
+go: extracting github.com/matttproud/golang_protobuf_extensions v1.0.1
+go: extracting golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+go: downloading github.com/google/uuid v1.1.1
+go: downloading github.com/modern-go/reflect2 v1.0.1
+go: extracting github.com/mitchellh/reflectwalk v1.0.1
+go: downloading google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55
+go: extracting github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90
+go: extracting github.com/cpuguy83/go-md2man v1.0.10
+go: downloading github.com/golang/groupcache v0.0.0-20190129154638-5b532d6fd5ef
+go: downloading github.com/hashicorp/golang-lru v0.5.3
+go: downloading github.com/hashicorp/go-rootcerts v0.0.0-20160503143440-6bb64b370b90
+go: extracting github.com/hashicorp/errwrap v1.0.0
+go: downloading github.com/pkg/errors v0.8.1
+go: extracting golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
+go: downloading github.com/google/btree v1.0.0
+go: extracting github.com/modern-go/reflect2 v1.0.1
+go: extracting github.com/google/uuid v1.1.1
+go: downloading github.com/googleapis/gnostic v0.2.0
+go: extracting github.com/golang/groupcache v0.0.0-20190129154638-5b532d6fd5ef
+go: downloading k8s.io/apiextensions-apiserver v0.0.0-20190221221350-bfb440be4b87
+go: extracting github.com/hashicorp/golang-lru v0.5.3
+go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+go: extracting github.com/hashicorp/go-rootcerts v0.0.0-20160503143440-6bb64b370b90
+go: downloading github.com/hashicorp/serf v0.8.1
+go: extracting github.com/google/btree v1.0.0
+go: extracting github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+go: extracting k8s.io/apiextensions-apiserver v0.0.0-20190221221350-bfb440be4b87
+go: downloading cloud.google.com/go v0.44.3
+go: extracting github.com/pkg/errors v0.8.1
+go: downloading k8s.io/kube-openapi v0.0.0-20190228160746-b3a7cee44a30
+go: extracting github.com/googleapis/gnostic v0.2.0
+go: downloading github.com/russross/blackfriday v1.5.2
+go: extracting github.com/hashicorp/serf v0.8.1
+go: extracting golang.org/x/text v0.3.2
+go: downloading github.com/hashicorp/go-cleanhttp v0.5.0
+go: downloading github.com/golang/sync v0.0.0-20180314180146-1d60e4601c6f
+go: extracting github.com/russross/blackfriday v1.5.2
+go: extracting k8s.io/kube-openapi v0.0.0-20190228160746-b3a7cee44a30
+go: extracting github.com/hashicorp/go-cleanhttp v0.5.0
+go: extracting github.com/golang/sync v0.0.0-20180314180146-1d60e4601c6f
+go: extracting google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55
+go: extracting cloud.google.com/go v0.44.3
+go: finding github.com/spf13/cobra v0.0.3
+go: finding istio.io/pkg v0.0.0-20190731230704-fcbac27d69d5
+go: finding github.com/spf13/pflag v1.0.3
+go: finding contrib.go.opencensus.io/exporter/prometheus v0.1.0
+go: finding k8s.io/apimachinery v0.0.0-20190221213512-86fb29eff628
+go: finding github.com/cpuguy83/go-md2man v1.0.10
+go: finding github.com/natefinch/lumberjack v2.0.0+incompatible
+go: finding github.com/gorilla/mux v1.7.2
+go: finding github.com/davecgh/go-spew v1.1.1
+go: finding go.uber.org/zap v1.10.0
+go: finding github.com/gogo/protobuf v1.3.0
+go: finding gopkg.in/yaml.v2 v2.2.2
+go: finding github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
+go: finding github.com/russross/blackfriday v1.5.2
+go: finding github.com/ghodss/yaml v1.0.0
+go: finding github.com/istio/viper v1.3.3-0.20190515210538-2789fed3109c
+go: finding github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
+go: finding google.golang.org/grpc v1.23.0
+go: finding github.com/hashicorp/go-multierror v1.0.0
+go: finding github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829
+go: finding go.opencensus.io v0.22.0
+go: finding golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+go: finding github.com/google/gofuzz v1.0.0
+go: finding github.com/beorn7/perks v1.0.0
+go: finding github.com/hashicorp/errwrap v1.0.0
+go: finding github.com/prometheus/prom2json v1.2.1
+go: finding go.uber.org/atomic v1.4.0
+go: finding go.uber.org/multierr v1.1.0
+go: finding github.com/fsnotify/fsnotify v1.4.7
+go: finding istio.io/api v0.0.0-20190820204432-483f2547d882
+go: finding github.com/hashicorp/hcl v1.0.0
+go: finding github.com/golang/protobuf v1.3.2
+go: finding github.com/howeyc/fsnotify v0.9.0
+go: finding github.com/magiconair/properties v1.8.0
+go: finding github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90
+go: finding github.com/mitchellh/mapstructure v1.1.2
+go: finding gopkg.in/inf.v0 v0.9.1
+go: finding golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
+go: finding github.com/pelletier/go-toml v1.2.0
+go: finding github.com/matttproud/golang_protobuf_extensions v1.0.1
+go: finding github.com/prometheus/common v0.4.0
+go: finding google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55
+go: finding github.com/spf13/afero v1.2.2
+go: finding github.com/spf13/cast v1.3.0
+go: finding github.com/istio/klog v0.0.0-20190424230111-fb7481ea8bcf
+go: finding github.com/spf13/jwalterweatherman v1.0.0
+go: finding github.com/hashicorp/golang-lru v0.5.3
+go: finding github.com/prometheus/procfs v0.0.0-20190425082905-87a4384529e0
+go: finding github.com/golang/sync v0.0.0-20180314180146-1d60e4601c6f
+go: finding k8s.io/client-go v10.0.0+incompatible
+go: finding github.com/envoyproxy/go-control-plane v0.8.7-0.20190821215049-f062b07a671a
+go: finding github.com/yl2chen/cidranger v0.0.0-20180214081945-928b519e5268
+go: finding golang.org/x/text v0.3.2
+go: finding istio.io/gogo-genproto v0.0.0-20190819131816-7a8328e41c1a
+go: finding k8s.io/api v0.0.0-20190222213804-5cb15d344471
+go: finding github.com/emicklei/go-restful v2.9.3+incompatible
+go: finding k8s.io/apiextensions-apiserver v0.0.0-20190221221350-bfb440be4b87
+go: finding github.com/envoyproxy/protoc-gen-validate v0.1.0
+go: finding github.com/imdario/mergo v0.3.7
+go: finding github.com/googleapis/gnostic v0.2.0
+go: finding github.com/mitchellh/copystructure v1.0.0
+go: finding github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc
+go: finding golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
+go: finding github.com/hashicorp/consul v1.3.0
+go: finding golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+go: finding github.com/mitchellh/reflectwalk v1.0.1
+go: finding github.com/peterbourgon/diskv v2.0.1+incompatible
+go: finding golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
+go: finding github.com/json-iterator/go v1.1.6
+go: finding github.com/modern-go/reflect2 v1.0.1
+go: finding github.com/google/uuid v1.1.1
+go: finding sigs.k8s.io/yaml v1.1.0
+go: finding github.com/pkg/errors v0.8.1
+go: finding github.com/google/btree v1.0.0
+go: finding github.com/hashicorp/go-cleanhttp v0.5.0
+go: finding github.com/hashicorp/go-rootcerts v0.0.0-20160503143440-6bb64b370b90
+go: finding github.com/hashicorp/serf v0.8.1
+go: finding github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+go: finding cloud.google.com/go v0.44.3
+go: finding github.com/golang/groupcache v0.0.0-20190129154638-5b532d6fd5ef
+go: finding k8s.io/kube-openapi v0.0.0-20190228160746-b3a7cee44a30
+
+real	1m42.007s
+user	2m41.900s
+sys	0m36.222s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/pilot-agent ./pilot/cmd/pilot-agent
+
+real	0m13.287s
+user	0m6.223s
+sys	0m1.623s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/sidecar-injector ./pilot/cmd/sidecar-injector
+go: downloading github.com/openshift/api v0.0.0-20190322043348-8741ff068a47
+go: extracting github.com/openshift/api v0.0.0-20190322043348-8741ff068a47
+go: finding github.com/openshift/api v0.0.0-20190322043348-8741ff068a47
+
+real	0m17.532s
+user	0m8.848s
+sys	0m2.045s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/mixc ./mixer/cmd/mixc
+go: downloading github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20171214222146-0e7658f8ee99
+go: downloading github.com/opentracing/opentracing-go v1.0.2
+go: downloading github.com/uber/jaeger-client-go v0.0.0-20190228190846-ecf2d03a9e80
+go: extracting github.com/opentracing/opentracing-go v1.0.2
+go: extracting github.com/uber/jaeger-client-go v0.0.0-20190228190846-ecf2d03a9e80
+go: extracting github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20171214222146-0e7658f8ee99
+go: downloading github.com/uber/jaeger-lib v2.0.0+incompatible
+go: extracting github.com/uber/jaeger-lib v2.0.0+incompatible
+go: finding github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20171214222146-0e7658f8ee99
+go: finding github.com/opentracing/opentracing-go v1.0.2
+go: finding github.com/uber/jaeger-client-go v0.0.0-20190228190846-ecf2d03a9e80
+go: finding github.com/uber/jaeger-lib v2.0.0+incompatible
+
+real	0m10.316s
+user	0m5.454s
+sys	0m1.587s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/mixs ./mixer/cmd/mixs
+go: downloading github.com/fluent/fluent-logger-golang v1.3.0
+go: downloading google.golang.org/api v0.9.0
+go: downloading contrib.go.opencensus.io/exporter/zipkin v0.1.1
+go: downloading github.com/go-redis/redis v6.10.2+incompatible
+go: downloading github.com/open-policy-agent/opa v0.8.2
+go: downloading github.com/signalfx/golib v1.1.6
+go: downloading github.com/googleapis/gax-go v2.0.0+incompatible
+go: extracting github.com/go-redis/redis v6.10.2+incompatible
+go: extracting github.com/fluent/fluent-logger-golang v1.3.0
+go: downloading github.com/openzipkin/zipkin-go v0.1.6
+go: extracting contrib.go.opencensus.io/exporter/zipkin v0.1.1
+go: extracting github.com/googleapis/gax-go v2.0.0+incompatible
+go: extracting github.com/signalfx/golib v1.1.6
+go: downloading github.com/googleapis/gax-go/v2 v2.0.5
+go: downloading github.com/cactus/go-statsd-client v3.1.1+incompatible
+go: downloading contrib.go.opencensus.io/exporter/stackdriver v0.6.0
+go: downloading github.com/circonus-labs/circonus-gometrics v2.3.1+incompatible
+go: extracting github.com/googleapis/gax-go/v2 v2.0.5
+go: extracting github.com/openzipkin/zipkin-go v0.1.6
+go: extracting github.com/cactus/go-statsd-client v3.1.1+incompatible
+go: extracting github.com/circonus-labs/circonus-gometrics v2.3.1+incompatible
+go: downloading cloud.google.com/go/logging v1.0.0
+go: extracting github.com/open-policy-agent/opa v0.8.2
+go: downloading github.com/signalfx/com_signalfx_metrics_protobuf v0.0.0-20170330202426-93e507b42f43
+go: downloading github.com/cenkalti/backoff v2.0.0+incompatible
+go: downloading github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926
+go: downloading github.com/aws/aws-sdk-go v1.13.24
+go: extracting github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926
+go: downloading github.com/google/cel-go v0.2.0
+go: extracting github.com/cenkalti/backoff v2.0.0+incompatible
+go: extracting github.com/signalfx/com_signalfx_metrics_protobuf v0.0.0-20170330202426-93e507b42f43
+go: extracting cloud.google.com/go/logging v1.0.0
+go: extracting contrib.go.opencensus.io/exporter/stackdriver v0.6.0
+go: extracting github.com/google/cel-go v0.2.0
+go: downloading github.com/tinylib/msgp v1.0.2
+go: downloading golang.org/x/tools v0.0.0-20190822000311-fc82fb2afd64
+go: extracting github.com/tinylib/msgp v1.0.2
+go: downloading github.com/philhofer/fwd v1.0.0
+go: extracting github.com/philhofer/fwd v1.0.0
+go: extracting google.golang.org/api v0.9.0
+go: extracting github.com/aws/aws-sdk-go v1.13.24
+go: extracting golang.org/x/tools v0.0.0-20190822000311-fc82fb2afd64
+go: downloading github.com/gophercloud/gophercloud v0.0.0-20190424031112-b9b92a825806
+go: extracting github.com/gophercloud/gophercloud v0.0.0-20190424031112-b9b92a825806
+go: downloading github.com/signalfx/gohistogram v0.0.0-20160107210732-1ccfd2ff5083
+go: downloading github.com/DataDog/datadog-go v2.2.0+incompatible
+go: downloading github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a
+go: downloading gopkg.in/stack.v1 v1.7.0
+go: downloading github.com/Azure/go-autorest v12.0.0+incompatible
+go: downloading github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8
+go: downloading github.com/hashicorp/go-retryablehttp v0.5.3
+go: extracting github.com/DataDog/datadog-go v2.2.0+incompatible
+go: extracting gopkg.in/stack.v1 v1.7.0
+go: downloading github.com/antlr/antlr4 v0.0.0-20190223165740-dade65a895c2
+go: extracting github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a
+go: extracting github.com/signalfx/gohistogram v0.0.0-20160107210732-1ccfd2ff5083
+go: downloading github.com/yashtewari/glob-intersection v0.0.0-20180206001645-7af743e8ec84
+go: downloading github.com/go-ini/ini v1.33.0
+go: downloading github.com/dchest/siphash v1.1.0
+go: extracting github.com/hashicorp/go-retryablehttp v0.5.3
+go: extracting github.com/Azure/go-autorest v12.0.0+incompatible
+go: extracting github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8
+go: downloading golang.org/x/sync v0.0.0-20190423024810-112230192c58
+go: downloading github.com/circonus-labs/circonusllhist v0.1.3
+go: downloading gopkg.in/logfmt.v0 v0.3.0
+go: downloading github.com/dgrijalva/jwt-go v3.2.0+incompatible
+go: downloading contrib.go.opencensus.io/exporter/ocagent v0.4.12
+go: extracting github.com/yashtewari/glob-intersection v0.0.0-20180206001645-7af743e8ec84
+go: extracting github.com/dchest/siphash v1.1.0
+go: extracting github.com/circonus-labs/circonusllhist v0.1.3
+go: extracting github.com/go-ini/ini v1.33.0
+go: extracting golang.org/x/sync v0.0.0-20190423024810-112230192c58
+go: extracting gopkg.in/logfmt.v0 v0.3.0
+go: extracting contrib.go.opencensus.io/exporter/ocagent v0.4.12
+go: extracting github.com/dgrijalva/jwt-go v3.2.0+incompatible
+go: downloading github.com/census-instrumentation/opencensus-proto v0.2.0
+go: extracting github.com/census-instrumentation/opencensus-proto v0.2.0
+go: downloading github.com/grpc-ecosystem/grpc-gateway v1.8.5
+go: extracting github.com/antlr/antlr4 v0.0.0-20190223165740-dade65a895c2
+go: extracting github.com/grpc-ecosystem/grpc-gateway v1.8.5
+go: finding github.com/cenkalti/backoff v2.0.0+incompatible
+go: finding github.com/google/cel-go v0.2.0
+go: finding github.com/antlr/antlr4 v0.0.0-20190223165740-dade65a895c2
+go: finding golang.org/x/tools v0.0.0-20190822000311-fc82fb2afd64
+go: finding github.com/circonus-labs/circonus-gometrics v2.3.1+incompatible
+go: finding github.com/hashicorp/go-retryablehttp v0.5.3
+go: finding github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926
+go: finding github.com/circonus-labs/circonusllhist v0.1.3
+go: finding github.com/aws/aws-sdk-go v1.13.24
+go: finding github.com/go-ini/ini v1.33.0
+go: finding github.com/jmespath/go-jmespath v0.0.0-20160202185014-0b12d6b521d8
+go: finding github.com/DataDog/datadog-go v2.2.0+incompatible
+go: finding github.com/fluent/fluent-logger-golang v1.3.0
+go: finding github.com/tinylib/msgp v1.0.2
+go: finding github.com/philhofer/fwd v1.0.0
+go: finding github.com/Azure/go-autorest v12.0.0+incompatible
+go: finding contrib.go.opencensus.io/exporter/ocagent v0.4.12
+go: finding github.com/census-instrumentation/opencensus-proto v0.2.0
+go: finding github.com/grpc-ecosystem/grpc-gateway v1.8.5
+go: finding google.golang.org/api v0.9.0
+go: finding golang.org/x/sync v0.0.0-20190423024810-112230192c58
+go: finding github.com/dgrijalva/jwt-go v3.2.0+incompatible
+go: finding github.com/gophercloud/gophercloud v0.0.0-20190424031112-b9b92a825806
+go: finding github.com/open-policy-agent/opa v0.8.2
+go: finding github.com/dchest/siphash v1.1.0
+go: finding github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a
+go: finding github.com/yashtewari/glob-intersection v0.0.0-20180206001645-7af743e8ec84
+go: finding github.com/go-redis/redis v6.10.2+incompatible
+go: finding github.com/signalfx/golib v1.1.6
+go: finding github.com/signalfx/com_signalfx_metrics_protobuf v0.0.0-20170330202426-93e507b42f43
+go: finding github.com/signalfx/gohistogram v0.0.0-20160107210732-1ccfd2ff5083
+go: finding gopkg.in/logfmt.v0 v0.3.0
+go: finding gopkg.in/stack.v1 v1.7.0
+go: finding github.com/googleapis/gax-go v2.0.0+incompatible
+go: finding cloud.google.com/go/logging v1.0.0
+go: finding github.com/googleapis/gax-go/v2 v2.0.5
+go: finding contrib.go.opencensus.io/exporter/stackdriver v0.6.0
+go: finding github.com/cactus/go-statsd-client v3.1.1+incompatible
+go: finding contrib.go.opencensus.io/exporter/zipkin v0.1.1
+go: finding github.com/openzipkin/zipkin-go v0.1.6
+
+real	0m56.798s
+user	1m1.893s
+sys	0m14.558s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/mixgen ./mixer/tools/mixgen
+
+real	0m8.766s
+user	0m6.848s
+sys	0m1.527s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/node_agent ./security/cmd/node_agent
+
+real	0m5.774s
+user	0m3.540s
+sys	0m0.963s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/node_agent_k8s ./security/cmd/node_agent_k8s
+go: downloading github.com/hashicorp/vault v0.10.0
+go: extracting github.com/hashicorp/vault v0.10.0
+go: downloading github.com/sethgrid/pester v0.0.0-20180227223404-ed9870dad317
+go: downloading github.com/golang/snappy v0.0.1
+go: downloading github.com/ryanuber/go-glob v0.0.0-20160226084822-572520ed46db
+go: extracting github.com/ryanuber/go-glob v0.0.0-20160226084822-572520ed46db
+go: extracting github.com/sethgrid/pester v0.0.0-20180227223404-ed9870dad317
+go: extracting github.com/golang/snappy v0.0.1
+go: finding github.com/hashicorp/vault v0.10.0
+go: finding github.com/sethgrid/pester v0.0.0-20180227223404-ed9870dad317
+go: finding github.com/ryanuber/go-glob v0.0.0-20160226084822-572520ed46db
+go: finding github.com/golang/snappy v0.0.1
+
+real	0m19.156s
+user	0m9.633s
+sys	0m3.020s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/istio_ca ./security/cmd/istio_ca
+go: downloading github.com/coreos/go-oidc v0.0.0-20180117170138-065b426bd416
+go: extracting github.com/coreos/go-oidc v0.0.0-20180117170138-065b426bd416
+go: downloading github.com/pquerna/cachecontrol v0.0.0-20180306154005-525d0eb5f91d
+go: downloading gopkg.in/square/go-jose.v2 v2.3.1
+go: extracting github.com/pquerna/cachecontrol v0.0.0-20180306154005-525d0eb5f91d
+go: extracting gopkg.in/square/go-jose.v2 v2.3.1
+go: finding github.com/coreos/go-oidc v0.0.0-20180117170138-065b426bd416
+go: finding github.com/pquerna/cachecontrol v0.0.0-20180306154005-525d0eb5f91d
+go: finding gopkg.in/square/go-jose.v2 v2.3.1
+
+real	0m14.415s
+user	0m8.637s
+sys	0m2.454s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/istioctl ./istioctl/cmd/istioctl
+go: downloading k8s.io/helm v2.13.1+incompatible
+go: downloading github.com/pmezard/go-difflib v1.0.0
+go: downloading k8s.io/cli-runtime v0.0.0-20190221101700-11047e25a94a
+go: downloading k8s.io/kubernetes v1.13.1
+go: downloading istio.io/operator v0.0.0-20191010003958-b7f3c04cfd0b
+go: downloading github.com/docker/spdystream v0.0.0-20181023171402-6480d4af844c
+go: extracting github.com/pmezard/go-difflib v1.0.0
+go: extracting github.com/docker/spdystream v0.0.0-20181023171402-6480d4af844c
+go: extracting k8s.io/cli-runtime v0.0.0-20190221101700-11047e25a94a
+go: downloading github.com/evanphx/json-patch v4.2.0+incompatible
+go: extracting istio.io/operator v0.0.0-20191010003958-b7f3c04cfd0b
+go: extracting github.com/evanphx/json-patch v4.2.0+incompatible
+go: downloading github.com/kylelemons/godebug v1.1.0
+go: downloading github.com/kr/pretty v0.1.0
+go: downloading github.com/hashicorp/go-version v1.2.0
+go: downloading github.com/google/go-cmp v0.3.1
+go: extracting k8s.io/helm v2.13.1+incompatible
+go: extracting github.com/kr/pretty v0.1.0
+go: downloading github.com/kr/text v0.1.0
+go: extracting github.com/kylelemons/godebug v1.1.0
+go: extracting github.com/hashicorp/go-version v1.2.0
+go: downloading github.com/mholt/archiver v3.1.1+incompatible
+go: extracting github.com/google/go-cmp v0.3.1
+go: extracting github.com/kr/text v0.1.0
+go: extracting github.com/mholt/archiver v3.1.1+incompatible
+go: downloading github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8
+go: downloading github.com/ulikunitz/xz v0.5.6
+go: downloading github.com/nwaples/rardecode v1.0.0
+go: downloading github.com/dsnet/compress v0.0.1
+go: downloading github.com/pierrec/lz4 v2.2.5+incompatible
+go: downloading github.com/cyphar/filepath-securejoin v0.2.2
+go: downloading github.com/Masterminds/semver v1.4.2
+go: downloading github.com/Masterminds/sprig v2.14.1+incompatible
+go: extracting github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8
+go: extracting github.com/cyphar/filepath-securejoin v0.2.2
+go: extracting github.com/nwaples/rardecode v1.0.0
+go: downloading github.com/BurntSushi/toml v0.3.1
+go: downloading github.com/gobwas/glob v0.2.3
+go: extracting github.com/ulikunitz/xz v0.5.6
+go: extracting github.com/Masterminds/semver v1.4.2
+go: extracting github.com/Masterminds/sprig v2.14.1+incompatible
+go: downloading github.com/huandu/xstrings v1.2.0
+go: downloading github.com/satori/go.uuid v1.2.0
+go: downloading github.com/aokoli/goutils v1.0.1
+go: extracting github.com/BurntSushi/toml v0.3.1
+go: extracting github.com/gobwas/glob v0.2.3
+go: extracting github.com/satori/go.uuid v1.2.0
+go: extracting github.com/huandu/xstrings v1.2.0
+go: extracting github.com/aokoli/goutils v1.0.1
+go: extracting github.com/dsnet/compress v0.0.1
+go: extracting github.com/pierrec/lz4 v2.2.5+incompatible
+go: extracting k8s.io/kubernetes v1.13.1
+go: downloading k8s.io/apiserver v0.0.0-20181213151703-3ccfe8365421
+go: downloading github.com/docker/distribution v2.7.1+incompatible
+go: downloading k8s.io/utils v0.0.0-20190308190857-21c4ce38f2a7
+go: extracting k8s.io/utils v0.0.0-20190308190857-21c4ce38f2a7
+go: extracting github.com/docker/distribution v2.7.1+incompatible
+go: downloading github.com/opencontainers/go-digest v1.0.0-rc1
+go: extracting k8s.io/apiserver v0.0.0-20181213151703-3ccfe8365421
+go: extracting github.com/opencontainers/go-digest v1.0.0-rc1
+go: finding k8s.io/helm v2.13.1+incompatible
+go: finding github.com/BurntSushi/toml v0.3.1
+go: finding github.com/cyphar/filepath-securejoin v0.2.2
+go: finding github.com/gobwas/glob v0.2.3
+go: finding github.com/Masterminds/semver v1.4.2
+go: finding github.com/Masterminds/sprig v2.14.1+incompatible
+go: finding github.com/aokoli/goutils v1.0.1
+go: finding github.com/huandu/xstrings v1.2.0
+go: finding github.com/satori/go.uuid v1.2.0
+go: finding k8s.io/cli-runtime v0.0.0-20190221101700-11047e25a94a
+go: finding github.com/evanphx/json-patch v4.2.0+incompatible
+go: finding github.com/docker/spdystream v0.0.0-20181023171402-6480d4af844c
+go: finding github.com/pmezard/go-difflib v1.0.0
+go: finding istio.io/operator v0.0.0-20191010003958-b7f3c04cfd0b
+go: finding github.com/kr/pretty v0.1.0
+go: finding github.com/kr/text v0.1.0
+go: finding github.com/kylelemons/godebug v1.1.0
+go: finding github.com/mholt/archiver v3.1.1+incompatible
+go: finding github.com/dsnet/compress v0.0.1
+go: finding github.com/nwaples/rardecode v1.0.0
+go: finding github.com/pierrec/lz4 v2.2.5+incompatible
+go: finding github.com/ulikunitz/xz v0.5.6
+go: finding github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8
+go: finding github.com/google/go-cmp v0.3.1
+go: finding github.com/hashicorp/go-version v1.2.0
+go: finding k8s.io/kubernetes v1.13.1
+go: finding k8s.io/apiserver v0.0.0-20181213151703-3ccfe8365421
+go: finding github.com/docker/distribution v2.7.1+incompatible
+go: finding github.com/opencontainers/go-digest v1.0.0-rc1
+go: finding k8s.io/utils v0.0.0-20190308190857-21c4ce38f2a7
+
+real	0m51.190s
+user	0m42.489s
+sys	0m11.236s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/galley ./galley/cmd/galley
+
+real	0m19.484s
+user	0m12.495s
+sys	0m3.012s
+STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' bin/gobuild.sh /home/test/workspace/Istio_rhel/out/linux_s390x/release/sdsclient ./security/tools/sdsclient
+
+real	0m11.060s
+user	0m5.949s
+sys	0m1.427s
+BUILD_URL=http://gentian1.fyre.ibm.com:8080/job/Istio/job/rhel/9/
+JENKINS_NODE_COOKIE=ea158504-85fa-4d82-8384-1ffc115e5904
+HUDSON_SERVER_COOKIE=10e153368d01ca02
+SHELL=/bin/bash
+SSH_CLIENT=9.30.119.76 38898 22
+STAGE_NAME=Build
+BUILD_TAG=jenkins-Istio-rhel-9
+BRANCH_NAME=rhel
+PUBLISHED_VERSION=1.3.6
+OLDPWD=/home/test/workspace/Istio_rhel
+WORKSPACE=/home/test/workspace/Istio_rhel
+JOB_URL=http://gentian1.fyre.ibm.com:8080/job/Istio/job/rhel/
+RUN_CHANGES_DISPLAY_URL=http://gentian1.fyre.ibm.com:8080/job/Istio/job/rhel/9/display/redirect?page=changes
+USER=test
+library.pipeline-library.version=master
+JENKINS_HOME=/var/lib/jenkins
+MAIL=/var/mail/test
+PATH=/home/test/workspace/Istio_rhel/linux-s390x:/home/test/workspace/Istio_rhel/bin:/home/test/workspace/Istio_rhel/go/bin:/usr/local/bin:/usr/bin:/home/test/workspace/Istio_rhel/bin
+RUN_DISPLAY_URL=http://gentian1.fyre.ibm.com:8080/job/Istio/job/rhel/9/display/redirect
+NODES=rh7.6-slave
+PWD=/home/test/workspace/Istio_rhel/src/istio.io/istio
+PRIVATE_RUN_REASON=Job failed on PS
+HUDSON_URL=http://gentian1.fyre.ibm.com:8080/
+JOB_NAME=Istio/rhel
+BUILD_DISPLAY_NAME=#9 (rh7.6-slave)
+JENKINS_URL=http://gentian1.fyre.ibm.com:8080/
+BUILD_ID=9
+JOB_BASE_NAME=rhel
+SHLVL=4
+HOME=/home/test
+GOROOT=/home/test/workspace/Istio_rhel/go
+CURRENCY_VERSION=1.3.6
+JENKINS_SERVER_COOKIE=durable-ded069c94697128e08007b741d18fc83
+EXECUTOR_NUMBER=0
+NODE_LABELS=rh7.6-slave
+BASH_ENV=/home/test/.bashrc
+LOGNAME=test
+SSH_CONNECTION=9.30.119.76 38898 172.17.0.3 22
+HUDSON_HOME=/var/lib/jenkins
+NODE_NAME=rh7.6-slave
+GOPATH=/home/test/workspace/Istio_rhel
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+JOB_DISPLAY_URL=http://gentian1.fyre.ibm.com:8080/job/Istio/job/rhel/display/redirect
+BUILD_NUMBER=9
+HUDSON_COOKIE=67629334-ad83-4d6d-814d-eced90a5fa17
+SOURCE_ROOT=/home/test
+_=/usr/bin/printenv
+Built Istio successfully 
+
+
+* Getting Started * 
+
+ ISTIO BUILD COMPLETED SUCCESSFULLY !!! 
+ 
+* To integrate istio with kubernetes, export below variables * 
+
+ export GOPATH=/home/test/workspace/Istio_rhel
+ export GOROOT=/home/test/workspace/Istio_rhel/go
+ export PATH=$PATH:$GOPATH/go/bin:$GOPATH/bin:$GOPATH/out/linux_s390x/release:$GOPATH/linux-s390x 
+
+Cleaned up the artifacts
