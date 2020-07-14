@@ -10,7 +10,7 @@ set -e -o pipefail
 
 PACKAGE_NAME="sonarqube"
 PACKAGE_VERSION="8.4.0.35506"
-SCANNER_VERSION="4.3.0.2102"
+SCANNER_VERSION="4.3.0.2170"
 
 SOURCE_ROOT="$(pwd)"
 BUILD_DIR="/usr/local"
