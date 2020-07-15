@@ -217,10 +217,10 @@ function runTest() {
 		fi
 
         cd "$SOURCE_ROOT"
-        wget https://nodejs.org/dist/latest-v10.x/node-v10.20.1-linux-s390x.tar.xz
-        chmod ugo+r node-v10.20.1-linux-s390x.tar.xz
-        sudo tar -C /usr/local -xf node-v10.20.1-linux-s390x.tar.xz
-		export PATH=$PATH:/usr/local/node-v10.20.1-linux-s390x/bin
+        wget https://nodejs.org/dist/latest-v10.x/node-v10.21.0-linux-s390x.tar.xz
+        chmod ugo+r node-v10.21.0-linux-s390x.tar.xz
+        sudo tar -C /usr/local -xf node-v10.21.0-linux-s390x.tar.xz
+		export PATH=$PATH:/usr/local/node-v10.21.0linux-s390x/bin
 		node -v
         
         cd "$SOURCE_ROOT"/sonar-examples/projects/languages/javascript/javascript-sonar-runner/
