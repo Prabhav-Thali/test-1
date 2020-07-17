@@ -3,7 +3,7 @@
 # LICENSE: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 #
 # Instructions:
-# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/SonarQube/8.3.1/build_sonarqube.sh
+# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/SonarQube/8.4/build_sonarqube.sh
 # Execute build script: bash build_sonarqube.sh    (provide -h for help)
 
 set -e -o pipefail
@@ -28,15 +28,8 @@ if [ ! -d "$SOURCE_ROOT/logs/" ]; then
     mkdir -p "$SOURCE_ROOT/logs/"
 fi
 
-# Need handling for RHEL 6.10 as it doesn't have os-release file
-if [ -f "/etc/os-release" ]; then
-    source "/etc/os-release"
-else
-    cat /etc/redhat-release >>"${LOG_FILE}"
-    export ID="rhel"
-    export VERSION_ID="6.x"
-    export PRETTY_NAME="Red Hat Enterprise Linux 6.x"
-fi
+source "/etc/os-release"
+
 
 function prepare() {
     if command -v "sudo" >/dev/null; then
@@ -55,7 +48,7 @@ function prepare() {
 
     if [[ "$JAVA_PROVIDED" == "OpenJDK" ]];
     then
-        if [[ "$ID-$VERSION_ID" == "ubuntu-16.04" || "$ID-$VERSION_ID" == "sles12-sp4" ]];
+        if [[ "$ID-$VERSION_ID" == "ubuntu-16.04" ]];
         then
             printf --  "OpenJDK is not supported on $ID-$VERSION_ID.\n" |& tee -a "$LOG_FILE"
 
@@ -118,7 +111,7 @@ function configureAndInstall() {
             sudo yum install -y java-11-openjdk-devel   
             export JAVA_HOME=/usr/lib/jvm/java-11-openjdk     
             printf -- 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk\n'  >> "$BUILD_ENV"   
-        elif [[ "$ID" == "sles"  && "$VERSION_ID" != "12.4" ]]; then
+        elif [[ "$ID" == "sles" ]]; then
             sudo zypper install -y java-11-openjdk-devel
             export JAVA_HOME=/usr/lib64/jvm/java-11-openjdk
             printf -- 'export JAVA_HOME=/usr/lib64/jvm/java-11-openjdk\n'  >> "$BUILD_ENV"
@@ -220,8 +213,8 @@ function runTest() {
         wget https://nodejs.org/dist/latest-v10.x/node-v10.21.0-linux-s390x.tar.xz
         chmod ugo+r node-v10.21.0-linux-s390x.tar.xz
         sudo tar -C /usr/local -xf node-v10.21.0-linux-s390x.tar.xz
-	export PATH=$PATH:/usr/local/node-v10.21.0-linux-s390x/bin
-	node -v
+		export PATH=$PATH:/usr/local/node-v10.21.0-linux-s390x/bin
+		node -v
         
         cd "$SOURCE_ROOT"/sonar-examples/projects/languages/javascript/javascript-sonar-runner/
 		"$SOURCE_ROOT"/sonar-scanner-${SCANNER_VERSION}-linux/bin/sonar-scanner
@@ -229,12 +222,12 @@ function runTest() {
 
         # Run Python scanner
 		cd "$SOURCE_ROOT"/sonar-examples/projects/languages/python/python-sonar-runner
-		"$SOURCE_ROOT"/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner
+		"$SOURCE_ROOT"/sonar-scanner-${SCANNER_VERSION}-linux/bin/sonar-scanner
 		curl http://localhost:9000/dashboard/index/org.codehaus.sonar:example-python-sonar-runner
 
 		# Run PHP scanner
 		cd "$SOURCE_ROOT"/sonar-examples/projects/languages/php/php-sonar-runner
-		"$SOURCE_ROOT"/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner
+		"$SOURCE_ROOT"/sonar-scanner-${SCANNER_VERSION}-linux/bin/sonar-scanner
 		curl http://localhost:9000/dashboard/index/org.codehaus.sonar:php-sonar-runner
         if [[ $(ps -A| grep $pid |wc -l) -ne 0 ]]; then #check whether process is still running
                 sudo pkill -P $pid
@@ -315,7 +308,7 @@ case "$DISTRO" in
     sudo yum install -y git wget unzip tar which curl net-tools xz |& tee -a "$LOG_FILE"
     configureAndInstall |& tee -a "$LOG_FILE"
     ;;
-"sles-12.4" | "sles-12.5" | "sles-15.1")
+"sles-12.5" | "sles-15.1")
     printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
     printf -- "Installing dependencies... it may take some time.\n"
     sudo zypper install -y git wget unzip tar which gzip curl |& tee -a "$LOG_FILE"
