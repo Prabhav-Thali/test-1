@@ -100,9 +100,9 @@ function configureAndInstall() {
         # Install AdoptOpenJDK 11 (With OpenJ9)
 
         cd "$SOURCE_ROOT"
-        sudo wget https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.4%2B11_openj9-0.15.1/OpenJDK11U-jdk_s390x_linux_openj9_11.0.4_11_openj9-0.15.1.tar.gz
-        sudo tar -C /usr/local -xzf OpenJDK11U-jdk_s390x_linux_openj9_11.0.4_11_openj9-0.15.1.tar.gz
-        export JAVA_HOME=/usr/local/jdk-11.0.4+11
+        sudo wget https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.6%2B10/OpenJDK11U-jre_s390x_linux_hotspot_11.0.6_10.tar.gz 
+        sudo tar -C /usr/local -xzf OpenJDK11U-jre_s390x_linux_hotspot_11.0.6_10.tar.gz
+        export JAVA_HOME=/usr/local/jdk-11.0.6+10-jre
 
         printf -- 'export JAVA_HOME=/usr/local/jdk-11.0.4+11\n'  >> "$BUILD_ENV"
         printf -- 'AdoptOpenJDK 11 installed\n' >> "$LOG_FILE"
