@@ -1,0 +1,461 @@
+diff --git a/Makefile b/Makefile
+index c8754ad6..972712de 100644
+--- a/Makefile
++++ b/Makefile
+@@ -39,6 +39,8 @@ IMAGE_VERSION ?= master-2020-03-05T18-27-04
+ LOCAL_ARCH := $(shell uname -m)
+ ifeq ($(LOCAL_ARCH),x86_64)
+     TARGET_ARCH ?= amd64
++else ifeq ($(shell echo $(LOCAL_ARCH) | head -c 5),s390x)
++    TARGET_ARCH ?= s390x
+ else ifeq ($(shell echo $(LOCAL_ARCH) | head -c 5),armv8)
+     TARGET_ARCH ?= arm64
+ else ifeq ($(LOCAL_ARCH),aarch64)
+@@ -61,11 +63,11 @@ else
+ endif
+ 
+ export TARGET_OUT ?= $(shell pwd)/out/$(TARGET_OS)_$(TARGET_ARCH)
+-export TARGET_OUT_LINUX ?= $(shell pwd)/out/linux_amd64
++export TARGET_OUT_LINUX ?= $(shell pwd)/out/linux_s390x
+ 
+ ifeq ($(BUILD_WITH_CONTAINER),1)
+ export TARGET_OUT = /work/out/$(TARGET_OS)_$(TARGET_ARCH)
+-export TARGET_OUT_LINUX = /work/out/linux_amd64
++export TARGET_OUT_LINUX = /work/out/linux_s390x
+ CONTAINER_CLI ?= docker
+ DOCKER_SOCKET_MOUNT ?= -v /var/run/docker.sock:/var/run/docker.sock
+ IMG ?= gcr.io/istio-testing/$(IMAGE_NAME):$(IMAGE_VERSION)
+diff --git a/Makefile.core.mk b/Makefile.core.mk
+index c8c79f35..a8ee0701 100644
+--- a/Makefile.core.mk
++++ b/Makefile.core.mk
+@@ -65,7 +65,7 @@ BAZEL_OUTPUT_PATH = $(shell bazel info $(BAZEL_BUILD_ARGS) output_path)
+ BAZEL_ENVOY_PATH ?= $(BAZEL_OUTPUT_PATH)/k8-fastbuild/bin/src/envoy/envoy
+ 
+ build:
+-	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS)
++	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS) --copt "-Wno-error=type-limits" --override_repository=envoy="/root/envoy" --sandbox_debug 
+ 
+ build_envoy:
+ 	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_REL) //src/envoy:envoy
+diff --git a/WORKSPACE b/WORKSPACE
+index 9bcb0849..eb50013d 100644
+--- a/WORKSPACE
++++ b/WORKSPACE
+@@ -20,7 +20,7 @@ workspace(name = "io_istio_proxy")
+ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
+ load(
+     "//:repositories.bzl",
+-    "docker_dependencies",
++#    "docker_dependencies",
+     "googletest_repositories",
+     "mixerapi_dependencies",
+ )
+@@ -34,6 +34,15 @@ bind(
+     actual = "//external:ssl",
+ )
+ 
++local_repository(
++     name = "boringssl",
++     path = "/root/boringssl",
++)
++bind(
++     name = "ssl",
++     actual = "@boringssl//:ssl",
++)
++
+ # 1. Determine SHA256 `wget https://github.com/istio/envoy/archive/$COMMIT.tar.gz && sha256sum $COMMIT.tar.gz`
+ # 2. Update .bazelversion, envoy.bazelrc and .bazelrc if needed.
+ #
+@@ -78,42 +87,42 @@ load("@rules_antlr//antlr:deps.bzl", "antlr_dependencies")
+ antlr_dependencies(471)
+ 
+ # Docker dependencies
+-
+-docker_dependencies()
+-
+-load(
+-    "@io_bazel_rules_docker//repositories:repositories.bzl",
+-    container_repositories = "repositories",
+-)
+-
+-container_repositories()
+-
+-load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+-
+-container_deps()
+-
+-load(
+-    "@io_bazel_rules_docker//container:container.bzl",
+-    "container_pull",
+-)
+-
+-container_pull(
+-    name = "distroless_cc",
+-    # Latest as of 10/21/2019. To update, remove this line, re-build, and copy the suggested digest.
+-    digest = "sha256:86f16733f25964c40dcd34edf14339ddbb2287af2f7c9dfad88f0366723c00d7",
+-    registry = "gcr.io",
+-    repository = "distroless/cc",
+-)
+-
+-container_pull(
+-    name = "bionic",
+-    # Latest as of 10/21/2019. To update, remove this line, re-build, and copy the suggested digest.
+-    digest = "sha256:3e83eca7870ee14a03b8026660e71ba761e6919b6982fb920d10254688a363d4",
+-    registry = "index.docker.io",
+-    repository = "library/ubuntu",
+-    tag = "bionic",
+-)
+-
++#
++#docker_dependencies()
++#
++#load(
++#    "@io_bazel_rules_docker//repositories:repositories.bzl",
++#    container_repositories = "repositories",
++#)
++#
++#container_repositories()
++#
++#load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
++#
++#container_deps()
++#
++#load(
++#    "@io_bazel_rules_docker//container:container.bzl",
++#    "container_pull",
++#)
++#
++#container_pull(
++#    name = "distroless_cc",
++#    # Latest as of 10/21/2019. To update, remove this line, re-build, and copy the suggested digest.
++#    digest = "sha256:86f16733f25964c40dcd34edf14339ddbb2287af2f7c9dfad88f0366723c00d7",
++#    registry = "gcr.io",
++#    repository = "distroless/cc",
++#)
++#
++#container_pull(
++#    name = "bionic",
++#    # Latest as of 10/21/2019. To update, remove this line, re-build, and copy the suggested digest.
++#    digest = "sha256:3e83eca7870ee14a03b8026660e71ba761e6919b6982fb920d10254688a363d4",
++#    registry = "index.docker.io",
++#    repository = "library/ubuntu",
++#    tag = "bionic",
++#)
++#
+ # End of docker dependencies
+ 
+ FLAT_BUFFERS_SHA = "a83caf5910644ba1c421c002ef68e42f21c15f9f"
+diff --git a/envoy.bazelrc b/envoy.bazelrc
+index f1c01584..84c5a6ef 100644
+--- a/envoy.bazelrc
++++ b/envoy.bazelrc
+@@ -16,8 +16,8 @@ build --experimental_strict_action_env=true
+ build --host_force_python=PY2
+ build --action_env=BAZEL_LINKLIBS=-l%:libstdc++.a
+ build --action_env=BAZEL_LINKOPTS=-lm
+-build --host_javabase=@bazel_tools//tools/jdk:remote_jdk11
+-build --javabase=@bazel_tools//tools/jdk:remote_jdk11
++build --host_javabase=@local_jdk//:jdk
++build --javabase=@local_jdk//:jdk
+ build --enable_platform_specific_config
+ 
+ # Enable position independent code, this option is not supported on Windows and default on on macOS.
+diff --git a/extensions/access_log_policy/BUILD b/extensions/access_log_policy/BUILD
+index 75586895..e975820a 100644
+--- a/extensions/access_log_policy/BUILD
++++ b/extensions/access_log_policy/BUILD
+@@ -8,22 +8,22 @@ load(
+ 
+ envoy_package()
+ 
+-envoy_cc_library(
+-    name = "access_log_policy_lib",
+-    srcs = [
+-        "config.cc",
+-        "plugin.cc",
+-    ],
+-    hdrs = [
+-        "plugin.h",
+-    ],
+-    repository = "@envoy",
+-    visibility = ["//visibility:public"],
+-    deps = [
+-        "//extensions/access_log_policy/config/v1alpha1:access_log_policy_config_cc_proto",
+-        "//extensions/common:context",
+-        "//extensions/common:istio_dimensions",
+-        "@envoy//source/common/common:base64_lib",
+-        "@envoy//source/extensions/common/wasm/null:null_plugin_lib",
+-    ],
+-)
++#envoy_cc_library(
++#    name = "access_log_policy_lib",
++#    srcs = [
++#        "config.cc",
++#        "plugin.cc",
++#    ],
++#    hdrs = [
++#        "plugin.h",
++#    ],
++#    repository = "@envoy",
++#    visibility = ["//visibility:public"],
++#    deps = [
++#        "//extensions/access_log_policy/config/v1alpha1:access_log_policy_config_cc_proto",
++#        "//extensions/common:context",
++#        "//extensions/common:istio_dimensions",
++#        "@envoy//source/common/common:base64_lib",
++#        "@envoy//source/extensions/common/wasm/null:null_plugin_lib",
++#    ],
++#)
+diff --git a/extensions/attributegen/BUILD b/extensions/attributegen/BUILD
+index 4b7844bc..045d0821 100644
+--- a/extensions/attributegen/BUILD
++++ b/extensions/attributegen/BUILD
+@@ -30,22 +30,22 @@ load(
+ 
+ envoy_package()
+ 
+-envoy_cc_library(
+-    name = "attributegen_plugin",
+-    srcs = [
+-        "plugin.cc",
+-    ],
+-    hdrs = [
+-        "plugin.h",
+-    ],
+-    repository = "@envoy",
+-    visibility = ["//visibility:public"],
+-    deps = [
+-        ":config_cc_proto",
+-        "@envoy//api/wasm/cpp/contrib:contrib_lib",
+-        "@envoy//source/extensions/common/wasm/null:null_plugin_lib",
+-    ],
+-)
++#envoy_cc_library(
++#    name = "attributegen_plugin",
++#    srcs = [
++#        "plugin.cc",
++#    ],
++#    hdrs = [
++#        "plugin.h",
++#    ],
++#    repository = "@envoy",
++#    visibility = ["//visibility:public"],
++#    deps = [
++#        ":config_cc_proto",
++#        "@envoy//api/wasm/cpp/contrib:contrib_lib",
++#        "@envoy//source/extensions/common/wasm/null:null_plugin_lib",
++#    ],
++#)
+ 
+ cc_proto_library(
+     name = "config_cc_proto",
+@@ -58,31 +58,31 @@ proto_library(
+     srcs = ["config.proto"],
+ )
+ 
+-envoy_extension_cc_test(
+-    name = "plugin_test",
+-    size = "small",
+-    srcs = ["plugin_test.cc"],
+-    data = [
+-        "//extensions/attributegen/testdata",
+-    ],
+-    extension_name = "envoy.filters.http.wasm",
+-    repository = "@envoy",
+-    deps = [
+-        ":attributegen_plugin",
+-        "//external:abseil_hash_testing",
+-        "@envoy//source/common/stream_info:stream_info_lib",
+-        "@envoy//source/extensions/common/wasm:wasm_interoperation_lib",
+-        "@envoy//source/extensions/common/wasm:wasm_lib",
+-        "@envoy//source/extensions/filters/http/wasm:wasm_filter_lib",
+-        "@envoy//test/mocks/grpc:grpc_mocks",
+-        "@envoy//test/mocks/http:http_mocks",
+-        "@envoy//test/mocks/network:network_mocks",
+-        "@envoy//test/mocks/server:server_mocks",
+-        "@envoy//test/mocks/ssl:ssl_mocks",
+-        "@envoy//test/mocks/stream_info:stream_info_mocks",
+-        "@envoy//test/mocks/thread_local:thread_local_mocks",
+-        "@envoy//test/mocks/upstream:upstream_mocks",
+-        "@envoy//test/test_common:environment_lib",
+-        "@envoy//test/test_common:utility_lib",
+-    ],
+-)
++#envoy_extension_cc_test(
++#    name = "plugin_test",
++#    size = "small",
++#    srcs = ["plugin_test.cc"],
++#    data = [
++#        "//extensions/attributegen/testdata",
++#    ],
++#    extension_name = "envoy.filters.http.wasm",
++#    repository = "@envoy",
++#    deps = [
++#        ":attributegen_plugin",
++#        "//external:abseil_hash_testing",
++#        "@envoy//source/common/stream_info:stream_info_lib",
++#        "@envoy//source/extensions/common/wasm:wasm_interoperation_lib",
++#        "@envoy//source/extensions/common/wasm:wasm_lib",
++#        "@envoy//source/extensions/filters/http/wasm:wasm_filter_lib",
++#        "@envoy//test/mocks/grpc:grpc_mocks",
++#        "@envoy//test/mocks/http:http_mocks",
++#        "@envoy//test/mocks/network:network_mocks",
++#        "@envoy//test/mocks/server:server_mocks",
++#        "@envoy//test/mocks/ssl:ssl_mocks",
++#        "@envoy//test/mocks/stream_info:stream_info_mocks",
++#        "@envoy//test/mocks/thread_local:thread_local_mocks",
++#        "@envoy//test/mocks/upstream:upstream_mocks",
++#        "@envoy//test/test_common:environment_lib",
++#        "@envoy//test/test_common:utility_lib",
++#    ],
++#)
+diff --git a/extensions/common/BUILD b/extensions/common/BUILD
+index a365c6cc..cf84841f 100644
+--- a/extensions/common/BUILD
++++ b/extensions/common/BUILD
+@@ -100,33 +100,33 @@ envoy_cc_test(
+     ],
+ )
+ 
+-envoy_cc_test(
+-    name = "istio_dimensions_test",
+-    size = "small",
+-    srcs = ["istio_dimensions_test.cc"],
+-    external_deps = ["abseil_hash_testing"],
+-    repository = "@envoy",
+-    deps = [
+-        ":istio_dimensions",
+-    ],
+-)
+-
+-envoy_cc_binary(
+-    name = "proto_util_speed_test",
+-    testonly = True,
+-    srcs = ["proto_util_speed_test.cc"],
+-    external_deps = [
+-        "benchmark",
+-    ],
+-    repository = "@envoy",
+-    deps = [
+-        ":node_info_fb_cc",
+-        ":proto_util",
+-        "@envoy//source/common/stream_info:filter_state_lib",
+-        "@envoy//source/extensions/common/wasm:wasm_interoperation_lib",
+-        "@envoy//source/extensions/common/wasm:wasm_lib",
+-    ],
+-)
++#envoy_cc_test(
++#    name = "istio_dimensions_test",
++#    size = "small",
++#    srcs = ["istio_dimensions_test.cc"],
++#    external_deps = ["abseil_hash_testing"],
++#    repository = "@envoy",
++#    deps = [
++#        ":istio_dimensions",
++#    ],
++#)
++#
++#envoy_cc_binary(
++#    name = "proto_util_speed_test",
++#    testonly = True,
++#    srcs = ["proto_util_speed_test.cc"],
++#    external_deps = [
++#        "benchmark",
++#    ],
++#    repository = "@envoy",
++#    deps = [
++#        ":node_info_fb_cc",
++#        ":proto_util",
++#        "@envoy//source/common/stream_info:filter_state_lib",
++#        "@envoy//source/extensions/common/wasm:wasm_interoperation_lib",
++#        "@envoy//source/extensions/common/wasm:wasm_lib",
++#    ],
++#)
+ 
+ flatbuffer_library_public(
+     name = "node_info_fbs",
+diff --git a/src/envoy/BUILD b/src/envoy/BUILD
+index 65518e77..ad4c612c 100644
+--- a/src/envoy/BUILD
++++ b/src/envoy/BUILD
+@@ -25,8 +25,8 @@ envoy_cc_binary(
+     repository = "@envoy",
+     visibility = ["//visibility:public"],
+     deps = [
+-        "//extensions/access_log_policy:access_log_policy_lib",
+-        "//extensions/attributegen:attributegen_plugin",
++        #"//extensions/access_log_policy:access_log_policy_lib",
++        #"//extensions/attributegen:attributegen_plugin",
+         "//extensions/metadata_exchange:metadata_exchange_lib",
+         "//extensions/stackdriver:stackdriver_plugin",
+         "//extensions/stats:stats_plugin",
+diff --git a/src/istio/utils/logger.cc b/src/istio/utils/logger.cc
+index 68d7ecf0..eb82f42b 100644
+--- a/src/istio/utils/logger.cc
++++ b/src/istio/utils/logger.cc
+@@ -54,6 +54,7 @@ class DefaultLogger : public Logger {
+       case Level::ERROR_:
+         return true;
+     }
++    return true;
+   }
+ 
+   virtual void writeBuffer(Level level, const char *buffer) override {
+diff --git a/tools/docker/BUILD b/tools/docker/BUILD
+deleted file mode 100644
+index d5a6e5fd..00000000
+--- a/tools/docker/BUILD
++++ /dev/null
+@@ -1,51 +0,0 @@
+-# Copyright 2019 Istio Authors. All Rights Reserved.
+-#
+-# Licensed under the Apache License, Version 2.0 (the "License");
+-# you may not use this file except in compliance with the License.
+-# You may obtain a copy of the License at
+-#
+-#    http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing, software
+-# distributed under the License is distributed on an "AS IS" BASIS,
+-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-# See the License for the specific language governing permissions and
+-# limitations under the License.
+-#
+-################################################################################
+-#
+-load("@io_bazel_rules_docker//container:image.bzl", "container_image")
+-load(
+-    "@io_bazel_rules_docker//container:container.bzl",
+-    "container_push",
+-)
+-
+-container_image(
+-    name = "envoy_distroless",
+-    base = "@distroless_cc//image",
+-    tars = ["//src/envoy:envoy_tar"],
+-)
+-
+-container_image(
+-    name = "envoy_ubuntu",
+-    base = "@bionic//image",
+-    tars = ["//src/envoy:envoy_tar"],
+-)
+-
+-container_push(
+-    name = "push_envoy_distroless",
+-    format = "Docker",
+-    image = ":envoy_distroless",
+-    registry = "gcr.io",
+-    repository = "{DOCKER_REPOSITORY}",
+-    tag = "{BUILD_CONFIG}-{BUILD_SCM_REVISION}",
+-)
+-
+-container_push(
+-    name = "push_envoy_ubuntu",
+-    format = "Docker",
+-    image = ":envoy_ubuntu",
+-    registry = "gcr.io",
+-    repository = "{DOCKER_REPOSITORY}",
+-    tag = "ubuntu-{BUILD_CONFIG}-{BUILD_SCM_REVISION}",
+-)
