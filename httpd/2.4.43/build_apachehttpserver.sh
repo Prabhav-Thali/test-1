@@ -170,7 +170,7 @@ case "$DISTRO" in
 	configureAndInstall |& tee -a "$LOG_FILE"
 	;;
 
-"sles-15.1")
+"sles-15.1" | "sles-15.2")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for HTTP server from repository \n' |& tee -a "$LOG_FILE"
 	sudo zypper install -y git openssl libopenssl-devel python gcc libtool autoconf make libpcre1 pcre-devel libxml2-tools libxml2-devel libexpat-devel which wget tar awk |& tee -a "$LOG_FILE"
