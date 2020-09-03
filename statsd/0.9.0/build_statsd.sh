@@ -3,7 +3,7 @@
 # LICENSE: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 #
 # Instructions:
-# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Statsd/0.8.6/build_statsd.sh
+# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Statsd/0.9.0/build_statsd.sh
 # Execute build script: bash build_statsd.sh    (provide -h for help)
 #
 
@@ -11,6 +11,7 @@ set -e  -o pipefail
 
 PACKAGE_NAME="statsd"
 PACKAGE_VERSION="0.9.0"
+
 CURDIR="$(pwd)"
 SOURCE_ROOT="$(pwd)"
 USER="$(whoami)"
@@ -115,7 +116,7 @@ function configureAndInstall() {
 	#Cleanup
 	cleanup
 
-	printf -- "\n Installation of %s %s was sucessfull \n\n" $PACKAGE_NAME $PACKAGE_VERSION
+	printf -- "\n Installation of %s %s was sucessful \n\n" $PACKAGE_NAME $PACKAGE_VERSION
 }
 
 function runTest() {
