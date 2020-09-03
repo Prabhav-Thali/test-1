@@ -89,10 +89,10 @@ function configureAndInstall() {
 	
 	#Install Nodejs
 	cd $SOURCE_ROOT
-	wget https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-s390x.tar.xz
-	chmod ugo+r node-v10.15.3-linux-s390x.tar.xz
-	sudo tar -C /usr/local -xf node-v10.15.3-linux-s390x.tar.xz
-	export PATH=$PATH:/usr/local/node-v10.15.3-linux-s390x/bin
+	wget https://nodejs.org/dist/v12.18.3/node-v12.18.3-linux-s390x.tar.xz
+	chmod ugo+r node-v12.18.3-linux-s390x.tar.xz
+	sudo tar -C /usr/local -xf node-v12.18.3-linux-s390x.tar.xz
+	export PATH=$PATH:/usr/local/node-v12.18.3-linux-s390x/bin
 	node -v
 	
 	#Install Statsd
@@ -130,7 +130,7 @@ function runTest() {
     			export LD_LIBRARY_PATH=/opt/gcc-5.4.0/lib64/
 		fi
 		
-                export PATH=$PATH:/usr/local/node-v10.15.3-linux-s390x/bin
+                export PATH=$PATH:/usr/local/node-v12.18.3-linux-s390x/bin
 		cd $SOURCE_ROOT/statsd/
 		./run_tests.js
 
@@ -184,7 +184,7 @@ function gettingStarted() {
 	printf -- "Getting Started: \n"
 	printf -- "To run Statsd daemon : \n"
 	printf -- "  $ cd $SOURCE_ROOT/statsd  \n"
-	printf -- "  $ export PATH=\$PATH:/usr/local/node-v10.15.3-linux-s390x/bin  \n"
+	printf -- "  $ export PATH=\$PATH:/usr/local/node-v12.18.3-linux-s390x/bin  \n"
 	printf -- "  $ export LD_LIBRARY_PATH=/opt/gcc-5.4.0/lib64/  #For RHEL 7.x only  \n"
 	printf -- "  $ node stats.js <path_to_config> #eg: node stats.js $SOURCE_ROOT/statsd/exampleConfig.js  \n\n"
 	printf -- "Usage:  \n"
