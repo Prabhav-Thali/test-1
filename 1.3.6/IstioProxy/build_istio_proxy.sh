@@ -115,7 +115,7 @@ function cleanup() {
 	rm -rf "${CURDIR}/BUILD-api.patch"
 	rm -rf "${CURDIR}/patch_BUILD.diff"
 	rm -rf "${CURDIR}/patch_cond.diff"
-	rm -rf "${CURDIR}/gcc-7.3.0.tar.xz"
+	rm -rf "${CURDIR}/gcc-7.3.0.tar.gz"
 	rm -rf "${CURDIR}/l1_epo.patch"
 	rm -rf "${CURDIR}/l1_pos.patch"
 	rm -rf "${CURDIR}/l1_lin.patch"
@@ -131,8 +131,8 @@ function buildGCC() {
 
 	printf -- 'Building GCC \n' |& tee -a "$LOG_FILE"
 	cd "${CURDIR}"
-	wget https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz
-	tar -xf gcc-7.3.0.tar.xz
+	wget https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz
+	tar -xf gcc-7.3.0.tar.gz
 	cd gcc-7.3.0/
 	if [[ "${VERSION_ID}" == "8.1" || "${VERSION_ID}" == "8.2" ]]; then
 	 curl -o gcc_rhel8_patch.diff $REPO_URL/gcc_rhel8_patch.diff
@@ -283,6 +283,8 @@ function configureAndInstall() {
         cd "${CURDIR}"
         git clone https://gn.googlesource.com/gn
         cd gn
+	git checkout c5f5cb2
+	sed -i -e 's/-Wl,--icf=all//g' ./build/gen.py
         python build/gen.py
         ninja -C out
 
@@ -320,11 +322,10 @@ function configureAndInstall() {
 		curl -o "${CURDIR}/envoy/bazel/l1_pos.patch" $REPO_URL/l1_pos.patch
 		curl -o repositories-envoy.bzl.ub2004.patch $REPO_URL/repositories-envoy.bzl.ub2004.patch
 		patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.ub2004.patch 
-        else
+    else
         curl -o repositories-envoy.bzl.patch $REPO_URL/repositories-envoy.bzl.patch
         patch "${CURDIR}/envoy/bazel/repositories.bzl" repositories-envoy.bzl.patch
 	fi
-	
         if [ "${ID}" == "rhel" ]; then
 		curl -o patch_rhel_foreign.patch $REPO_URL/patch_rhel_foreign.patch
 		sed -i "s|\$SOURCE_ROOT|${CURDIR}|" patch_rhel_foreign.patch
