@@ -1,7 +1,0 @@
-version: '3'
-services:
-  nodered:
-    image: "node-red:latest"
-    ports:
-      - "1880:1880"
-

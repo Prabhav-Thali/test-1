@@ -1,716 +1,0 @@
-Script started on 2019-09-26 12:08:36+0000
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# 
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# 
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# sudo apt-get update
-0% [Working]            Hit:1 http://ports.ubuntu.com/ubuntu-ports bionic InRelease
-0% [Working]0% [1 InRelease gpgv 242 kB] [Waiting for headers]                                                  Get:2 http://ports.ubuntu.com/ubuntu-ports bionic-updates InRelease [88.7 kB]
-0% [1 InRelease gpgv 242 kB] [2 InRelease 4182 B/88.7 kB 5%]                                                            0% [2 InRelease 13.4 kB/88.7 kB 15%]                                    0% [Waiting for headers]0% [2 InRelease gpgv 88.7 kB] [Waiting for headers]                                                   Get:3 http://ports.ubuntu.com/ubuntu-ports bionic-backports InRelease [74.6 kB]
-0% [2 InRelease gpgv 88.7 kB] [Waiting for headers]                                                   0% [Waiting for headers]0% [3 InRelease gpgv 74.6 kB] [Waiting for headers]                                                   0% [Waiting for headers]                        Get:4 http://ports.ubuntu.com/ubuntu-ports bionic-security InRelease [88.7 kB]
-                        0% [Working]0% [4 InRelease gpgv 88.7 kB] [Waiting for headers]                                                   32% [Waiting for headers]                         Get:5 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main s390x Packages [512 kB]
-46% [5 Packages 271 kB/512 kB 53%]                                  58% [Working]58% [5 Packages store 0 B] [Waiting for headers]                                                Get:6 http://ports.ubuntu.com/ubuntu-ports bionic-updates/universe s390x Packages [810 kB]
-59% [5 Packages store 0 B] [6 Packages 20.8 kB/810 kB 3%]                                                         100% [5 Packages store 0 B]                           100% [Working]100% [6 Packages store 0 B]                           100% [Working]              Fetched 1574 kB in 1s (1742 kB/s)
-Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 7%Reading package lists... 7%Reading package lists... 7%Reading package lists... 7%Reading package lists... 7%Reading package lists... 7%Reading package lists... 50%Reading package lists... 50%Reading package lists... 75%Reading package lists... 75%Reading package lists... 75%Reading package lists... 75%Reading package lists... 76%Reading package lists... 76%Reading package lists... 79%Reading package lists... 79%Reading package lists... 82%Reading package lists... 82%Reading package lists... 82%Reading package lists... 82%Reading package lists... 82%Reading package lists... 82%Reading package lists... 87%Reading package lists... 87%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 90%Reading package lists... 91%Reading package lists... 92%Reading package lists... 92%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 97%Reading package lists... 97%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# sudo apt-get install tar wget gcc git make python curl libvirt-dev
-Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... Done
-make is already the newest version (4.1-9.1ubuntu1).
-python is already the newest version (2.7.15~rc1-1).
-curl is already the newest version (7.58.0-2ubuntu3.8).
-gcc is already the newest version (4:7.4.0-1ubuntu2.3).
-git is already the newest version (1:2.17.1-1ubuntu0.4).
-tar is already the newest version (1.29b-2ubuntu0.1).
-wget is already the newest version (1.19.4-1ubuntu2.2).
-The following additional packages will be installed:
-  libvirt0
-The following packages will be upgraded:
-  libvirt-dev libvirt0
-2 upgraded, 0 newly installed, 0 to remove and 97 not upgraded.
-Need to get 1192 kB of archives.
-After this operation, 0 B of additional disk space will be used.
-Do you want to continue? [Y/n] y
-0% [Working]            Get:1 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main s390x libvirt-dev s390x 4.0.0-1ubuntu8.13 [143 kB]
-0% [1 libvirt-dev 0 B/143 kB 0%]                                20% [Working]             Get:2 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main s390x libvirt0 s390x 4.0.0-1ubuntu8.13 [1049 kB]
-20% [2 libvirt0 0 B/1049 kB 0%]                               100% [Working]              Fetched 1192 kB in 0s (2585 kB/s)
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 105567 files and directories currently installed.)
-Preparing to unpack .../libvirt-dev_4.0.0-1ubuntu8.13_s390x.deb ...
-Unpacking libvirt-dev:s390x (4.0.0-1ubuntu8.13) over (4.0.0-1ubuntu8.12) ...
-Preparing to unpack .../libvirt0_4.0.0-1ubuntu8.13_s390x.deb ...
-Unpacking libvirt0:s390x (4.0.0-1ubuntu8.13) over (4.0.0-1ubuntu8.12) ...
-Setting up libvirt0:s390x (4.0.0-1ubuntu8.13) ...
-Processing triggers for libc-bin (2.27-3ubuntu1) ...
-Setting up libvirt-dev:s390x (4.0.0-1ubuntu8.13) ...
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# wget -q https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.13/build_go.sh
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# bash build_go.sh
-Detected Ubuntu 18.04.2 LTS 
-Request details : PACKAGE NAME= go , VERSION= 1.13 
-Installing go 1.13 for ubuntu-18.04 
-Reading package lists...
-Building dependency tree...
-Reading state information...
-gcc is already the newest version (4:7.4.0-1ubuntu2.3).
-tar is already the newest version (1.29b-2ubuntu0.1).
-wget is already the newest version (1.19.4-1ubuntu2.2).
-0 upgraded, 0 newly installed, 0 to remove and 97 not upgraded.
-Configuration and Installation started 
-Downloading go binaries 
-Extracted the tar in /usr/local and created symlink
-Installed go 1.13 successfully 
-
-
-Usage: 
-  Set GOROOT and GOPATH to get started 
-  More information can be found here : https://golang.org/cmd/go/ 
-
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# mkdir go
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# export GOPATH=/mnt/go
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# export PATH=$GOPATH/bin:$PATH
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# git clone https://github.com/kubernetes/minikube.git $GOPATH/src/k8s.io/minikube
-Cloning into '/mnt/go/src/k8s.io/minikube'...
-remote: Enumerating objects: 87008, done.[K
-Receiving objects:   0% (1/87008)   Receiving objects:   1% (871/87008)   Receiving objects:   2% (1741/87008)   Receiving objects:   3% (2611/87008)   Receiving objects:   4% (3481/87008)   Receiving objects:   5% (4351/87008)   Receiving objects:   6% (5221/87008)   Receiving objects:   7% (6091/87008)   Receiving objects:   8% (6961/87008)   Receiving objects:   9% (7831/87008)   Receiving objects:   9% (8108/87008), 22.38 MiB | 22.37 MiB/s   Receiving objects:   9% (8112/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  10% (8701/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  11% (9571/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  12% (10441/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  13% (11312/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  14% (12182/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  15% (13052/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  16% (13922/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  17% (14792/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  18% (15662/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  19% (16532/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  20% (17402/87008), 48.52 MiB | 24.26 MiB/s   Receiving objects:  21% (18272/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  22% (19142/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  23% (20012/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  24% (20882/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  25% (21752/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  26% (22623/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  27% (23493/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  28% (24363/87008), 69.02 MiB | 27.61 MiB/s   Receiving objects:  28% (25110/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  29% (25233/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  30% (26103/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  31% (26973/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  32% (27843/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  33% (28713/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  34% (29583/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  35% (30453/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  36% (31323/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  37% (32193/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  38% (33064/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  39% (33934/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  40% (34804/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  41% (35674/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  42% (36544/87008), 78.95 MiB | 26.32 MiB/s   Receiving objects:  43% (37414/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  44% (38284/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  45% (39154/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  46% (40024/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  47% (40894/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  48% (41764/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  49% (42634/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  50% (43504/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  51% (44375/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  52% (45245/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  53% (46115/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  54% (46985/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  55% (47855/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  56% (48725/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  57% (49595/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  58% (50465/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  59% (51335/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  60% (52205/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  61% (53075/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  62% (53945/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  63% (54816/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  64% (55686/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  65% (56556/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  66% (57426/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  67% (58296/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  68% (59166/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  69% (60036/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  70% (60906/87008), 91.67 MiB | 26.19 MiB/s   Receiving objects:  70% (61715/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  71% (61776/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  72% (62646/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  73% (63516/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  74% (64386/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  75% (65256/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  76% (66127/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  77% (66997/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  78% (67867/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  79% (68737/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  80% (69607/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  81% (70477/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  82% (71347/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  83% (72217/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  84% (73087/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  85% (73957/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  86% (74827/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  87% (75697/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  88% (76568/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  89% (77438/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  90% (78308/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  91% (79178/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  92% (80048/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  93% (80918/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  94% (81788/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  95% (82658/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  96% (83528/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  97% (84398/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  98% (85268/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects:  99% (86138/87008), 104.77 MiB | 26.19 MiB/s   remote: Total 87008 (delta 0), reused 0 (delta 0), pack-reused 87008[K
-Receiving objects: 100% (87008/87008), 104.77 MiB | 26.19 MiB/s   Receiving objects: 100% (87008/87008), 118.56 MiB | 26.38 MiB/s, done.
-Resolving deltas:   0% (0/53662)   Resolving deltas:   1% (544/53662)   Resolving deltas:   2% (1156/53662)   Resolving deltas:   3% (1615/53662)   Resolving deltas:   4% (2188/53662)   Resolving deltas:   5% (2688/53662)   Resolving deltas:   6% (3223/53662)   Resolving deltas:   7% (3760/53662)   Resolving deltas:   8% (4296/53662)   Resolving deltas:   9% (4839/53662)   Resolving deltas:  10% (5396/53662)   Resolving deltas:  11% (5933/53662)   Resolving deltas:  12% (6441/53662)   Resolving deltas:  13% (6986/53662)   Resolving deltas:  14% (7584/53662)   Resolving deltas:  15% (8067/53662)   Resolving deltas:  16% (8604/53662)   Resolving deltas:  17% (9280/53662)   Resolving deltas:  18% (9695/53662)   Resolving deltas:  19% (10220/53662)   Resolving deltas:  20% (10744/53662)   Resolving deltas:  21% (11357/53662)   Resolving deltas:  22% (11818/53662)   Resolving deltas:  23% (12346/53662)   Resolving deltas:  24% (12880/53662)   Resolving deltas:  25% (13418/53662)   Resolving deltas:  26% (13958/53662)   Resolving deltas:  27% (14489/53662)   Resolving deltas:  28% (15162/53662)   Resolving deltas:  29% (15656/53662)   Resolving deltas:  30% (16100/53662)   Resolving deltas:  31% (16647/53662)   Resolving deltas:  32% (17241/53662)   Resolving deltas:  33% (17758/53662)   Resolving deltas:  34% (18259/53662)   Resolving deltas:  35% (18786/53662)   Resolving deltas:  36% (19406/53662)   Resolving deltas:  37% (19865/53662)   Resolving deltas:  38% (20396/53662)   Resolving deltas:  39% (20933/53662)   Resolving deltas:  40% (21470/53662)   Resolving deltas:  41% (22068/53662)   Resolving deltas:  43% (23447/53662)   Resolving deltas:  44% (23828/53662)   Resolving deltas:  45% (24174/53662)   Resolving deltas:  47% (25619/53662)   Resolving deltas:  48% (25763/53662)   Resolving deltas:  50% (26925/53662)   Resolving deltas:  51% (27389/53662)   Resolving deltas:  52% (27937/53662)   Resolving deltas:  53% (28683/53662)   Resolving deltas:  54% (28980/53662)   Resolving deltas:  54% (29128/53662)   Resolving deltas:  55% (29524/53662)   Resolving deltas:  56% (30052/53662)   Resolving deltas:  57% (30588/53662)   Resolving deltas:  58% (31126/53662)   Resolving deltas:  59% (31662/53662)   Resolving deltas:  60% (32198/53662)   Resolving deltas:  61% (32739/53662)   Resolving deltas:  62% (33336/53662)   Resolving deltas:  63% (33808/53662)   Resolving deltas:  64% (34346/53662)   Resolving deltas:  65% (34881/53662)   Resolving deltas:  66% (35417/53662)   Resolving deltas:  67% (35964/53662)   Resolving deltas:  68% (36492/53662)   Resolving deltas:  69% (37030/53662)   Resolving deltas:  70% (37566/53662)   Resolving deltas:  71% (38107/53662)   Resolving deltas:  72% (38638/53662)   Resolving deltas:  73% (39200/53662)   Resolving deltas:  74% (39713/53662)   Resolving deltas:  75% (40252/53662)   Resolving deltas:  76% (40817/53662)   Resolving deltas:  77% (41355/53662)   Resolving deltas:  78% (41861/53662)   Resolving deltas:  79% (42396/53662)   Resolving deltas:  80% (42934/53662)   Resolving deltas:  81% (43579/53662)   Resolving deltas:  82% (44049/53662)   Resolving deltas:  83% (44610/53662)   Resolving deltas:  84% (45083/53662)   Resolving deltas:  85% (45623/53662)   Resolving deltas:  86% (46161/53662)   Resolving deltas:  87% (46687/53662)   Resolving deltas:  88% (47352/53662)   Resolving deltas:  89% (47764/53662)   Resolving deltas:  90% (48311/53662)   Resolving deltas:  91% (48833/53662)   Resolving deltas:  92% (49370/53662)   Resolving deltas:  93% (49918/53662)   Resolving deltas:  94% (50447/53662)   Resolving deltas:  95% (50982/53662)   Resolving deltas:  96% (51683/53662)   Resolving deltas:  97% (52063/53662)   Resolving deltas:  98% (52647/53662)   Resolving deltas:  99% (53126/53662)   Resolving deltas: 100% (53662/53662)   Resolving deltas: 100% (53662/53662), done.
-Checking out files:  93% (700/748)   Checking out files:  94% (704/748)   Checking out files:  95% (711/748)   Checking out files:  96% (719/748)   Checking out files:  97% (726/748)   Checking out files:  98% (734/748)   Checking out files:  99% (741/748)   Checking out files: 100% (748/748)   Checking out files: 100% (748/748), done.
-]0;root@vibhuti: /mntroot@vibhuti:/mnt# cd $GOPATH/src/k8s.io/minikube
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# git checkout v1.2.0
-Note: checking out 'v1.2.0'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
-
-  git checkout -b <new-branch-name>
-
-HEAD is now at 4dc652380 Merge pull request #4573 from kubernetes/v1.2.0
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# vi Makefile 
-[?2004h[?1049h[22;0;0t[?1h=[?2004h[1;35r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[35;1H"Makefile" 398L, 15707C[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[34m# Copyright 2016 The Kubernetes Authors All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Bump these on release - and please check ISO_VERSION for correctness.[m
-[36mVERSION_MAJOR [m?= 1
-[36mVERSION_MINOR [m?= 2
-[36mVERSION_BUILD [m?= 0
-[34m# Default to .0 for higher cache hit rates, as build increments typically don't require new ISO versions[m
-[36mISO_VERSION [m?= v[36m$(VERSION_MAJOR)[m.[36m$(VERSION_MINOR)[m.0
-
-[36mVERSION [m?= v[36m$(VERSION_MAJOR)[m.[36m$(VERSION_MINOR)[m.[36m$(VERSION_BUILD)
-DEB_VERSION [m?= [36m$(VERSION_MAJOR)[m.[36m$(VERSION_MINOR)[m.[36m$(VERSION_BUILD)
-RPM_VERSION [m?= [36m$(VERSION_MAJOR)[m.[36m$(VERSION_MINOR)[m.[36m$(VERSION_BUILD)
-INSTALL_SIZE [m?= [36m$([m[33mshell[m[36m du out/minikube-windows-amd64.exe | cut -f1)
-BUILDROOT_BRANCH [m?= 2018.05.3
-[36mREGISTRY?[m=gcr.io/k8s-minikube
-
-[36mHYPERKIT_BUILD_IMAGE    [m?= karalabe/xgo-1.12.x
-[34m# NOTE: "latest" as of 2019-05-09. kube-cross images aren't updated as often as Kubernetes[m
-[36mBUILD_IMAGE     [m?= k8s.gcr.io/kube-cross:v1.12.5-1
-[36mISO_BUILD_IMAGE [m?= [36m$(REGISTRY)[m/buildroot-image
-[36mKVM_BUILD_IMAGE [m?= [36m$(REGISTRY)[m/kvm-build-image[35;111H1,1[11CTop[1;1H[?25h[?25l[35;101H^[[1;1H[35;101H  [1;1H[35;101H^[[1;1H[35;101H  [1;1H[?25h[?25l[35;101H:[1;1H[35;1H[K[35;1H:[?2004h[?25h1[?25l[?25h7[?25l[?25h6[?25l[?25h[?25l[17;1H[27m[23m[29m[m[H[2J[1;1H[31m        go test -v ./test/integration --tags=iso --minikube-args="--iso-url=file://[m[36m$([m[33mshell[m[36m pwd)[m[31m/out/buildroot/output/images/roott[2;1Hfs.iso9660"[m
-
-[33m.PHONY:[m test-pkg
-[36mtest-pkg/%:[m pkg/minikube/assets/assets.go
-[31m        go test -v -test.timeout=60m ./[m[36m$*[m[31m --tags="[m[36m$(MINIKUBE_BUILD_TAGS)[m[31m"[m
-
-[33m.PHONY:[m all
-[36mall:[m cross drivers e2e-cross
-
-[33m.PHONY:[m drivers
-[36mdrivers:[m out/docker-machine-driver-hyperkit out/docker-machine-driver-kvm2
-
-[33m.PHONY:[m integration
-[36mintegration:[m out/minikube
-[31m        go test -v -test.timeout=60m ./test/integration --tags="[m[36m$(MINIKUBE_INTEGRATION_BUILD_TAGS)[m[31m" [m[36m$(TEST_ARGS)[m
-
-[33m.PHONY:[m integration-none-driver
-[36mintegration-none-driver:[m e2e-linux-[36m$(GOARCH)[m out/minikube-linux-[36m$(GOARCH)[m
-[31m        sudo -E out/e2e-linux-[m[36m$(GOARCH)[m[31m -testdata-dir "test/integration/testdata" -minikube-start-args="--vm-driver=none" -test..[21;1Hv -test.timeout=60m -binary=out/minikube-linux-amd64 [m[36m$(TEST_ARGS)[m
-
-[33m.PHONY:[m integration-versioned
-[36mintegration-versioned:[m out/minikube
-[31m        go test -v -test.timeout=60m ./test/integration --tags="[m[36m$(MINIKUBE_INTEGRATION_BUILD_TAGS)[m[31m versioned" [m[36m$(TEST_ARGS)[m
-
-[33m.PHONY:[m test
-[36mtest:[m pkg/minikube/assets/assets.go
-[31m        ./test.sh[m
-
-[34m# Regenerates assets.go when template files have been updated[m
-[36mpkg/minikube/assets/assets.go:[m [36m$([m[33mshell[m[36m find deploy/addons -type f)[m
-[31m        which go-bindata || GO111MODULE=off GOBIN=[m[36m$(GOPATH)[m[31m/bin go get github.com/jteeuwen/go-bindata/...
-        PATH="[m[36m$(PATH)[m[31m:[m[36m$(GOPATH)[m[31m/bin" go-bindata -nomemcopy -o pkg/minikube/assets/assets.go -pkg assets deploy/addons/...[m[35;111H176,0-1[7C43%[17;1H[?25h[?25l[35;101H~@k[17;1H[35;101H   [18;1H[35;113H7,1  [18;1H[?25h[?25l[35;101H~@k[18;1H[35;101H   [19;1H[35;113H8[19;1H[?25h[?25l[35;101H~@K[19;1H[35;101H   [19;73H[19;66H[36m[46m([6C)[m[35;115H73[19;73H[?25h[?25l[35;101H~@k[19;73H[35;101H   [19;72H[36m(GOARCH)[m[35;116H2[19;72H[?25h[?25l[35;101H~@k[19;72H[35;101H   [20;72H[35;113H9,65-72[20;72H[?25h[?25l[35;101H~@k[20;72H[35;101H   [22;1H[35;112H80,0-1  [22;1H[?25h[?25l[35;101H~@k[22;1H[35;101H   [20;72H[35;112H79,65-72[20;72H[?25h[?25l[35;101H~@K[20;72H[35;101H   [21;65H[21;55H[36m[46m([9C)[m[35;115H186-193[21;65H[?25h[?25l[35;101H~@k[21;65H[35;101H   [21;64H[21;55H[36m([9C)[m[35;117H5-192[21;64H[?25h[?25l[35;101H~@k[21;64H[35;101H   [21;63H[35;117H4-191[21;63H[?25h[?25l[35;101H~@k[21;63H[35;101H   [21;62H[35;117H3-190[21;62H[?25h[?25l[35;101H~@k[21;62H[35;101H   [21;61H[35;117H2-189[21;61H[?25h[?25l[35;101H~@k[21;61H[35;101H   [21;60H[35;117H1-188[21;60H[?25h[?25l[35;101H~@k[21;60H[35;101H   [21;59H[35;117H0-187[21;59H[?25h[?25l[35;101H~@k[21;59H[35;101H   [21;58H[35;116H79-186[21;58H[?25h[?25l[35;101H~@k[21;58H[35;101H   [21;57H[35;117H8-185[21;57H[?25h[?25l[35;101H~@k[21;57H[35;101H   [21;56H[35;117H7-184[21;56H[?25h[?25l[35;101H~@k[21;56H[35;101H   [21;55H[36m[46m([9C)[m[35;117H6-183[21;55H[?25h[?25l[35;101H~@k[21;55H[35;101H   [21;54H[1C[36m([9C)[m[35;117H5-182[21;54H[?25h[?25l[35;101H~@k[21;54H[35;101H   [21;53H[35;117H4-181[21;53H[?25h[?25l[35;101Hi[21;53H[35;101H [21;53H[35;1H[1m-- INSERT --[m[35;111H[K[35;111H179,174-181   43%[21;53H[?25h[?25l[31m [m[36m$(TEST_ARGS)[m[21;65H[K[35;117H3-180[21;52H[?25h[?25l[31m [m[36m$(TEST_ARGS)[m[21;64H[K[35;117H2-179[21;51H[?25h[?25l[31m [m[36m$(TEST_ARGS)[m[21;63H[K[35;117H1-178[21;50H[?25h[?25l[31m [m[36m$(TEST_ARGS)[m[21;62H[K[35;117H0-177[21;49H[?25h[?25l[31m [m[36m$(TEST_ARGS)[m[21;61H[K[35;116H69-176[21;48H[?25h[?25l[31ms [m[36m$(TEST_ARGS)[m[35;116H70-177[21;49H[?25h[?25l[31m3 [m[36m$(TEST_ARGS)[m[35;117H1-178[21;50H[?25h[?25l[31m9 [m[36m$(TEST_ARGS)[m[35;117H2-179[21;51H[?25h[?25l[31m0 [m[36m$(TEST_ARGS)[m[35;117H3-180[21;52H[?25h[?25l[31mx [m[36m$(TEST_ARGS)[m[35;117H4-181[21;53H[?25h[35;1H[K[21;52H[?25l[35;101H^[[21;52H[35;101H  [21;53H[35;111H179,173-180   43%[21;52H[?25h[?25l[35;101H:[21;52H[35;101H[K[35;1H:[?2004h[?25hw[?25l[?25hq[?25l[?25h[?25l[?2004l"Makefile" 398L, 15707C written
-[?2004l[?1l>[?25h[?1049l[23;0;0t]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# vi deploy/addons/addon-manager.yaml.tmpl
-[?2004h[?1049h[22;0;0t[?1h=[?2004h[1;35r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[35;1H"deploy/addons/addon-manager.yaml.tmpl" 50L, 1452C[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[35m# Copyright 2016 The Kubernetes Authors All rights reserved.[m
-#
-[35m# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at[m
-#
-[35m#     http://www.apache.org/licenses/LICENSE-2.0[m
-#
-[35m# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.[m
-
-apiVersion: v1
-kind: Pod
-metadata:
-  name: kube-addon-manager
-  namespace: kube-system
-  labels:
-    component: kube-addon-manager
-    version: v9.0
-    kubernetes.io/minikube-addons: addon-manager
-spec:
-  hostNetwork: true
-  containers:
-  - name: kube-addon-manager
-    image: {{default "k8s.gcr.io" .ImageRepository}}/kube-addon-manager{{.ExoticArch}}:v9.0
-    env:
-    - name: KUBECONFIG[31;7Hvalue: /var/lib/minikube/kubeconfig
-    imagePullPolicy: IfNotPresent
-    resources:[34;7Hrequests:[35;111H1,1[11CTop[1;1H[?25h[?25l[35;101H^[[1;1H[35;101H  [1;1H[?25h[?25l[35;101H:[1;1H[35;1H[K[35;1H:[?2004h[?25h2[?25l[?25h5[?25l[?25h[?25l[25;3H[35;111H25,3[10CTop[25;3H[?25h[?25l[35;101H~@k[25;3H[35;101H   [26;3H[35;112H6[26;3H[?25h[?25l[35;101H~@k[26;3H[35;101H   [27;3H[35;112H7[27;3H[?25h[?25l[35;101H~@k[27;3H[35;101H   [28;3H[35;112H8[28;3H[?25h[?25l[35;101H~@K[28;3H[35;101H   [28;91H[35;114H91[28;91H[?25h[?25l[35;101H~@k[28;91H[35;101H   [28;90H[35;115H0[28;90H[?25h[?25l[35;101H~@k[28;90H[35;101H   [28;89H[35;114H89[28;89H[?25h[?25l[35;101H~@k[28;89H[35;101H   [28;88H[35;115H8[28;88H[?25h[?25l[35;101H~@k[28;88H[35;101H   [28;87H[35;115H7[28;87H[?25h[?25l[35;101H~@k[28;87H[35;101H   [28;86H[28;72H[46m{[13C}[m[35;115H6[28;86H[?25h[?25l[35;101H~@k[28;86H[35;101H   [28;85H[28;72H{[46m{[11C}[m}[35;115H5[28;85H[?25h[?25l[35;101H~@k[28;85H[35;101H   [28;84H[28;73H{[11C}[35;115H4[28;84H[?25h[?25l[35;101H~@k[28;84H[35;101H   [28;83H[35;115H3[28;83H[?25h[?25l[35;101H~@k[28;83H[35;101H   [28;82H[35;115H2[28;82H[?25h[?25l[35;101H~@k[28;82H[35;101H   [28;81H[35;115H1[28;81H[?25h[?25l[35;101H~@k[28;81H[35;101H   [28;80H[35;115H0[28;80H[?25h[?25l[35;101H~@k[28;80H[35;101H   [28;79H[35;114H79[28;79H[?25h[?25l[35;101H~@k[28;79H[35;101H   [28;78H[35;115H8[28;78H[?25h[?25l[35;101H~@k[28;78H[35;101H   [28;77H[35;115H7[28;77H[?25h[?25l[35;101H~@k[28;77H[35;101H   [28;76H[35;115H6[28;76H[?25h[?25l[35;101H~@k[28;76H[35;101H   [28;75H[35;115H5[28;75H[?25h[?25l[35;101H~@k[28;75H[35;101H   [28;74H[35;115H4[28;74H[?25h[?25l[35;101H~@k[28;74H[35;101H   [28;73H[46m{[11C}[m[35;115H3[28;73H[?25h[?25l[35;101H~@k[28;73H[35;101H   [28;72H[46m{[m{[11C}[46m}[m[35;115H2[28;72H[?25h[?25l[35;101Hi[28;72H[35;101H [28;72H[35;1H[1m-- INSERT --[m[35;111H[K[35;111H28,72[9CTop[28;72H[?25h[?25l[46m-[m{{.ExoticArch[1C}:v9.0[28;72H-[46m{[m[12C}[46m}[m[35;115H3[28;73H[?25h[35;1H[K[28;72H[?25l[35;101H^[[28;72H[35;101H  [28;73H{[13C}[35;111H28,72[9CTop[28;72H[?25h[?25l[35;101H:[28;72H[35;101H[K[35;1H:[?2004h[?25hw[?25l[?25hq[?25l[?25h[?25l[?2004l"deploy/addons/addon-manager.yaml.tmpl" 50L, 1453C written
-[?2004l[?1l>[?25h[?1049l[23;0;0t]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# vi deploy/addons/storage-provisioner/storage-provisioner.yaml.tmpl
-[?2004h[?1049h[22;0;0t[?1h=[?2004h[1;35r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[35;1H"deploy/addons/storage-provisioner/storage-provisioner.yaml.tmpl" 64L, 1755C[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[35m# Copyright 2016 The Kubernetes Authors All rights reserved.[m
-#
-[35m# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at[m
-#
-[35m#     http://www.apache.org/licenses/LICENSE-2.0[m
-#
-[35m# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.[m
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: storage-provisioner
-  namespace: kube-system
-  labels:
-    addonmanager.kubernetes.io/mode: Reconcile
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: storage-provisioner
-  labels:
-    addonmanager.kubernetes.io/mode: EnsureExists
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: system:persistent-volume-provisioner[35;111H1,1[11CTop[1;1H[?25h[?25l[35;101H^[[1;1H[35;101H  [1;1H[35;101H^[[1;1H[35;101H  [1;1H[?25h[?25l[35;101H:[1;1H[35;1H[K[35;1H:[?2004h[?25h5[?25l[?25h1[?25l[?25h[?25l[29;3H[1;34r[1;1H[22M[1;35r[13;1Hsubjects:
-  - kind: ServiceAccount
-    name: storage-provisioner
-    namespace: kube-system
-
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: storage-provisioner
-  namespace: kube-system
-  labels:
-    integration-test: storage-provisioner
-    addonmanager.kubernetes.io/mode: Reconcile
-spec:
-  serviceAccountName: storage-provisioner
-  hostNetwork: true
-  containers:
-  - name: storage-provisioner
-    image: {{default "gcr.io/k8s-minikube" .ImageRepository}}/storage-provisioner{{.ExoticArch}}:v1.8.1
-    command: ["/storage-provisioner"]
-    imagePullPolicy: IfNotPresent[35;1H[K[35;111H51,3[10C73%[29;3H[?25h[?25l[35;101H~@k[29;3H[35;101H   [29;3H[1;34r[34;1H
-[1;35r[34;5HvolumeMounts:[35;111H[K[35;111H52,3[10C76%[29;3H[?25h[?25l[35;101H~@k[29;3H[35;101H   [29;3H[1;34r[34;1H
-[1;35r[34;5H- mountPath: /tmp[35;111H[K[35;111H53,3[10C80%[29;3H[?25h[?25l[35;101H~@k[29;3H[35;101H   [29;3H[1;34r[34;1H
-[1;35r[34;7Hname: tmp[35;111H[K[35;111H54,3[10C83%[29;3H[?25h[?25l[35;101H~@k[29;3H[35;101H   [29;4H[35;114H4[29;4H[?25h[?25l[35;101H~@k[29;4H[35;101H   [29;5H[35;114H5[29;5H[?25h[?25l[35;101H~@k[29;5H[35;101H   [29;6H[35;114H6[29;6H[?25h[?25l[35;101H~@k[29;6H[35;101H   [29;7H[35;114H7[29;7H[?25h[?25l[35;101H~@k[29;7H[35;101H   [29;8H[35;114H8[29;8H[?25h[?25l[35;101H~@k[29;8H[35;101H   [29;9H[35;114H9[29;9H[?25h[?25l[35;101H~@k[29;9H[35;101H   [29;10H[35;114H10[29;10H[?25h[?25l[35;101H~@k[29;10H[35;101H   [29;11H[35;115H1[29;11H[?25h[?25l[35;101H~@k[29;11H[35;101H   [29;12H[46m{[48C}[m[35;115H2[29;12H[?25h[?25l[35;101H~@k[29;12H[35;101H   [29;13H{[46m{[46C}[m}[35;115H3[29;13H[?25h[?25l[35;101H~@k[29;13H[35;101H   [29;14H{[46C}[35;115H4[29;14H[?25h[?25l[35;101H~@k[29;14H[35;101H   [29;15H[35;115H5[29;15H[?25h[?25l[35;101H~@k[29;15H[35;101H   [29;16H[35;115H6[29;16H[?25h[?25l[35;101H~@k[29;16H[35;101H   [29;17H[35;115H7[29;17H[?25h[?25l[35;101H~@k[29;17H[35;101H   [29;18H[35;115H8[29;18H[?25h[?25l[35;101H~@k[29;18H[35;101H   [29;19H[35;115H9[29;19H[?25h[?25l[35;101H~@k[29;19H[35;101H   [29;20H[35;114H20[29;20H[?25h[?25l[35;101H~@k[29;20H[35;101H   [29;21H[35;115H1[29;21H[?25h[?25l[35;101H~@k[29;21H[35;101H   [29;22H[35;115H2[29;22H[?25h[?25l[35;101H~@k[29;22H[35;101H   [29;23H[35;115H3[29;23H[?25h[?25l[35;101H~@k[29;23H[35;101H   [29;24H[35;115H4[29;24H[?25h[?25l[35;101H~@k[29;24H[35;101H   [29;25H[35;115H5[29;25H[?25h[?25l[35;101H~@k[29;25H[35;101H   [29;26H[35;115H6[29;26H[?25h[?25l[35;101H~@k[29;26H[35;101H   [29;27H[35;115H7[29;27H[?25h[?25l[35;101H~@k[29;27H[35;101H   [29;28H[35;115H8[29;28H[?25h[?25l[35;101H~@k[29;28H[35;101H   [29;29H[35;115H9[29;29H[?25h[?25l[35;101H~@k[29;29H[35;101H   [29;30H[35;114H30[29;30H[?25h[?25l[35;101H~@k[29;30H[35;101H   [29;31H[35;115H1[29;31H[?25h[?25l[35;101H~@k[29;31H[35;101H   [29;32H[35;115H2[29;32H[?25h[?25l[35;101H~@k[29;32H[35;101H   [29;33H[35;115H3[29;33H[?25h[?25l[35;101H~@k[29;33H[35;101H   [29;34H[35;115H4[29;34H[?25h[?25l[35;101H~@k[29;34H[35;101H   [29;35H[35;115H5[29;35H[?25h[?25l[35;101H~@k[29;35H[35;101H   [29;36H[35;115H6[29;36H[?25h[?25l[35;101H~@k[29;36H[35;101H   [29;37H[35;115H7[29;37H[?25h[?25l[35;101H~@k[29;37H[35;101H   [29;38H[35;115H8[29;38H[?25h[?25l[35;101H~@k[29;38H[35;101H   [29;39H[35;115H9[29;39H[?25h[?25l[35;101H~@k[29;39H[35;101H   [29;40H[35;114H40[29;40H[?25h[?25l[35;101H~@k[29;40H[35;101H   [29;41H[35;115H1[29;41H[?25h[?25l[35;101H~@k[29;41H[35;101H   [29;42H[35;115H2[29;42H[?25h[?25l[35;101H~@k[29;42H[35;101H   [29;43H[35;115H3[29;43H[?25h[?25l[35;101H~@k[29;43H[35;101H   [29;44H[35;115H4[29;44H[?25h[?25l[35;101H~@k[29;44H[35;101H   [29;45H[35;115H5[29;45H[?25h[?25l[35;101H~@k[29;45H[35;101H   [29;46H[35;115H6[29;46H[?25h[?25l[35;101H~@k[29;46H[35;101H   [29;47H[35;115H7[29;47H[?25h[?25l[35;101H~@k[29;47H[35;101H   [29;48H[35;115H8[29;48H[?25h[?25l[35;101H~@k[29;48H[35;101H   [29;49H[35;115H9[29;49H[?25h[?25l[35;101H~@k[29;49H[35;101H   [29;50H[35;114H50[29;50H[?25h[?25l[35;101H~@k[29;50H[35;101H   [29;51H[35;115H1[29;51H[?25h[?25l[35;101H~@k[29;51H[35;101H   [29;52H[35;115H2[29;52H[?25h[?25l[35;101H~@k[29;52H[35;101H   [29;53H[35;115H3[29;53H[?25h[?25l[35;101H~@k[29;53H[35;101H   [29;54H[35;115H4[29;54H[?25h[?25l[35;101H~@k[29;54H[35;101H   [29;55H[35;115H5[29;55H[?25h[?25l[35;101H~@k[29;55H[35;101H   [29;56H[35;115H6[29;56H[?25h[?25l[35;101H~@k[29;56H[35;101H   [29;57H[35;115H7[29;57H[?25h[?25l[35;101H~@k[29;57H[35;101H   [29;58H[35;115H8[29;58H[?25h[?25l[35;101H~@k[29;58H[35;101H   [29;59H[35;115H9[29;59H[?25h[?25l[35;101H~@k[29;59H[35;101H   [29;60H[29;13H[46m{[46C}[m[35;114H60[29;60H[?25h[?25l[35;101H~@k[29;60H[35;101H   [29;61H[29;12H[46m{[m{[46C}[46m}[m[35;115H1[29;61H[?25h[?25l[35;101H~@k[29;61H[35;101H   [29;62H[29;12H{[48C}[35;115H2[29;62H[?25h[?25l[35;101H~@k[29;62H[35;101H   [29;63H[35;115H3[29;63H[?25h[?25l[35;101H~@k[29;63H[35;101H   [29;64H[35;115H4[29;64H[?25h[?25l[35;101H~@k[29;64H[35;101H   [29;65H[35;115H5[29;65H[?25h[?25l[35;101H~@k[29;65H[35;101H   [29;66H[35;115H6[29;66H[?25h[?25l[35;101H~@k[29;66H[35;101H   [29;67H[35;115H7[29;67H[?25h[?25l[35;101H~@k[29;67H[35;101H   [29;68H[35;115H8[29;68H[?25h[?25l[35;101H~@k[29;68H[35;101H   [29;69H[35;115H9[29;69H[?25h[?25l[35;101H~@k[29;69H[35;101H   [29;70H[35;114H70[29;70H[?25h[?25l[35;101H~@k[29;70H[35;101H   [29;71H[35;115H1[29;71H[?25h[?25l[35;101H~@k[29;71H[35;101H   [29;72H[35;115H2[29;72H[?25h[?25l[35;101H~@k[29;72H[35;101H   [29;73H[35;115H3[29;73H[?25h[?25l[35;101H~@k[29;73H[35;101H   [29;74H[35;115H4[29;74H[?25h[?25l[35;101H~@k[29;74H[35;101H   [29;75H[35;115H5[29;75H[?25h[?25l[35;101H~@k[29;75H[35;101H   [29;76H[35;115H6[29;76H[?25h[?25l[35;101H~@k[29;76H[35;101H   [29;77H[35;115H7[29;77H[?25h[?25l[35;101H~@k[29;77H[35;101H   [29;78H[35;115H8[29;78H[?25h[?25l[35;101H~@k[29;78H[35;101H   [29;79H[35;115H9[29;79H[?25h[?25l[35;101H~@k[29;79H[35;101H   [29;80H[35;114H80[29;80H[?25h[?25l[35;101H~@k[29;80H[35;101H   [29;81H[35;115H1[29;81H[?25h[?25l[35;101H~@k[29;81H[35;101H   [29;82H[46m{[13C}[m[35;115H2[29;82H[?25h[?25l[35;101Hi[29;82H[35;101H [29;82H[35;1H[1m-- INSERT --[m[35;111H[K[35;111H54,82[9C83%[29;82H[?25h[?25l[46m-[m{{.ExoticArch[1C}:v1.8.1[29;82H-[46m{[m[12C}[46m}[m[35;115H3[29;83H[?25h[35;1H[K[29;82H[?25l[35;101H^[[29;82H[35;101H  [29;83H{[13C}[35;111H54,82[9C83%[29;82H[?25h[?25l[35;101H:[29;82H[35;101H[K[35;1H:[?2004h[?25hw[?25l[?25hq[?25l[?25h[?25l[?2004l"deploy/addons/storage-provisioner/storage-provisioner.yaml.tmpl" 64L, 1756C written
-[?2004l[?1l>[?25h[?1049l[23;0;0t]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# vi [Kdeploy/storage-provisioner/Dockerfile[C[C deploy/storage-provisioner/Dockerfile
-[?2004h[?1049h[22;0;0t[?1h=[?2004h[1;35r[?12h[?12l[27m[23m[29m[m[H[2J[?25l[35;1H"deploy/storage-provisioner/Dockerfile" 17L, 699C[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1H[34m# Copyright 2016 The Kubernetes Authors All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.[m
-
-[33mFROM [mscratch
-[33mCOPY [mout/storage-provisioner storage-provisioner
-[33mCMD [m[[31m"/storage-provisioner"[m]
-[1m[34m~                                                                                                                               [19;1H~                                                                                                                               [20;1H~                                                                                                                               [21;1H~                                                                                                                               [22;1H~                                                                                                                               [23;1H~                                                                                                                               [24;1H~                                                                                                                               [25;1H~                                                                                                                               [26;1H~                                                                                                                               [27;1H~                                                                                                                               [28;1H~                                                                                                                               [29;1H~                                                                                                                               [30;1H~                                                                                                                               [31;1H~                                                                                                                               [32;1H~                                                                                                                               [33;1H~                                                                                                                               [34;1H~                                                                                                                               [m[35;111H1,1[11CAll[1;1H[?25h[?25l[35;101H^[[1;1H[35;101H  [1;1H[35;101H^[[1;1H[35;101H  [1;1H[?25h[?25l[35;101H:[1;1H[35;1H[K[35;1H:[?2004h[?25h2[?25l[?25h5[?25l[?25h[?25l[17;1H[35;111H17,1[10CAll[17;1H[?25h[?25l[35;101H~@k[17;1H[35;101H   [16;1H[35;112H6[16;1H[?25h[?25l[35;101H~@k[16;1H[35;101H   [15;1H[35;112H5[15;1H[?25h[?25l[35;101H~@K[15;1H[35;101H   [15;12H[35;115H2[15;12H[?25h[?25l[35;101Hi[15;12H[35;101H [15;12H[35;1H[1m-- INSERT --[m[35;111H[K[35;111H15,12[9CAll[15;12H[?25h[?25l[35;115H3[15;13H[?25h[?25l[15;12H[K[35;115H2[15;12H[?25h[?25l[15;11H[K[35;115H1[15;11H[?25h[?25l[15;10H[K[35;115H0[15;10H[?25h[?25l[15;9H[K[35;114H9 [15;9H[?25h[?25l[15;8H[K[35;114H8[15;8H[?25h[?25l[15;7H[K[35;114H7[15;7H[?25h[?25l[15;6H[K[35;114H6[15;6H[?25h[?25lu[35;114H7[15;7H[?25h[?25lb[35;114H8[15;8H[?25h[?25lu[35;114H9[15;9H[?25h[?25ln[35;114H10[15;10H[?25h[?25lt[35;115H1[15;11H[?25h[?25lu[35;115H2[15;12H[?25h[?25l:[35;115H3[15;13H[?25h[?25l1[35;115H4[15;14H[?25h[?25l6[35;115H5[15;15H[?25h[?25l.[35;115H6[15;16H[?25h[?25l0[35;115H7[15;17H[?25h[?25l4[35;115H8[15;18H[?25h[35;1H[K[15;17H[?25l[35;101H^[[15;17H[35;101H  [15;18H[35;111H15,17[9CAll[15;17H[?25h[?25l[35;101H:[15;17H[35;101H[K[35;1H:[?2004h[?25hw[?25l[?25hq[?25l[?25h[?25l[?2004l"deploy/storage-provisioner/Dockerfile" 17L, 704C written
-[?2004l[?1l>[?25h[?1049l[23;0;0t]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# make out/minikube-linux-s390x
-which go-bindata || GO111MODULE=off GOBIN=/mnt/go/bin go get github.com/jteeuwen/go-bindata/...
-PATH="/mnt/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/go/bin" go-bindata -nomemcopy -o pkg/minikube/assets/assets.go -pkg assets deploy/addons/...
-GOOS="linux" GOARCH="s390x" go build -tags "container_image_ostree_stub containers_image_openpgp" -ldflags="-X k8s.io/minikube/pkg/version.version=v1.2.0 -X k8s.io/minikube/pkg/version.isoVersion=v1.2.0 -X k8s.io/minikube/pkg/version.isoPath=minikube/iso" -a -o out/minikube-linux-s390x k8s.io/minikube/cmd/minikube
-go: downloading github.com/pkg/profile v0.0.0-20161223203901-3a8809bd8a80
-go: downloading github.com/docker/machine v0.16.1
-go: downloading golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284
-go: downloading github.com/spf13/viper v1.0.0
-go: downloading github.com/olekukonko/tablewriter v0.0.0-20160923125401-bdcc175572fd
-go: downloading github.com/google/go-containerregistry v0.0.0-20190318164241-019cdfc6adf9
-go: extracting github.com/pkg/profile v0.0.0-20161223203901-3a8809bd8a80
-go: downloading github.com/jimmidyson/go-download v0.0.0-20161028105827-7f9a90c8c95b
-go: downloading github.com/blang/semver v3.5.0+incompatible
-go: extracting github.com/spf13/viper v1.0.0
-go: downloading github.com/pkg/errors v0.8.0
-go: extracting github.com/pkg/errors v0.8.0
-go: downloading github.com/spf13/cast v0.0.0-20160730092037-e31f36ffc91a
-go: extracting github.com/olekukonko/tablewriter v0.0.0-20160923125401-bdcc175572fd
-go: downloading github.com/pelletier/go-toml v0.0.0-20160822122712-0049ab3dc4c4
-go: extracting github.com/jimmidyson/go-download v0.0.0-20161028105827-7f9a90c8c95b
-go: extracting github.com/blang/semver v3.5.0+incompatible
-go: downloading k8s.io/api v0.0.0-20180712090710-2d6f90ab1293
-go: extracting github.com/spf13/cast v0.0.0-20160730092037-e31f36ffc91a
-go: downloading github.com/magiconair/properties v0.0.0-20160816085511-61b492c03cf4
-go: extracting github.com/magiconair/properties v0.0.0-20160816085511-61b492c03cf4
-go: extracting github.com/pelletier/go-toml v0.0.0-20160822122712-0049ab3dc4c4
-go: extracting github.com/docker/machine v0.16.1
-go: downloading github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
-go: extracting github.com/google/go-containerregistry v0.0.0-20190318164241-019cdfc6adf9
-go: extracting golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284
-go: downloading golang.org/x/text v0.3.2
-go: downloading github.com/spf13/cobra v0.0.0-20180228053838-6644d46b81fa
-go: downloading k8s.io/client-go v0.0.0-20180806134042-1f13a808da65
-go: downloading github.com/spf13/pflag v1.0.1
-go: extracting github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
-go: downloading github.com/spf13/jwalterweatherman v0.0.0-20160311093646-33c24e77fb80
-go: extracting k8s.io/api v0.0.0-20180712090710-2d6f90ab1293
-go: downloading github.com/mattn/go-runewidth v0.0.0-20161012013512-737072b4e32b
-go: downloading github.com/pkg/browser v0.0.0-20160118053552-9302be274faa
-go: downloading github.com/gogo/protobuf v0.0.0-20170330071051-c0656edd0d9e
-go: extracting github.com/spf13/jwalterweatherman v0.0.0-20160311093646-33c24e77fb80
-go: downloading gopkg.in/cheggaaa/pb.v1 v1.0.6
-go: extracting github.com/spf13/pflag v1.0.1
-go: extracting github.com/spf13/cobra v0.0.0-20180228053838-6644d46b81fa
-go: downloading github.com/hashicorp/hcl v0.0.0-20160711231752-d8c773c4cba1
-go: downloading k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
-go: extracting github.com/pkg/browser v0.0.0-20160118053552-9302be274faa
-go: extracting github.com/mattn/go-runewidth v0.0.0-20161012013512-737072b4e32b
-go: downloading github.com/mattn/go-isatty v0.0.5
-go: extracting github.com/mattn/go-isatty v0.0.5
-go: extracting gopkg.in/cheggaaa/pb.v1 v1.0.6
-go: downloading github.com/pelletier/go-buffruneio v0.1.0
-go: downloading github.com/mitchellh/mapstructure v0.0.0-20170307201123-53818660ed49
-go: extracting k8s.io/client-go v0.0.0-20180806134042-1f13a808da65
-go: extracting github.com/pelletier/go-buffruneio v0.1.0
-go: downloading golang.org/x/sync v0.0.0-20190423024810-112230192c58
-go: extracting k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
-go: extracting github.com/hashicorp/hcl v0.0.0-20160711231752-d8c773c4cba1
-go: downloading gopkg.in/yaml.v2 v2.2.1
-go: downloading github.com/samalba/dockerclient v0.0.0-20160414174713-91d7393ff859
-go: downloading github.com/hashicorp/go-multierror v0.0.0-20160811015721-8c5f0ad93604
-go: extracting github.com/mitchellh/mapstructure v0.0.0-20170307201123-53818660ed49
-go: extracting gopkg.in/yaml.v2 v2.2.1
-go: extracting golang.org/x/sync v0.0.0-20190423024810-112230192c58
-go: extracting github.com/hashicorp/go-multierror v0.0.0-20160811015721-8c5f0ad93604
-go: downloading golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
-go: extracting github.com/samalba/dockerclient v0.0.0-20160414174713-91d7393ff859
-go: downloading github.com/imdario/mergo v0.0.0-20141206190957-6633656539c1
-go: extracting golang.org/x/text v0.3.2
-go: downloading github.com/docker/go-units v0.0.0-20170127094116-9e638d38cf69
-go: extracting github.com/imdario/mergo v0.0.0-20141206190957-6633656539c1
-go: downloading github.com/docker/docker v1.13.1
-go: extracting github.com/docker/go-units v0.0.0-20170127094116-9e638d38cf69
-go: downloading github.com/mitchellh/go-ps v0.0.0-20170309133038-4fdf99ab2936
-go: extracting github.com/gogo/protobuf v0.0.0-20170330071051-c0656edd0d9e
-go: extracting golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
-go: downloading github.com/machine-drivers/docker-machine-driver-vmware v0.1.1
-go: extracting github.com/mitchellh/go-ps v0.0.0-20170309133038-4fdf99ab2936
-go: downloading gopkg.in/inf.v0 v0.9.0
-go: extracting gopkg.in/inf.v0 v0.9.0
-go: extracting github.com/machine-drivers/docker-machine-driver-vmware v0.1.1
-go: downloading github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
-go: downloading github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680
-go: extracting github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
-go: downloading golang.org/x/sys v0.0.0-20190507160741-ecd444e8653b
-go: downloading k8s.io/kubernetes v1.11.3
-go: downloading github.com/spf13/afero v0.0.0-20160816080757-b28a7effac97
-go: downloading golang.org/x/time v0.0.0-20161028155119-f51c12702a4d
-go: downloading github.com/cloudfoundry-attic/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
-go: downloading github.com/google/gofuzz v0.0.0-20161122191042-44d81051d367
-go: downloading k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede
-go: extracting github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680
-go: downloading github.com/fsnotify/fsnotify v1.4.7
-go: extracting golang.org/x/time v0.0.0-20161028155119-f51c12702a4d
-go: extracting github.com/cloudfoundry-attic/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
-go: extracting github.com/fsnotify/fsnotify v1.4.7
-go: extracting github.com/google/gofuzz v0.0.0-20161122191042-44d81051d367
-go: downloading github.com/golang/protobuf v1.2.0
-go: extracting github.com/spf13/afero v0.0.0-20160816080757-b28a7effac97
-go: downloading github.com/davecgh/go-spew v1.1.1
-go: downloading github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7
-go: downloading github.com/peterbourgon/diskv v2.0.1+incompatible
-go: extracting github.com/davecgh/go-spew v1.1.1
-go: extracting k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede
-go: downloading github.com/pkg/sftp v0.0.0-20160930220758-4d0e916071f6
-go: downloading github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d
-go: extracting github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7
-go: extracting github.com/peterbourgon/diskv v2.0.1+incompatible
-go: extracting golang.org/x/sys v0.0.0-20190507160741-ecd444e8653b
-go: downloading github.com/json-iterator/go v1.1.5
-go: downloading github.com/hashicorp/go-retryablehttp v0.5.4
-go: extracting github.com/golang/protobuf v1.2.0
-go: extracting github.com/hashicorp/go-retryablehttp v0.5.4
-go: extracting github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d
-go: extracting github.com/pkg/sftp v0.0.0-20160930220758-4d0e916071f6
-go: downloading github.com/hashicorp/golang-lru v0.0.0-20160207214719-a0d98a5f2880
-go: downloading github.com/google/btree v1.0.0
-go: extracting github.com/docker/docker v1.13.1
-go: extracting github.com/hashicorp/golang-lru v0.0.0-20160207214719-a0d98a5f2880
-go: extracting github.com/google/btree v1.0.0
-go: downloading github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
-go: extracting github.com/json-iterator/go v1.1.5
-go: downloading github.com/hashicorp/go-cleanhttp v0.5.0
-go: downloading github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
-go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
-go: extracting github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
-go: extracting github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
-go: extracting github.com/hashicorp/go-cleanhttp v0.5.0
-go: extracting github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
-go: extracting k8s.io/kubernetes v1.11.3
-go: downloading k8s.io/apiserver v0.0.0-20180914001516-67c892841170
-go: extracting k8s.io/apiserver v0.0.0-20180914001516-67c892841170
-go: finding github.com/golang/glog v0.0.0-20141105023935-44145f04b68c
-go: finding github.com/pkg/profile v0.0.0-20161223203901-3a8809bd8a80
-go: finding github.com/blang/semver v3.5.0+incompatible
-go: finding github.com/mattn/go-isatty v0.0.5
-go: finding github.com/cloudfoundry-attic/jibber_jabber v0.0.0-20151120183258-bcc4c8345a21
-go: finding k8s.io/client-go v0.0.0-20180806134042-1f13a808da65
-go: finding golang.org/x/text v0.3.2
-go: finding golang.org/x/sys v0.0.0-20190507160741-ecd444e8653b
-go: finding github.com/docker/machine v0.16.1
-go: finding github.com/imdario/mergo v0.0.0-20141206190957-6633656539c1
-go: finding github.com/spf13/pflag v1.0.1
-go: finding golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284
-go: finding github.com/docker/docker v1.13.1
-go: finding github.com/google/go-containerregistry v0.0.0-20190318164241-019cdfc6adf9
-go: finding k8s.io/apimachinery v0.0.0-20180621070125-103fd098999d
-go: finding github.com/samalba/dockerclient v0.0.0-20160414174713-91d7393ff859
-go: finding github.com/pkg/errors v0.8.0
-go: finding github.com/olekukonko/tablewriter v0.0.0-20160923125401-bdcc175572fd
-go: finding github.com/gogo/protobuf v0.0.0-20170330071051-c0656edd0d9e
-go: finding github.com/docker/go-units v0.0.0-20170127094116-9e638d38cf69
-go: finding github.com/pkg/browser v0.0.0-20160118053552-9302be274faa
-go: finding github.com/spf13/cobra v0.0.0-20180228053838-6644d46b81fa
-go: finding golang.org/x/sync v0.0.0-20190423024810-112230192c58
-go: finding github.com/mattn/go-runewidth v0.0.0-20161012013512-737072b4e32b
-go: finding github.com/spf13/viper v1.0.0
-go: finding github.com/jimmidyson/go-download v0.0.0-20161028105827-7f9a90c8c95b
-go: finding github.com/fsnotify/fsnotify v1.4.7
-go: finding k8s.io/api v0.0.0-20180712090710-2d6f90ab1293
-go: finding golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3
-go: finding github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680
-go: finding github.com/json-iterator/go v1.1.5
-go: finding github.com/hashicorp/hcl v0.0.0-20160711231752-d8c773c4cba1
-go: finding github.com/magiconair/properties v0.0.0-20160816085511-61b492c03cf4
-go: finding github.com/mitchellh/mapstructure v0.0.0-20170307201123-53818660ed49
-go: finding github.com/mitchellh/go-ps v0.0.0-20170309133038-4fdf99ab2936
-go: finding github.com/pelletier/go-toml v0.0.0-20160822122712-0049ab3dc4c4
-go: finding github.com/hashicorp/go-retryablehttp v0.5.4
-go: finding github.com/spf13/afero v0.0.0-20160816080757-b28a7effac97
-go: finding github.com/pelletier/go-buffruneio v0.1.0
-go: finding gopkg.in/yaml.v2 v2.2.1
-go: finding github.com/spf13/cast v0.0.0-20160730092037-e31f36ffc91a
-go: finding github.com/pkg/sftp v0.0.0-20160930220758-4d0e916071f6
-go: finding github.com/spf13/jwalterweatherman v0.0.0-20160311093646-33c24e77fb80
-go: finding github.com/google/gofuzz v0.0.0-20161122191042-44d81051d367
-go: finding github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
-go: finding github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
-go: finding github.com/hashicorp/go-multierror v0.0.0-20160811015721-8c5f0ad93604
-go: finding github.com/hashicorp/go-cleanhttp v0.5.0
-go: finding gopkg.in/inf.v0 v0.9.0
-go: finding github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
-go: finding gopkg.in/cheggaaa/pb.v1 v1.0.6
-go: finding golang.org/x/time v0.0.0-20161028155119-f51c12702a4d
-go: finding github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
-go: finding k8s.io/kubernetes v1.11.3
-go: finding github.com/golang/protobuf v1.2.0
-go: finding k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede
-go: finding k8s.io/apiserver v0.0.0-20180914001516-67c892841170
-go: finding github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d
-go: finding github.com/davecgh/go-spew v1.1.1
-go: finding github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7
-go: finding github.com/machine-drivers/docker-machine-driver-vmware v0.1.1
-go: finding github.com/peterbourgon/diskv v2.0.1+incompatible
-go: finding github.com/google/btree v1.0.0
-go: finding github.com/hashicorp/golang-lru v0.0.0-20160207214719-a0d98a5f2880
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# sudo cp ./out/minikube-linux-s390x /usr/bin/minikube
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-go: finding github.com/golangci/golangci-lint v1.19.1
-go: downloading github.com/golangci/golangci-lint v1.19.1
-go: extracting github.com/golangci/golangci-lint v1.19.1
-go: downloading github.com/pkg/errors v0.8.1
-go: downloading golang.org/x/tools v0.0.0-20190912215617-3720d1ec3678
-go: downloading github.com/fatih/color v1.7.0
-go: downloading github.com/spf13/pflag v1.0.5
-go: downloading github.com/go-critic/go-critic v0.3.5-0.20190904082202-d79a9f0c64db
-go: extracting github.com/fatih/color v1.7.0
-go: downloading github.com/mitchellh/go-homedir v1.1.0
-go: downloading github.com/golangci/maligned v0.0.0-20180506175553-b1d89398deca
-go: extracting github.com/pkg/errors v0.8.1
-go: downloading mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed
-go: downloading github.com/golangci/misspell v0.0.0-20180809174111-950f5d19e770
-go: downloading github.com/timakin/bodyclose v0.0.0-20190721030226-87058b9bfcec
-go: extracting github.com/mitchellh/go-homedir v1.1.0
-go: downloading honnef.co/go/tools v0.0.1-2019.2.3
-go: extracting github.com/spf13/pflag v1.0.5
-go: extracting mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed
-go: downloading github.com/spf13/cobra v0.0.5
-go: downloading github.com/golangci/prealloc v0.0.0-20180630174525-215b22d4de21
-go: extracting github.com/timakin/bodyclose v0.0.0-20190721030226-87058b9bfcec
-go: extracting github.com/golangci/maligned v0.0.0-20180506175553-b1d89398deca
-go: downloading github.com/ultraware/whitespace v0.0.3
-go: extracting github.com/golangci/misspell v0.0.0-20180809174111-950f5d19e770
-go: extracting github.com/spf13/cobra v0.0.5
-go: extracting github.com/go-critic/go-critic v0.3.5-0.20190904082202-d79a9f0c64db
-go: extracting github.com/ultraware/whitespace v0.0.3
-go: downloading github.com/inconshreveable/mousetrap v1.0.0
-go: extracting github.com/golangci/prealloc v0.0.0-20180630174525-215b22d4de21
-go: extracting github.com/inconshreveable/mousetrap v1.0.0
-go: downloading github.com/go-toolsmith/strparse v1.0.0
-go: downloading mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b
-go: extracting honnef.co/go/tools v0.0.1-2019.2.3
-go: extracting github.com/go-toolsmith/strparse v1.0.0
-go: downloading github.com/golangci/ineffassign v0.0.0-20190609212857-42439a7714cc
-go: extracting mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b
-go: extracting github.com/golangci/ineffassign v0.0.0-20190609212857-42439a7714cc
-go: downloading github.com/go-lintpack/lintpack v0.5.2
-go: extracting github.com/go-lintpack/lintpack v0.5.2
-go: extracting golang.org/x/tools v0.0.0-20190912215617-3720d1ec3678
-go: downloading github.com/golangci/gofmt v0.0.0-20181222123516-0b8337e80d98
-go: downloading github.com/ultraware/funlen v0.0.2
-go: downloading github.com/matoous/godox v0.0.0-20190910121045-032ad8106c86
-go: downloading github.com/golangci/gocyclo v0.0.0-20180528134321-2becd97e67ee
-go: downloading github.com/OpenPeeDeeP/depguard v1.0.1
-go: downloading github.com/golangci/revgrep v0.0.0-20180526074752-d9c87f5ffaf0
-go: downloading github.com/golangci/check v0.0.0-20180506172741-cfe4005ccda2
-go: downloading github.com/golangci/dupl v0.0.0-20180902072040-3e9179ac440a
-go: downloading github.com/mattn/go-isatty v0.0.8
-go: extracting github.com/ultraware/funlen v0.0.2
-go: downloading github.com/securego/gosec v0.0.0-20190912120752-140048b2a218
-go: extracting github.com/matoous/godox v0.0.0-20190910121045-032ad8106c86
-go: extracting github.com/golangci/revgrep v0.0.0-20180526074752-d9c87f5ffaf0
-go: extracting github.com/golangci/gocyclo v0.0.0-20180528134321-2becd97e67ee
-go: extracting github.com/mattn/go-isatty v0.0.8
-go: extracting github.com/golangci/gofmt v0.0.0-20181222123516-0b8337e80d98
-go: downloading github.com/kisielk/gotool v1.0.0
-go: extracting github.com/OpenPeeDeeP/depguard v1.0.1
-go: extracting github.com/golangci/check v0.0.0-20180506172741-cfe4005ccda2
-go: extracting github.com/golangci/dupl v0.0.0-20180902072040-3e9179ac440a
-go: downloading github.com/golangci/go-misc v0.0.0-20180628070357-927a3d87b613
-go: downloading github.com/stretchr/testify v1.4.0
-go: downloading github.com/go-toolsmith/astequal v1.0.0
-go: downloading github.com/gostaticanalysis/analysisutil v0.0.0-20190318220348-4088753ea4d3
-go: downloading github.com/sirupsen/logrus v1.4.2
-go: extracting github.com/securego/gosec v0.0.0-20190912120752-140048b2a218
-go: downloading github.com/BurntSushi/toml v0.3.1
-go: downloading mvdan.cc/unparam v0.0.0-20190720180237-d51796306d8f
-go: downloading github.com/golangci/errcheck v0.0.0-20181223084120-ef45e06d44b6
-go: extracting github.com/stretchr/testify v1.4.0
-go: extracting github.com/go-toolsmith/astequal v1.0.0
-go: extracting github.com/kisielk/gotool v1.0.0
-go: extracting github.com/sirupsen/logrus v1.4.2
-go: downloading github.com/go-toolsmith/astp v1.0.0
-go: extracting github.com/golangci/go-misc v0.0.0-20180628070357-927a3d87b613
-go: extracting github.com/gostaticanalysis/analysisutil v0.0.0-20190318220348-4088753ea4d3
-go: extracting mvdan.cc/unparam v0.0.0-20190720180237-d51796306d8f
-go: downloading github.com/golangci/goconst v0.0.0-20180610141641-041c5f2b40f3
-go: downloading github.com/konsorten/go-windows-terminal-sequences v1.0.1
-go: extracting github.com/golangci/errcheck v0.0.0-20181223084120-ef45e06d44b6
-go: extracting github.com/BurntSushi/toml v0.3.1
-go: downloading github.com/spf13/viper v1.4.0
-go: downloading github.com/sourcegraph/go-diff v0.5.1
-go: extracting github.com/go-toolsmith/astp v1.0.0
-go: downloading github.com/mattn/go-colorable v0.1.2
-go: extracting github.com/konsorten/go-windows-terminal-sequences v1.0.1
-go: extracting github.com/spf13/viper v1.4.0
-go: downloading gopkg.in/yaml.v2 v2.2.2
-go: extracting github.com/mattn/go-colorable v0.1.2
-go: extracting github.com/golangci/goconst v0.0.0-20180610141641-041c5f2b40f3
-go: extracting gopkg.in/yaml.v2 v2.2.2
-go: downloading github.com/hashicorp/hcl v1.0.0
-go: extracting github.com/sourcegraph/go-diff v0.5.1
-go: downloading github.com/golangci/lint-1 v0.0.0-20190420132249-ee948d087217
-go: downloading github.com/spf13/cast v1.3.0
-go: downloading github.com/nbutton23/zxcvbn-go v0.0.0-20180912185939-ae427f1e4c1d
-go: downloading github.com/pelletier/go-toml v1.2.0
-go: downloading github.com/gogo/protobuf v1.2.1
-go: extracting github.com/spf13/cast v1.3.0
-go: extracting github.com/golangci/lint-1 v0.0.0-20190420132249-ee948d087217
-go: downloading github.com/stretchr/objx v0.2.0
-go: extracting github.com/hashicorp/hcl v1.0.0
-go: downloading github.com/pmezard/go-difflib v1.0.0
-go: downloading github.com/magiconair/properties v1.8.0
-go: downloading github.com/go-toolsmith/astcast v1.0.0
-go: extracting github.com/pelletier/go-toml v1.2.0
-go: extracting github.com/pmezard/go-difflib v1.0.0
-go: extracting github.com/stretchr/objx v0.2.0
-go: downloading github.com/go-toolsmith/astcopy v1.0.0
-go: downloading github.com/mitchellh/mapstructure v1.1.2
-go: downloading github.com/gobwas/glob v0.2.3
-go: downloading github.com/spf13/afero v1.1.2
-go: extracting github.com/nbutton23/zxcvbn-go v0.0.0-20180912185939-ae427f1e4c1d
-go: downloading github.com/golangci/unconvert v0.0.0-20180507085042-28b1c447d1f4
-go: downloading github.com/go-toolsmith/typep v1.0.0
-go: extracting github.com/golangci/unconvert v0.0.0-20180507085042-28b1c447d1f4
-go: downloading golang.org/x/sys v0.0.0-20190911201528-7ad0cfa0b7b5
-go: extracting github.com/gobwas/glob v0.2.3
-go: extracting github.com/go-toolsmith/astcast v1.0.0
-go: extracting github.com/spf13/afero v1.1.2
-go: extracting github.com/go-toolsmith/astcopy v1.0.0
-go: extracting github.com/magiconair/properties v1.8.0
-go: extracting github.com/mitchellh/mapstructure v1.1.2
-go: downloading github.com/go-toolsmith/astfmt v1.0.0
-go: extracting github.com/go-toolsmith/typep v1.0.0
-go: downloading github.com/spf13/jwalterweatherman v1.0.0
-go: downloading sourcegraph.com/sqs/pbtypes v0.0.0-20180604144634-d3ebe8f20ae4
-go: extracting github.com/spf13/jwalterweatherman v1.0.0
-go: extracting github.com/go-toolsmith/astfmt v1.0.0
-go: extracting sourcegraph.com/sqs/pbtypes v0.0.0-20180604144634-d3ebe8f20ae4
-go: extracting github.com/gogo/protobuf v1.2.1
-go: extracting golang.org/x/sys v0.0.0-20190911201528-7ad0cfa0b7b5
-go: finding github.com/OpenPeeDeeP/depguard v1.0.1
-go: finding github.com/golangci/misspell v0.3.4
-go: finding github.com/pelletier/go-toml v1.4.0
-go: finding github.com/matoous/godox latest
-go: finding github.com/golangci/check latest
-go: finding github.com/go-toolsmith/astp v1.0.0
-go: finding github.com/golangci/misspell v0.0.0-20180809174111-950f5d19e770
-go: finding github.com/golangci/gocyclo latest
-go: finding github.com/hashicorp/hcl v1.0.0
-go: finding honnef.co/go/tools v0.0.1-2019.2.3
-go: finding github.com/stretchr/objx v0.2.0
-go: finding github.com/pmezard/go-difflib v1.0.0
-go: finding github.com/spf13/viper v1.4.0
-go: finding github.com/golangci/go-misc latest
-go: finding github.com/spf13/cast v1.3.0
-go: finding golang.org/x/tools latest
-go: finding golang.org/x/sys latest
-go: finding github.com/golangci/revgrep latest
-go: finding github.com/spf13/pflag v1.0.5
-go: finding github.com/inconshreveable/mousetrap v1.0.0
-go: finding sourcegraph.com/sqs/pbtypes v1.0.0
-go: finding github.com/go-toolsmith/astcopy v1.0.0
-go: finding github.com/timakin/bodyclose latest
-go: finding github.com/gogo/protobuf v1.3.0
-go: finding github.com/golangci/unconvert latest
-go: finding github.com/sourcegraph/go-diff v0.5.1
-go: finding github.com/go-critic/go-critic v0.3.4
-go: finding mvdan.cc/interfacer latest
-go: finding github.com/golangci/prealloc latest
-go: finding mvdan.cc/unparam latest
-go: finding github.com/mitchellh/go-homedir v1.1.0
-go: finding github.com/golangci/dupl latest
-go: finding gopkg.in/yaml.v2 v2.2.2
-go: finding github.com/go-critic/go-critic v0.3.5-0.20190904082202-d79a9f0c64db
-go: finding github.com/spf13/afero v1.2.2
-go: finding github.com/magiconair/properties v1.8.1
-go: finding mvdan.cc/lint latest
-go: finding github.com/stretchr/testify v1.4.0
-go: finding github.com/go-toolsmith/typep v1.0.0
-go: finding github.com/sirupsen/logrus v1.4.2
-go: finding github.com/BurntSushi/toml v0.3.1
-go: finding github.com/ultraware/funlen v0.0.2
-go: finding github.com/mattn/go-isatty v0.0.9
-go: finding github.com/golangci/errcheck latest
-go: finding github.com/kisielk/gotool v1.0.0
-go: finding github.com/mattn/go-colorable v0.1.2
-go: finding github.com/nbutton23/zxcvbn-go latest
-go: finding github.com/ultraware/whitespace v0.0.3
-go: finding github.com/mitchellh/mapstructure v1.1.2
-go: finding github.com/spf13/cobra v0.0.5
-go: finding github.com/go-toolsmith/strparse v1.0.0
-go: finding github.com/golangci/ineffassign latest
-go: finding github.com/gostaticanalysis/analysisutil v0.0.3
-go: finding github.com/konsorten/go-windows-terminal-sequences v1.0.2
-go: finding github.com/securego/gosec latest
-go: finding github.com/go-toolsmith/astequal v1.0.0
-go: finding github.com/golangci/ineffassign v0.0.0-20190609212857-42439a7714cc
-go: finding github.com/gobwas/glob v0.2.3
-go: finding github.com/go-lintpack/lintpack v0.5.2
-go: finding github.com/golangci/gofmt latest
-go: finding github.com/go-toolsmith/astfmt v1.0.0
-go: finding github.com/fatih/color v1.7.0
-go: finding github.com/go-toolsmith/astcast v1.0.0
-go: finding github.com/golangci/lint-1 latest
-go: finding github.com/golangci/maligned latest
-go: finding github.com/golangci/lint-1 v0.0.0-20190420132249-ee948d087217
-go: finding github.com/pkg/errors v0.8.1
-go: finding github.com/spf13/jwalterweatherman v1.1.0
-go: finding github.com/golangci/goconst latest
-go: downloading github.com/spf13/afero v1.2.2
-go: downloading github.com/magiconair/properties v1.8.1
-go: downloading github.com/spf13/jwalterweatherman v1.1.0
-go: downloading golang.org/x/tools v0.0.0-20190925230517-ea99b82c7b93
-go: downloading github.com/pelletier/go-toml v1.4.0
-go: downloading golang.org/x/sys v0.0.0-20190924154521-2837fb4f24fe
-go: downloading github.com/mattn/go-isatty v0.0.9
-go: extracting github.com/magiconair/properties v1.8.1
-go: extracting github.com/spf13/jwalterweatherman v1.1.0
-go: extracting github.com/pelletier/go-toml v1.4.0
-go: extracting github.com/mattn/go-isatty v0.0.9
-go: extracting github.com/spf13/afero v1.2.2
-go: extracting golang.org/x/sys v0.0.0-20190924154521-2837fb4f24fe
-go: extracting golang.org/x/tools v0.0.0-20190925230517-ea99b82c7b93
-go: downloading github.com/golangci/gocyclo v0.0.0-20180528144436-0a533e8fa43d
-go: downloading mvdan.cc/unparam v0.0.0-20190917161559-b83a221c10a2
-go: downloading github.com/securego/gosec v0.0.0-20190924081645-29341f6e9c08
-go: downloading github.com/konsorten/go-windows-terminal-sequences v1.0.2
-go: downloading github.com/matoous/godox v0.0.0-20190911065817-5d6d842e92eb
-go: downloading github.com/golangci/revgrep v0.0.0-20180812185044-276a5c0a1039
-go: downloading github.com/gostaticanalysis/analysisutil v0.0.3
-go: downloading github.com/gogo/protobuf v1.3.0
-go: downloading sourcegraph.com/sqs/pbtypes v1.0.0
-go: extracting github.com/golangci/gocyclo v0.0.0-20180528144436-0a533e8fa43d
-go: extracting github.com/gostaticanalysis/analysisutil v0.0.3
-go: extracting github.com/matoous/godox v0.0.0-20190911065817-5d6d842e92eb
-go: extracting github.com/securego/gosec v0.0.0-20190924081645-29341f6e9c08
-go: extracting sourcegraph.com/sqs/pbtypes v1.0.0
-go: extracting github.com/konsorten/go-windows-terminal-sequences v1.0.2
-go: extracting github.com/golangci/revgrep v0.0.0-20180812185044-276a5c0a1039
-go: extracting mvdan.cc/unparam v0.0.0-20190917161559-b83a221c10a2
-go: extracting github.com/gogo/protobuf v1.3.0
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# mkdir -p $GOPATH/src/k8s.io/minikube/out/linters
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# cp $GOPATH/bin/golangci-lint $GOPATH/src/k8s.io/minikube/out/linters/
-]0;root@vibhuti: /mnt/go/src/k8s.io/minikuberoot@vibhuti:/mnt/go/src/k8s.io/minikube# make test
-./test.sh
-= go mod ================================================================
-unused github.com/golangci/gocyclo
-unused github.com/golangci/golangci-lint
-unused github.com/golangci/revgrep
-unused github.com/gostaticanalysis/analysisutil
-unused github.com/kr/fs
-unused github.com/matoous/godox
-unused github.com/pelletier/go-buffruneio
-unused github.com/pkg/sftp
-unused github.com/securego/gosec
-unused github.com/shurcooL/sanitized_anchor_name
-unused golang.org/x/tools
-unused mvdan.cc/unparam
-unused sourcegraph.com/sqs/pbtypes
-ok
-= make lint =====
