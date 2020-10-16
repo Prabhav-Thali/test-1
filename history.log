@@ -1,0 +1,264 @@
+cd
+ls
+ls bin/
+pwd
+ls
+ls bin/
+ls public_html
+mkdir mis 
+cp bin/ public_html/ mis/
+cp -r bin/ public_html/ mis/
+ls
+ls mis/
+rm -rf bin  public_html
+zypper install -y vim sudo git pkg-config zip zlib1g-dev 
+sudo zypper install -y vim sudo git pkg-config zip zlib1g-dev
+zyppere search zlib1g
+sudo zypper search zlib1g
+sudo zypper search zlib
+sudo zypper install --type pattern devel_basis zlib-devel
+sudo zypper install --type pattern  zlib-devel
+sudo zypper install  zlib-devel
+sudo zypper install  zlib-devel unzip python3 libtool automake cmake curl wget -y
+sudo zypper install  zlib-devel unzip python3 libtool automake cmake curl wgetbuild-essential 
+sudo zypper install  zlib-devel unzip python3 libtool automake cmake curl wget build-essential 
+zypper info -t pattern devel_basis
+sudo zypper info -t pattern devel_basis
+sudo zypper install -y wget git tar pkg-config zip unzip python3 libtool automake cmake zlib-devel binutils-devel patch which curl python-xml 
+sudo zypper search gcc
+sudo zypper install -y wget git tar pkg-config zip unzip python3 libtool automake cmake zlib-devel binutils-devel patch which curl python-xml 
+sudo zypper install -y wget git tar pkg-config zip unzip python3 libtool automake cmake zlib-devel binutils-devel patch which curl python-xml  gcc9 gcc9-c++
+gcc --version
+sudo gcc --version
+sudo gcc9  --version
+sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
+sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
+sudo ln -sf /usr/bin/gcc /usr/bin/cc
+gcc --version
+sudo zypper install -y rsync ninja-build clang-9 clang-format-9 python re2c
+sudo zypper search cleang
+sudo zypper search clang
+sudo zypper install -y rsync ninja-build libclang  python re2c
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
+clang --version
+sudo zypper instll -y rsync  python re2c
+sudo zypper install -y rsync  python re2c
+export SOURCE_ROOT=`pwd`
+ls
+cd $SOURCE_ROOT
+wget https://storage.googleapis.com/golang/go1.14.2.linux-s390x.tar.gz
+tar -xzf go1.14.2.linux-s390x.tar.gz
+export PATH=$SOURCE_ROOT/go/bin:$PATH
+export GOROOT=$SOURCE_ROOT/go
+export GOPATH=$SOURCE_ROOT
+go version
+cd $SOURCE_ROOT
+wget https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.3%2B7/OpenJDK11U-jdk_s390x_linux_hotspot_11.0.3_7.tar.gz
+tar -xvf OpenJDK11U-jdk_s390x_linux_hotspot_11.0.3_7.tar.gz
+export JAVA_HOME=$SOURCE_ROOT/jdk-11.0.3+7
+export PATH=$JAVA_HOME/bin:$PATH
+java -version
+cd $SOURCE_ROOT
+mkdir bazel && cd bazel
+wget https://github.com/bazelbuild/bazel/releases/download/2.2.0/bazel-2.2.0-dist.zip
+unzip bazel-2.2.0-dist.zip
+chmod -R +w .
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/diff-repo/master"
+curl -o patch_BUILD.patch $PATCH_URL/patch_BUILD.patch
+patch "${SOURCE_ROOT}/bazel/third_party/BUILD" patch_BUILD.patch
+curl -o BUILD.diff $PATCH_URL/BUILD.diff
+patch "${SOURCE_ROOT}/bazel/src/main/java/com/google/devtools/build/lib/syntax/BUILD" BUILD.diff
+env EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk" bash ./compile.sh
+cd
+ls
+rm -rf OpenJDK11U-jdk_s390x_linux_hotspot_11.0.3_7.tar.gz  go1.14.2.linux-s390x.tar.gz
+history | cut -c 8- | grep export
+vi setenv.sh
+export PATH=$PATH:$SOURCE_ROOT/bazel/output/
+bazel version
+source setenv.sh 
+export PATH=$PATH:$SOURCE_ROOT/bazel/output/
+bazel version
+vi setenv.sh 
+cd $SOURCE_ROOT
+git clone https://gn.googlesource.com/gn
+cd gn 
+git checkout c5f5cb2
+sed -i -e 's/-Wl,--icf=all//g' ./build/gen.py
+python build/gen.py
+ninja -C out
+cd
+ls
+gcc --version
+git clone -b v1.8.2 git://github.com/ninja-build/ninja.git && cd ninja
+./configure.py --bootstrap
+export PATH=/usr/local/bin:$PATH                              
+sudo ln -sf $SOURCE_ROOT/ninja/ninja /usr/local/bin/ninja     
+ninja --version 
+cd
+vi setenv.sh 
+cd gn 
+git checkout c5f5cb2
+sed -i -e 's/-Wl,--icf=all//g' ./build/gen.py
+python build/gen.py
+ninja -C out
+export PATH=$SOURCE_ROOT/gn/out:$PATH
+cd
+cd $SOURCE_ROOT
+git clone https://github.com/istio/envoy/
+cd envoy/
+git checkout release-1.6
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/diff-repo/master"
+curl -sSL ${PATCH_URL}/envoy.diff | patch -p1 || echo "Error"  
+cd $SOURCE_ROOT
+git clone https://github.com/linux-on-ibm-z/boringssl
+cd boringssl
+git checkout boringssl-Istio102-s390x
+cd $SOURCE_ROOT
+git clone https://github.com/istio/proxy.git
+cd proxy && git checkout 1.6.8
+curl -sSL ${PATCH_URL}/proxy_s.diff | patch -p1 || echo "Error" 
+sed -i "s|\$SOURCE_ROOT|${SOURCE_ROOT}|"  ${SOURCE_ROOT}/proxy/WORKSPACE
+export 'BAZEL_BUILD_ARGS=--local_ram_resources=12288 --local_cpu_resources=8 --verbose_failures --test_env=ENVOY_IP_TEST_VERSIONS=v4only --test_output=errors'
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+chmod +x setenv.sh 
+./setenv.sh 
+source setenv.sh 
+cd proxy/
+ls
+history | cut -c 8- | grep export 
+vi ../setenv.sh 
+make clean
+bazel clean --expunge
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+echo $PATH
+grep -inr "ENVOY_IGNORE_GLIBCXX_USE_CXX11_ABI_ERROR" .
+cd proxy/
+ls
+vi envoy.bazelrc 
+make clena
+make clean
+bazel celan --expunge
+bazel cleann --expunge
+bazel clean --expunge
+make BUILD_WITH_CONTAINER=0  build -j8
+vi /home/test/.cache/bazel/_bazel_test/c9d521a189859816c87239e784b648ec/external/com_googlesource_chromium_v8/BUILD.bazel
+cd
+ls
+cd envoy/
+ls
+grep -inr "/bin/bash -c" .
+cd bazel/
+ls
+cd external/
+ls
+vi wee8.genrule_cmd
+gn --version
+cd
+ls
+vi setenv.sh 
+source setenv.sh 
+gn --version
+cd proxy/
+ls
+make clean
+ninja --version
+bazel clean --expunge
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+source setenv.sh 
+vi /home/test/proxy/src/envoy/http/authn/BUILD
+cd proxy/
+ls
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+source setenv.sh 
+cd proxy/
+gn --version
+make BUILD_WITH_CONTAINER=0  build -j8 
+PROXY_DEBUG_BIN_PATH="$SOURCE_ROOT/proxy/debug"
+mkdir -p "${PROXY_DEBUG_BIN_PATH}"
+cp -r "${SOURCE_ROOT}/proxy/bazel-bin/src/envoy/envoy" "${PROXY_DEBUG_BIN_PATH}/"
+ls ${PROXY_DEBUG_BIN_PATH}
+git checkout ${SOURCE_ROOT}/proxy/Makefile.core.mk
+curl -o patch_release.patch $PATCH_URL/patch_release.patch
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/diff-repo/master"
+curl -o patch_release.patch $PATCH_URL/patch_release.patch
+patch "${SOURCE_ROOT}/proxy/Makefile.core.mk" patch_release.patch
+vi ${SOURCE_ROOT}/proxy/Makefile.core.mk
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+source setenv.sh 
+cd proxy/
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+source setenv.sh 
+cd proxy/
+ls
+make BUILD_WITH_CONTAINER=0  build -j8
+make clean
+bazel celan --expunge
+bazel clean --expunge
+make BUILD_WITH_CONTAINER=0  build -j8
+cd
+ls
+source setenv.sh 
+cd proxy/
+ls
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0  build -j8
+PROXY_RELEASE_BIN_PATH="$SOURCE_ROOT/proxy/release"
+mkdir -p "$PROXY_RELEASE_BIN_PATH"
+cp -r "${SOURCE_ROOT}/proxy/bazel-bin/src/envoy/envoy" "${PROXY_RELEASE_BIN_PATH}/"
+ls ${PROXY_RELEASE_BIN_PATH}
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+cd
+ls
+source setenv.sh 
+cd proxy/
+ls
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+cd 
+cd proxy/
+cd
+cd envoy/
+vi test/integration/http_integration.cc
+cd
+cd proxy/
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi extensions/attributegen/plugin_test.cc
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+vi Makefile.core.mk
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+ls
+make clean
+make BUILD_WITH_CONTAINER=0 test 2>&1 | tee test.log
+history | cut -c 8- >> history.log
