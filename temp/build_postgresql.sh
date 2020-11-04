@@ -10,7 +10,7 @@ set -e -o pipefail
 
 PACKAGE_NAME="postgresql"
 PACKAGE_VERSION="13.0"
-PATCH_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/PostgreSQL/13.0/patch"
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/temp/patch"
 CURDIR="$(pwd)"
 TESTS="false"
 FORCE="false"
