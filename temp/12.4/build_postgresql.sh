@@ -3,13 +3,13 @@
 # LICENSE: Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 #
 # Instructions:
-# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/PostgreSQL/13.0/build_postgresql.sh
+# Download build script: wget https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/PostgreSQL/12.4/build_postgresql.sh
 # Execute build script: bash build_postgresql.sh    (provide -h for help)
 
 set -e -o pipefail
 
 PACKAGE_NAME="postgresql"
-PACKAGE_VERSION="13.0"
+PACKAGE_VERSION="12.4"
 PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/temp/12.4/patch"
 CURDIR="$(pwd)"
 TESTS="false"
@@ -85,11 +85,11 @@ function configureAndInstall() {
         cd "${CURDIR}"
         wget "https://ftp.postgresql.org/pub/source/v${PACKAGE_VERSION}/postgresql-${PACKAGE_VERSION}.tar.gz"
         tar xf "postgresql-${PACKAGE_VERSION}.tar.gz"
-        wget $PATCH_URL/timetz.sql_12.diff
-        wget $PATCH_URL/timetz.out_12.diff
+        cd "postgresql-${PACKAGE_VERSION}"
+        curl -o timetz.sql_12.diff $PATCH_URL/timetz.sql_12.diff
+        curl -o timetz.out_12.diff $PATCH_URL/timetz.out_12.diff
         patch src/test/regress/sql/timetz.sql timetz.sql_12.diff
         patch src/test/regress/expected/timetz.out timetz.out_12.diff
-        cd "postgresql-${PACKAGE_VERSION}"
         ./configure
         make
         sudo make install
@@ -160,7 +160,7 @@ case "$DISTRO" in
 "ubuntu-18.04" | "ubuntu-20.04")
         printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
         sudo apt-get update >/dev/null
-        sudo apt-get install -y bison flex wget build-essential git gcc make zlib1g-dev libreadline-dev |& tee -a "$LOG_FILE"
+        sudo apt-get install -y bison flex wget build-essential git gcc make zlib1g-dev libreadline-dev curl patch |& tee -a "$LOG_FILE"
         configureAndInstall |& tee -a "$LOG_FILE"
         ;;
 
@@ -169,18 +169,18 @@ case "$DISTRO" in
         printf -- 'Installing the dependencies for postgresql from repository \n' |& tee -a "$LOG_FILE"
 
         if [[ "$VERSION_ID" == "8.1" || "$VERSION_ID" == "8.2" ]]; then
-        sudo yum install -y git wget gcc gcc-c++ make readline-devel zlib-devel bison flex glibc-langpack-en procps-ng diffutils |& tee -a "$LOG_FILE"
+        sudo yum install -y git wget gcc gcc-c++ make readline-devel zlib-devel bison flex glibc-langpack-en procps-ng diffutils curl patch |& tee -a "$LOG_FILE"
         else
-        sudo yum install -y git wget build-essential gcc gcc-c++ make readline-devel zlib-devel bison flex |& tee -a "$LOG_FILE"
+        sudo yum install -y git wget build-essential gcc gcc-c++ make readline-devel zlib-devel bison flex curl patch |& tee -a "$LOG_FILE"
         fi
 
         configureAndInstall |& tee -a "$LOG_FILE"
         ;;
 
-"sles-12.5" | "sles-15.1" | "sles-15.2")
+"sles-12.5")
         printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
         printf -- 'Installing the dependencies for postgresql from repository \n' |& tee -a "$LOG_FILE"
-        sudo zypper install -y git gcc gcc-c++ make readline-devel zlib-devel bison flex gawk |& tee -a "$LOG_FILE"
+        sudo zypper install -y git gcc gcc-c++ make readline-devel zlib-devel bison flex gawk curl patch |& tee -a "$LOG_FILE"
         configureAndInstall |& tee -a "$LOG_FILE"
         ;;
 
