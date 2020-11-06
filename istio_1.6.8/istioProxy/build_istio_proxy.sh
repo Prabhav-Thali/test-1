@@ -12,7 +12,7 @@ set -e -o pipefail
 PACKAGE_NAME="Istio-Proxy"
 PACKAGE_VERSION="1.6.8"
 SOURCE_ROOT="$(pwd)"
-PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/diff-repo/master/final_patches"
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/istio_1.6.8/istioProxy/patch"
 ISTIO_PROXY_REPO_URL="https://github.com/istio/proxy.git"
 LOG_FILE="$SOURCE_ROOT/logs/${PACKAGE_NAME}-${PACKAGE_VERSION}-$(date +"%F-%T").log"
 FORCE="false"
