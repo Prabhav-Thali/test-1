@@ -1,0 +1,26 @@
+diff --git a/Makefile.core.mk b/Makefile.core.mk
+index c8c79f35..62dce7b3 100644
+--- a/Makefile.core.mk
++++ b/Makefile.core.mk
+@@ -19,7 +19,7 @@ BAZEL_STARTUP_ARGS ?=
+ BAZEL_BUILD_ARGS ?=
+ BAZEL_TARGETS ?= //...
+ # Don't build Debian packages and Docker images in tests.
+-BAZEL_TEST_TARGETS ?= ${BAZEL_TARGETS} -tools/deb/... -tools/docker/...
++BAZEL_TEST_TARGETS ?= ${BAZEL_TARGETS} -tools/deb/... 
+ HUB ?=
+ TAG ?=
+ repo_dir := .
+@@ -62,10 +62,10 @@ BAZEL_CONFIG_TSAN = # no working config
+ endif
+ 
+ BAZEL_OUTPUT_PATH = $(shell bazel info $(BAZEL_BUILD_ARGS) output_path)
+-BAZEL_ENVOY_PATH ?= $(BAZEL_OUTPUT_PATH)/k8-fastbuild/bin/src/envoy/envoy
++BAZEL_ENVOY_PATH ?= $(BAZEL_OUTPUT_PATH)/s390x-fastbuild/bin/src/envoy/envoy
+ 
+ build:
+-	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS)
++	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build -c opt $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS)
+ 
+ build_envoy:
+ 	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_REL) //src/envoy:envoy
