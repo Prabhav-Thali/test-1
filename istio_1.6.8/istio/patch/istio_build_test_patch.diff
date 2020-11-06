@@ -1,0 +1,215 @@
+diff --git a/Makefile.core.mk b/Makefile.core.mk
+index fbc90591d9..5ae733711a 100644
+--- a/Makefile.core.mk
++++ b/Makefile.core.mk
+@@ -295,7 +295,7 @@ build: depend
+ # various platform images.
+ .PHONY: build-linux
+ build-linux: depend
+-	STATIC=0 GOOS=linux GOARCH=amd64 LDFLAGS='-extldflags -static -s -w' common/scripts/gobuild.sh $(ISTIO_OUT_LINUX)/ $(BINARIES)
++	STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' common/scripts/gobuild.sh $(ISTIO_OUT_LINUX)/ $(BINARIES)
+ 
+ # Create targets for ISTIO_OUT_LINUX/binary
+ # There are two use cases here:
+@@ -308,7 +308,7 @@ ifeq ($(BUILD_ALL),true)
+ $(ISTIO_OUT_LINUX)/$(shell basename $(1)): build-linux
+ else
+ $(ISTIO_OUT_LINUX)/$(shell basename $(1)): $(ISTIO_OUT_LINUX)
+-	STATIC=0 GOOS=linux GOARCH=amd64 LDFLAGS='-extldflags -static -s -w' common/scripts/gobuild.sh $(ISTIO_OUT_LINUX)/ $(1)
++	STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS='-extldflags -static -s -w' common/scripts/gobuild.sh $(ISTIO_OUT_LINUX)/ $(1)
+ endif
+ endef
+ 
+@@ -388,6 +388,8 @@ RELEASE_LDFLAGS='-extldflags -static -s -w'
+ DEBUG_LDFLAGS='-extldflags "-static"'
+ 
+ # Non-static istioctl targets. These are typically a build artifact.
++${ISTIO_OUT}/release/istioctl-linux-s390x: depend
++        STATIC=0 GOOS=linux GOARCH=s390x LDFLAGS=$(RELEASE_LDFLAGS) common/scripts/gobuild.sh $@ ./istioctl/cmd/istioctl
+ ${ISTIO_OUT}/release/istioctl-linux-amd64: depend
+ 	STATIC=0 GOOS=linux GOARCH=amd64 LDFLAGS=$(RELEASE_LDFLAGS) common/scripts/gobuild.sh $@ ./istioctl/cmd/istioctl
+ ${ISTIO_OUT}/release/istioctl-linux-armv7: depend
+@@ -478,7 +480,7 @@ common-test: common-racetest
+ 
+ .PHONY: selected-pkg-test
+ selected-pkg-test:
+-	find ${WHAT} -name "*_test.go" | xargs -I {} dirname {} | uniq | xargs -I {} go test ${GOBUILDFLAGS} ${T} -race ./{}
++	find ${WHAT} -name "*_test.go" | xargs -I {} dirname {} | uniq | xargs -I {} go test ${GOBUILDFLAGS} ${T}  ./{}
+ 
+ #-----------------------------------------------------------------------------
+ # Target: coverage
+@@ -530,31 +532,31 @@ racetest: $(JUNIT_REPORT)
+ 
+ .PHONY: pilot-racetest
+ pilot-racetest:
+-	go test ${GOBUILDFLAGS} ${T} -race ./pilot/...
++	go test ${GOBUILDFLAGS} ${T}  ./pilot/...
+ 
+ .PHONY: istioctl-racetest
+ istioctl-racetest:
+-	go test ${GOBUILDFLAGS} ${T} -race ./istioctl/...
++	go test ${GOBUILDFLAGS} ${T}  ./istioctl/...
+ 
+ .PHONY: operator-racetest
+ operator-racetest:
+-	RACE_TEST=true go test ${GOBUILDFLAGS} ${T} -race ./operator/...
++	RACE_TEST=true go test ${GOBUILDFLAGS} ${T}  ./operator/...
+ 
+ .PHONY: mixer-racetest
+ mixer-racetest:
+-	go test ${GOBUILDFLAGS} ${T} -race ./mixer/...
++	go test ${GOBUILDFLAGS} ${T}  ./mixer/...
+ 
+ .PHONY: galley-racetest
+ galley-racetest:
+-	go test ${GOBUILDFLAGS} ${T} -race ./galley/...
++	go test ${GOBUILDFLAGS} ${T}  ./galley/...
+ 
+ .PHONY: security-racetest
+ security-racetest:
+-	go test ${GOBUILDFLAGS} ${T} -race ./security/pkg/... ./security/cmd/...
++	go test ${GOBUILDFLAGS} ${T}  ./security/pkg/... ./security/cmd/...
+ 
+ .PHONY: common-racetest
+ common-racetest: ${BUILD_DEPS}
+-	go test ${GOBUILDFLAGS} ${T} -race ./pkg/... ./tests/common/... ./tools/istio-iptables/...
++	go test ${GOBUILDFLAGS} ${T}  ./pkg/... ./tests/common/... ./tools/istio-iptables/...
+ 
+ #-----------------------------------------------------------------------------
+ # Target: clean
+diff --git a/bin/init.sh b/bin/init.sh
+index 8dfe0e4da5..00ea2e3ec8 100755
+--- a/bin/init.sh
++++ b/bin/init.sh
+@@ -76,13 +76,17 @@ function download_envoy_if_necessary () {
+ 
+     # Download and extract the binary to the output directory.
+     echo "Downloading Envoy: ${DOWNLOAD_COMMAND} $1 to $2"
+-    time ${DOWNLOAD_COMMAND} --header "${AUTH_HEADER:-}" "$1" | tar xz
++    #time ${DOWNLOAD_COMMAND} --header "${AUTH_HEADER:-}" "$1" | tar xz
+ 
+     # Copy the extracted binary to the output location
+-    cp usr/local/bin/envoy "$2"
+-
++    #cp usr/local/bin/envoy "$2"
++    if [[ "$2" ==  "$ISTIO_ENVOY_LINUX_DEBUG_PATH" ]] ; then
++      cp  $SOURCE_ROOT_D/envoy "$2"
++    else
++      cp  $SOURCE_ROOT_R/envoy "$2"
++    fi
+     # Remove the extracted binary.
+-    rm -rf usr
++    #rm -rf usr
+ 
+     # Make a copy named just "envoy" in the same directory (overwrite if necessary).
+     echo "Copying $2 to $(dirname "$2")/envoy"
+diff --git a/common/scripts/setup_env.sh b/common/scripts/setup_env.sh
+index 255b441473..bf2765bcfe 100755
+--- a/common/scripts/setup_env.sh
++++ b/common/scripts/setup_env.sh
+@@ -30,6 +30,8 @@ if [[ ${TARGET_ARCH} ]]; then
+     export TARGET_ARCH
+ elif [[ ${LOCAL_ARCH} == x86_64 ]]; then
+     export TARGET_ARCH=amd64
++elif [[ ${LOCAL_ARCH} == s390x ]]; then
++    export TARGET_ARCH=s390x
+ elif [[ ${LOCAL_ARCH} == armv8* ]]; then
+     export TARGET_ARCH=arm64
+ elif [[ ${LOCAL_ARCH} == aarch64* ]]; then
+@@ -73,10 +75,10 @@ TIMEZONE=$(readlink $readlink_flags /etc/localtime | sed -e 's/^.*zoneinfo\///')
+ export TIMEZONE
+ 
+ export TARGET_OUT="${TARGET_OUT:-$(pwd)/out/${TARGET_OS}_${TARGET_ARCH}}"
+-export TARGET_OUT_LINUX="${TARGET_OUT_LINUX:-$(pwd)/out/linux_amd64}"
++export TARGET_OUT_LINUX="${TARGET_OUT_LINUX:-$(pwd)/out/linux_s390x}"
+ 
+ export CONTAINER_TARGET_OUT="${CONTAINER_TARGET_OUT:-/work/out/${TARGET_OS}_${TARGET_ARCH}}"
+-export CONTAINER_TARGET_OUT_LINUX="${CONTAINER_TARGET_OUT_LINUX:-/work/out/linux_amd64}"
++export CONTAINER_TARGET_OUT_LINUX="${CONTAINER_TARGET_OUT_LINUX:-/work/out/linux_s390x}"
+ 
+ export IMG="${IMG:-gcr.io/istio-testing/${IMAGE_NAME}:${IMAGE_VERSION}}"
+ 
+diff --git a/mixer/adapter/kubernetesenv/kubernetesenv_norace_test.go b/mixer/adapter/kubernetesenv/kubernetesenv_norace_test.go
+index e2782099ce..2f54590cc6 100644
+--- a/mixer/adapter/kubernetesenv/kubernetesenv_norace_test.go
++++ b/mixer/adapter/kubernetesenv/kubernetesenv_norace_test.go
+@@ -34,6 +34,8 @@ func Test_KubeSecretController(t *testing.T) {
+ 	secretcontroller.LoadKubeConfig = mockLoadKubeConfig
+ 	secretcontroller.ValidateClientConfig = mockValidateClientConfig
+ 	secretcontroller.CreateInterfaceFromClusterConfig = mockCreateInterfaceFromClusterConfig
++	secretcontroller.CreateMetadataInterfaceFromClusterConfig = mockCreateMetaInterfaceFromClusterConfig
++	secretcontroller.CreateDynamicInterfaceFromClusterConfig = mockCreateDynamicInterfaceFromClusterConfig
+ 
+ 	clientset := fake.NewSimpleClientset()
+ 	b := newBuilder(func(string, adapter.Env) (kubernetes.Interface, error) {
+diff --git a/mixer/adapter/kubernetesenv/kubernetesenv_test.go b/mixer/adapter/kubernetesenv/kubernetesenv_test.go
+index 9044d098c8..cde26a3edc 100644
+--- a/mixer/adapter/kubernetesenv/kubernetesenv_test.go
++++ b/mixer/adapter/kubernetesenv/kubernetesenv_test.go
+@@ -27,8 +27,12 @@ import (
+ 	v1 "k8s.io/api/core/v1"
+ 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+ 	"k8s.io/apimachinery/pkg/runtime"
++	"k8s.io/client-go/dynamic"
++	dynamicfake "k8s.io/client-go/dynamic/fake"
+ 	"k8s.io/client-go/kubernetes"
+ 	"k8s.io/client-go/kubernetes/fake"
++	"k8s.io/client-go/metadata"
++	metafake "k8s.io/client-go/metadata/fake"
+ 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+ 
+ 	"istio.io/istio/mixer/adapter/kubernetesenv/config"
+@@ -528,6 +532,17 @@ func mockCreateInterfaceFromClusterConfig(_ *clientcmdapi.Config) (kubernetes.In
+ 	return fake.NewSimpleClientset(), nil
+ }
+ 
++func mockCreateMetaInterfaceFromClusterConfig(_ *clientcmdapi.Config) (metadata.Interface, error) {
++	scheme := runtime.NewScheme()
++	metav1.AddMetaToScheme(scheme)
++	return metafake.NewSimpleMetadataClient(scheme), nil
++}
++
++func mockCreateDynamicInterfaceFromClusterConfig(_ *clientcmdapi.Config) (dynamic.Interface, error) {
++	scheme := runtime.NewScheme()
++	metav1.AddMetaToScheme(scheme)
++	return dynamicfake.NewSimpleDynamicClient(scheme), nil
++}
+ // Kubernetes Runtime Object for Tests
+ 
+ var trueVar = true
+diff --git a/pilot/pkg/serviceregistry/kube/controller/multicluster_test.go b/pilot/pkg/serviceregistry/kube/controller/multicluster_test.go
+index 28bb5946a1..abcd28777e 100644
+--- a/pilot/pkg/serviceregistry/kube/controller/multicluster_test.go
++++ b/pilot/pkg/serviceregistry/kube/controller/multicluster_test.go
+@@ -24,8 +24,11 @@ import (
+ 	v1 "k8s.io/api/core/v1"
+ 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+ 	"k8s.io/apimachinery/pkg/runtime"
++	"k8s.io/client-go/dynamic"
++	dynamicfake "k8s.io/client-go/dynamic/fake"
+ 	"k8s.io/client-go/kubernetes"
+ 	"k8s.io/client-go/kubernetes/fake"
++
+ 	"k8s.io/client-go/metadata"
+ 	metafake "k8s.io/client-go/metadata/fake"
+ 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+@@ -97,13 +100,18 @@ func mockCreateMetaInterfaceFromClusterConfig(_ *clientcmdapi.Config) (metadata.
+ 	metav1.AddMetaToScheme(scheme)
+ 	return metafake.NewSimpleMetadataClient(scheme), nil
+ }
+-
++func mockCreateDynamicInterfaceFromClusterConfig(_ *clientcmdapi.Config) (dynamic.Interface, error) {
++	scheme := runtime.NewScheme()
++	metav1.AddMetaToScheme(scheme)
++	return dynamicfake.NewSimpleDynamicClient(scheme), nil
++}
+ // This test is skipped by the build tag !race due to https://github.com/istio/istio/issues/15610
+ func Test_KubeSecretController(t *testing.T) {
+ 	secretcontroller.LoadKubeConfig = mockLoadKubeConfig
+ 	secretcontroller.ValidateClientConfig = mockValidateClientConfig
+ 	secretcontroller.CreateInterfaceFromClusterConfig = mockCreateInterfaceFromClusterConfig
+ 	secretcontroller.CreateMetadataInterfaceFromClusterConfig = mockCreateMetaInterfaceFromClusterConfig
++	secretcontroller.CreateDynamicInterfaceFromClusterConfig = mockCreateDynamicInterfaceFromClusterConfig
+ 
+ 	clientset := fake.NewSimpleClientset()
+ 	mc, err := NewMulticluster(clientset,
