@@ -130,7 +130,7 @@ function buildGO() {
         sudo ln -sf /usr/local/go/bin/gofmt /usr/bin/
 		export GOPATH=${SOURCE_ROOT}
 		export GOROOT=/usr/local/go
-		if [[ "${ID}" == "rhel" ||  ${ID} == "sles" ]; then
+		if [[ "${ID}" == "rhel" ||  ${ID} == "sles" ]]; then
 		   sudo ln -sf /usr/bin/gcc /usr/bin/s390x-linux-gnu-gcc
 		fi
 		go version 
