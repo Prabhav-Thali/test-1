@@ -196,12 +196,12 @@ function installDependency() {
 	
 	printf -- 'Installing Ninja\n' |& tee -a "$LOG_FILE"
 	
-	if [ "${ID}" == "rhel" ] || [ ${VERSION_ID} == 12.5 ]; then
+	if [[ "${ID}" == "rhel"  ||  ${VERSION_ID} == 12.5 ]]; then
 		printf -- '\nDownloading ninja\n' |& tee -a "$LOG_FILE"
 		cd "${SOURCE_ROOT}"
 		git clone -b v1.8.2 git://github.com/ninja-build/ninja.git && cd ninja
 		./configure.py --bootstrap
-		if [ "${ID}" == "rhel" ]; then
+		if [[ "${ID}" == "rhel" ]]; then
 			sudo ln -sf ${SOURCE_ROOT}/ninja/ninja /usr/local/bin/ninja
 			export PATH=/usr/local/bin:$PATH
 		else
@@ -280,7 +280,7 @@ function configureAndInstall() {
 		sed -i "s|\$SOURCE_ROOT|${SOURCE_ROOT}|"  ${SOURCE_ROOT}/proxy/WORKSPACE
 		export CMAKE_CXX_COMPILER=/usr/bin/g++
 		export 'BAZEL_BUILD_ARGS=--local_ram_resources=12288 --local_cpu_resources=8 --verbose_failures --test_env=ENVOY_IP_TEST_VERSIONS=v4only --test_output=errors'
-		sed '68s/$/  --jpbs=10/' Makefile.core.mk
+		#sed '68s/$/  --jpbs=10/' Makefile.core.mk
 		make BUILD_WITH_CONTAINER=0  build -j8
 		mkdir -p "${PROXY_DEBUG_BIN_PATH}"
 		cp -r "${SOURCE_ROOT}/proxy/bazel-bin/src/envoy/envoy" "${PROXY_DEBUG_BIN_PATH}/"
@@ -303,7 +303,7 @@ function configureAndInstall() {
  		fi
 		printf -- '\nBuild might take some time.Sit back and relax\n'
 		cd "${SOURCE_ROOT}/proxy"
-		sed '68s/$/  --jpbs=10/' Makefile.core.mk
+		#sed '68s/$/  --jpbs=10/' Makefile.core.mk
 		make BUILD_WITH_CONTAINER=0  build -j8
 		mkdir -p "$PROXY_RELEASE_BIN_PATH"
 		cp -r "${SOURCE_ROOT}/proxy/bazel-bin/src/envoy/envoy" "${PROXY_RELEASE_BIN_PATH}/"
