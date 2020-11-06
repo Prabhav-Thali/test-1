@@ -196,19 +196,20 @@ function installDependency() {
 	
 	printf -- 'Installing Ninja\n' |& tee -a "$LOG_FILE"
 	
-	printf -- '\nDownloading ninja\n' |& tee -a "$LOG_FILE"
-	cd "${SOURCE_ROOT}"
-	git clone -b v1.8.2 git://github.com/ninja-build/ninja.git && cd ninja
-	./configure.py --bootstrap
-	if [[ "${ID}" == "rhel" ]]; then
-		sudo ln -sf ${SOURCE_ROOT}/ninja/ninja /usr/local/bin/ninja-build
-		sudo ln -sf ${SOURCE_ROOT}/ninja/ninja /usr/local/bin/ninja
-		export PATH=/usr/local/bin:$PATH
-	else
-		sudo ln -sf ${SOURCE_ROOT}/ninja/ninja /usr/bin/ninja
+	if [ "${ID}" == "rhel" ] || [ ${VERSION_ID} == 12.5 ]; then
+		printf -- '\nDownloading ninja\n' |& tee -a "$LOG_FILE"
+		cd "${SOURCE_ROOT}"
+		git clone -b v1.8.2 git://github.com/ninja-build/ninja.git && cd ninja
+		./configure.py --bootstrap
+		if [ "${ID}" == "rhel" ]; then
+			sudo ln -sf ${SOURCE_ROOT}/ninja/ninja /usr/local/bin/ninja
+			export PATH=/usr/local/bin:$PATH
+		else
+			sudo ln -sf ${SOURCE_ROOT}/ninja/ninja /usr/bin/ninja
+		fi
+		ninja --version |& tee -a "$LOG_FILE"
+		printf -- '\nninja installed succesfully\n' |& tee -a "$LOG_FILE"
 	fi
-	ninja --version |& tee -a "$LOG_FILE"
-	printf -- '\nninja installed succesfully\n' |& tee -a "$LOG_FILE"
 }
 
 function configureAndInstall() {
