@@ -12,7 +12,7 @@ set -e -o pipefail
 PACKAGE_NAME="istio"
 PACKAGE_VERSION="1.6.8"
 SOURCE_ROOT="$(pwd)"
-PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/diff-repo/master/final_patches"
+PATCH_URL="https://raw.githubusercontent.com/vibhutisawant/test/master/istio_1.6.8/istio/patch"
 HELM_REPO_URL="https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
 PROXY_REPO_URL="https://raw.githubusercontent.com/vibhutisawant/diff-repo/master/final_patches/istio_proxy.sh"
 RUBY_REPO_URL="https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Ruby/2.7.2/build_ruby.sh"
