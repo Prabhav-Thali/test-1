@@ -1,0 +1,132 @@
+diff --git a/api/wasm/cpp/proxy_wasm_common.h b/api/wasm/cpp/proxy_wasm_common.h
+index 985bfb2a66..60bc234bf4 100644
+--- a/api/wasm/cpp/proxy_wasm_common.h
++++ b/api/wasm/cpp/proxy_wasm_common.h
+@@ -51,6 +51,7 @@ inline std::string toString(WasmResult r) {
+     _CASE(InternalFailure);
+     _CASE(BrokenConnection);
+   }
++  return 0;
+ }
+ #undef _CASE
+ 
+diff --git a/bazel/BUILD b/bazel/BUILD
+index a58f8c99a8..f71f425b7b 100644
+--- a/bazel/BUILD
++++ b/bazel/BUILD
+@@ -236,7 +236,7 @@ config_setting(
+     name = "boringssl_fips",
+     constraint_values = [
+         "@bazel_tools//platforms:linux",
+-        "@bazel_tools//platforms:x86_64",
++        "@bazel_tools//platforms:s390x",
+     ],
+     values = {"define": "boringssl=fips"},
+ )
+diff --git a/bazel/foreign_cc/BUILD b/bazel/foreign_cc/BUILD
+index 2658b72e8d..80fc655519 100644
+--- a/bazel/foreign_cc/BUILD
++++ b/bazel/foreign_cc/BUILD
+@@ -341,6 +341,7 @@ envoy_cmake_external(
+     cache_entries = {
+         "BUILD_SHARED_LIBS": "off",
+         "CMAKE_CXX_COMPILER_FORCED": "on",
++	"CMAKE_MAKE_PROGRAM": "$SOURCE_ROOT/ninja/ninja",
+     },
+     lib_source = "@net_zlib//:all",
+     static_libraries = select({
+diff --git a/bazel/foreign_cc/luajit.patch b/bazel/foreign_cc/luajit.patch
+index 82e8733a70..2509c6815a 100644
+--- a/bazel/foreign_cc/luajit.patch
++++ b/bazel/foreign_cc/luajit.patch
+@@ -1,48 +1,3 @@
+-diff --git a/src/Makefile b/src/Makefile
+-index f56465d..3f4f2fa 100644
+---- a/src/Makefile
+-+++ b/src/Makefile
+-@@ -27,7 +27,7 @@ NODOTABIVER= 51
+- DEFAULT_CC = gcc
+- #
+- # LuaJIT builds as a native 32 or 64 bit binary by default.
+--CC= $(DEFAULT_CC)
+-+CC ?= $(DEFAULT_CC)
+- #
+- # Use this if you want to force a 32 bit build on a 64 bit multilib OS.
+- #CC= $(DEFAULT_CC) -m32
+-@@ -71,10 +71,10 @@ CCWARN= -Wall
+- # as dynamic mode.
+- #
+- # Mixed mode creates a static + dynamic library and a statically linked luajit.
+--BUILDMODE= mixed
+-+#BUILDMODE= mixed
+- #
+- # Static mode creates a static library and a statically linked luajit.
+--#BUILDMODE= static
+-+BUILDMODE= static
+- #
+- # Dynamic mode creates a dynamic library and a dynamically linked luajit.
+- # Note: this executable will only run when the library is installed!
+-@@ -99,7 +99,7 @@ XCFLAGS=
+- # enabled by default. Some other features that *might* break some existing
+- # code (e.g. __pairs or os.execute() return values) can be enabled here.
+- # Note: this does not provide full compatibility with Lua 5.2 at this time.
+--#XCFLAGS+= -DLUAJIT_ENABLE_LUA52COMPAT
+-+XCFLAGS+= -DLUAJIT_ENABLE_LUA52COMPAT
+- #
+- # Disable the JIT compiler, i.e. turn LuaJIT into a pure interpreter.
+- #XCFLAGS+= -DLUAJIT_DISABLE_JIT
+-@@ -587,7 +587,7 @@ endif
+-
+- Q= @
+- E= @echo
+--#Q=
+-+Q=
+- #E= @:
+-
+- ##############################################################################
+-EOF
+ diff --git a/build.py b/build.py
+ new file mode 100755
+ index 0000000..9c71271
+diff --git a/bazel/repository_locations.bzl b/bazel/repository_locations.bzl
+index 0d0f61a317..bff15f7510 100644
+--- a/bazel/repository_locations.bzl
++++ b/bazel/repository_locations.bzl
+@@ -116,9 +116,9 @@ REPOSITORY_LOCATIONS = dict(
+         urls = ["https://github.com/grpc/grpc/archive/d8f4928fa779f6005a7fe55a176bdb373b0f910f.tar.gz"],
+     ),
+     com_github_luajit_luajit = dict(
+-        sha256 = "409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8",
+-        strip_prefix = "LuaJIT-2.1.0-beta3",
+-        urls = ["https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz"],
++        #sha256 = "409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8",
++        strip_prefix = "LuaJIT-2.1",
++        urls = ["https://github.com/linux-on-ibm-z/LuaJIT/archive/v2.1.zip"],
+     ),
+     com_github_moonjit_moonjit = dict(
+         sha256 = "83deb2c880488dfe7dd8ebf09e3b1e7613ef4b8420de53de6f712f01aabca2b6",
+diff --git a/source/exe/BUILD b/source/exe/BUILD
+index 43ff9f36fd..09a33a0f2a 100644
+--- a/source/exe/BUILD
++++ b/source/exe/BUILD
+@@ -43,6 +43,7 @@ envoy_cc_library(
+     ] + select({
+         "//bazel:windows_x86_64": envoy_windows_extensions(),
+         "//bazel:linux_ppc": envoy_all_extensions(PPC_SKIP_TARGETS),
++	"//bazel:linux_s390x": envoy_all_extensions(),
+         "//conditions:default": envoy_all_extensions(),
+     }),
+ )
+diff --git a/test/integration/http_integration.cc b/test/integration/http_integration.cc
+index 9550d0aabf..90e77fdc0a 100644
+--- a/test/integration/http_integration.cc
++++ b/test/integration/http_integration.cc
+@@ -360,7 +360,7 @@ void HttpIntegrationTest::verifyResponse(IntegrationStreamDecoderPtr response,
+ absl::optional<uint64_t>
+ HttpIntegrationTest::waitForNextUpstreamRequest(const std::vector<uint64_t>& upstream_indices,
+                                                 std::chrono::milliseconds connection_wait_timeout) {
+-  absl::optional<uint64_t> upstream_with_request;
++  absl::optional<uint64_t> upstream_with_request = 0;
+   // If there is no upstream connection, wait for it to be established.
+   if (!fake_upstream_connection_) {
+     AssertionResult result = AssertionFailure();
