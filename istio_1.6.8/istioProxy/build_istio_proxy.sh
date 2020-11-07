@@ -240,7 +240,7 @@ function configureAndInstall() {
 
     if [[ "${ID}" == "rhel" ]]; then
 	   curl -sSL ${PATCH_URL}/envoy_rhel.diff | patch -p1 || echo "Error" 
-	   sed -i "s|$SOURCE_ROOT|${SOURCE_ROOT}|" bazel/foreign_cc/BUILD
+	   sed -i "s|\$SOURCE_ROOT|${SOURCE_ROOT}|" bazel/foreign_cc/BUILD
 	else
 	   curl -sSL ${PATCH_URL}/envoy.diff | patch -p1 || echo "Error"  
 	fi
