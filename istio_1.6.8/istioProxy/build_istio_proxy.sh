@@ -234,12 +234,13 @@ function configureAndInstall() {
 	printf -- '\nDownloading Envoy\n'
 	git clone https://github.com/istio/envoy/
 	cd envoy/
-    git checkout release-1.6
+        git checkout release-1.6
 
 	#multiple patches to be user here
 
     if [[ "${ID}" == "rhel" ]]; then
 	   curl -sSL ${PATCH_URL}/envoy_rhel.diff | patch -p1 || echo "Error" 
+	   sed -i "s|$SOURCE_ROOT|${SOURCE_ROOT}|" bazel/foreign_cc/BUILD
 	else
 	   curl -sSL ${PATCH_URL}/envoy.diff | patch -p1 || echo "Error"  
 	fi
