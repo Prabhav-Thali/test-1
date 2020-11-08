@@ -20,7 +20,7 @@ index c8c79f35..49d891a0 100644
  
  build:
 -	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS)
-+	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build -c opt --copt "-DENVOY_IGNORE_GLIBCXX_USE_CXX11_ABI_ERROR=1" $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS)  --jobs=4
++	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build -c opt --copt "-DENVOY_IGNORE_GLIBCXX_USE_CXX11_ABI_ERROR=1" $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) $(BAZEL_TARGETS)  --jobs=10
  
  build_envoy:
  	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_REL) //src/envoy:envoy
@@ -29,7 +29,7 @@ index c8c79f35..49d891a0 100644
  test:
  	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) //src/envoy:envoy
 -	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) -- $(BAZEL_TEST_TARGETS)
-+	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) --test_env=ENVOY_IP_TEST_VERSIONS=v4only  --test_env=HEAPCHECK=normal --jobs=4 -- $(BAZEL_TEST_TARGETS)
++	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_DEV) --test_env=ENVOY_IP_TEST_VERSIONS=v4only  --test_env=HEAPCHECK=normal --jobs=10 -- $(BAZEL_TEST_TARGETS)
  	env ENVOY_PATH=$(BAZEL_ENVOY_PATH) GO111MODULE=on go test ./...
  
  test_asan:
