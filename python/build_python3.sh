@@ -141,7 +141,7 @@ else
                         cat > expected_failures.log << EOF
     test_generators test_multiprocessing_fork
     test_multiprocessing_forkserver test_multiprocessing_spawn
-    test_pdb test_regrtest test_signal test_threading
+    test_pdb test_regrtest test_signal test_threading test_site
 EOF
 fi
 
