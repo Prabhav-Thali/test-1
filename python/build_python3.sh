@@ -144,7 +144,6 @@ else
     test_multiprocessing_forkserver test_multiprocessing_spawn
     test_pdb test_regrtest test_signal test_threading
     test_site
-    test_zlib
 EOF
 fi
 
