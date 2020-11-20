@@ -133,7 +133,7 @@ function runTest() {
                         
                         if [[ "$ID-$VERSION_ID" == "ubuntu-20.04" || "$ID-$VERSION_ID" == "ubuntu-20.10"  ]]; then
                         cat > expected_failures.log << EOF
-    test_generators test_multiprocessing_fork
+    test_decimal test_generators test_io test_multiprocessing_fork
     test_multiprocessing_forkserver test_multiprocessing_spawn
     test_pdb test_regrtest test_signal test_ssl test_threading
     test_site
