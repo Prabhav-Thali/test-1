@@ -131,7 +131,7 @@ function runTest() {
                         sed -n '/tests failed/,/tests skipped/p' test_results.log | sort | uniq >> tests_failed.log
                         sed -n '/test_/p' tests_failed.log >> rerun_tests.log 
                         
-                        if [[ "$ID-$VERSION_ID" == "ubuntu-20.04" || "$ID-$VERSION_ID" == "ubuntu-20.10"  ]]; then
+                        if [[ "$ID-$VERSION_ID" == "ubuntu-20.04" ]]; then
                         cat > expected_failures.log << EOF
     test_generators test_multiprocessing_fork
     test_multiprocessing_forkserver test_multiprocessing_spawn
