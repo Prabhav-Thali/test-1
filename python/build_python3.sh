@@ -146,7 +146,13 @@ elif [[ "$ID-$VERSION_ID" == "ubuntu-20.10"  ]]; then
     test_site
     test_zlib
 EOF
-			
+elif [[ "${ID}" == "rhel" ]]; then
+                        cat > expected_failures.log << EOF
+    test_generators test_multiprocessing_fork
+    test_multiprocessing_forkserver test_multiprocessing_spawn
+    test_pdb test_regrtest test_signal test_tcl test_threading
+    test_site
+EOF	
 else
                         cat > expected_failures.log << EOF
     test_generators test_multiprocessing_fork
