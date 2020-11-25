@@ -130,7 +130,7 @@ function runTest() {
 
                         sed -n '/tests failed/,/tests skipped/p' test_results.log | sort | uniq >> tests_failed.log
                         sed -n '/test_/p' tests_failed.log >> rerun_tests.log 
-			                        
+                        
                         if [[ "$ID-$VERSION_ID" == "ubuntu-20.04" ]]; then
                         cat > expected_failures.log << EOF
     test_generators test_multiprocessing_fork
@@ -144,9 +144,8 @@ else
     test_pdb test_regrtest test_signal test_threading
 EOF
 fi
-                        
-                        #diff -u expected_failures.log rerun_tests.log
-			cat rerun_tests.log
+
+                        diff -u expected_failures.log rerun_tests.log
 
                         if [[ $? != 0 ]]; then
                                 printf -- '**********************************************************************************************************\n'
@@ -183,7 +182,7 @@ function printHelp() {
         echo "Usage: "
         echo "  build_python_3.sh  [-d <debug>] [-v package-version] [-y install-without-confirmation]"
         echo "       default: If no -v specified, latest version will be installed "
-        echo "This script supports Python version 3.8.6"
+        echo "This script supports Python version 3.9.0"
         echo
 }
 
@@ -224,7 +223,7 @@ prepare
 
 DISTRO="$ID-$VERSION_ID"
 case "$DISTRO" in
-"ubuntu-18.04" | "ubuntu-20.04" | "ubuntu-20.10")
+"ubuntu-18.04" | "ubuntu-20.04"  | "ubuntu-20.10")
         printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "${LOG_FILE}"
         sudo apt-get update
         sudo apt-get install -y gcc g++ libbz2-dev libdb-dev libffi-dev libgdbm-dev liblzma-dev libncurses-dev libreadline-dev libsqlite3-dev libssl-dev make tar tk-dev uuid-dev wget xz-utils zlib1g-dev
@@ -234,7 +233,7 @@ case "$DISTRO" in
 "rhel-7.8" | "rhel-7.9" | "rhel-8.1" | "rhel-8.2" | "rhel-8.3")
         printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "${LOG_FILE}"
         if [[ "$ID" == "rhel" && "$VERSION_ID" == "8.1" ]] || [[ "$ID" == "rhel" && "$VERSION_ID" == "8.2" ]]  || [[ "$ID" == "rhel" && "$VERSION_ID" == "8.3" ]]; then
-                sudo yum install -y bzip2-devel gcc gcc-c++ gdbm-devel libdb libffi-devel libuuid make ncurses openssl readline sqlite tar tk wget xz xz zlib-devel glibc-langpack-en diffutils 
+                sudo yum install -y bzip2-devel gcc gcc-c++ gdbm-devel libdb libffi-devel libuuid make ncurses openssl readline sqlite tar tk wget xz xz zlib-devel glibc-langpack-en diffutils
         else
                 sudo yum install -y bzip2-devel gcc gcc-c++ gdbm-devel libdb-devel libffi-devel libuuid-devel make ncurses-devel readline-devel sqlite-devel tar tk-devel wget xz xz-devel zlib-devel
                 build_openssl |& tee -a "${LOG_FILE}"
