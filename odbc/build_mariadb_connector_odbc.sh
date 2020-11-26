@@ -220,7 +220,7 @@ EOF
         cd $SOURCE_ROOT/mariadb-connector-odbc/test
         export ODBCINI="$PWD/odbc.ini"
         export ODBCSYSINI=$PWD
-        ctest 2>&1 |& tee -a "$LOG_FILE"
+        ctest -V 2>&1 |& tee -a "$LOG_FILE"
         mysqladmin -u root --password="rootpass" shutdown
         case $DISTRO in
             "ubuntu-16.04" | "rhel-7.6" | "rhel-7.7" | "rhel-7.8")
