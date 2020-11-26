@@ -80,9 +80,6 @@ function configureAndInstall() {
     curl -SL -o ma_connection.c.patch $PATCH_URL/ma_connection.c.patch
     patch -l $SOURCE_ROOT/mariadb-connector-odbc/ma_connection.c ma_connection.c.patch
 
-    curl -SL -o mariadb_stmt.c.patch $PATCH_URL/mariadb_stmt.c.patch
-    patch -l $SOURCE_ROOT/mariadb-connector-odbc/libmariadb/libmariadb/mariadb_stmt.c mariadb_stmt.c.patch
-
     curl -SL -o basic.c.patch $PATCH_URL/basic.c.patch
     patch -l $SOURCE_ROOT/mariadb-connector-odbc/test/basic.c basic.c.patch
 
@@ -296,20 +293,20 @@ prepare #Check Prequisites
 DISTRO="$ID-$VERSION_ID"
 
 case "$DISTRO" in
-"ubuntu-16.04" | "ubuntu-18.04" | "ubuntu-20.04")
+"ubuntu-18.04" | "ubuntu-20.04" | "ubuntu-20.10")
     printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
     printf -- "Installing dependencies... it may take some time.\n"
     sudo apt-get update
     sudo apt-get install -y mariadb-server unixodbc-dev git cmake gcc libssl-dev tar curl libcurl4-openssl-dev libkrb5-dev |& tee -a "$LOG_FILE"
     configureAndInstall |& tee -a "$LOG_FILE"
     ;;
-"rhel-7.6" | "rhel-7.7" | "rhel-7.8" | "rhel-8.1" | "rhel-8.2")
+"rhel-7.8" | "rhel-7.9" | "rhel-8.1" | "rhel-8.2" | "rhel-8.3")
     printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
     printf -- "Installing dependencies... it may take some time.\n"
     sudo yum install -y patch mariadb mariadb-server unixODBC unixODBC-devel git cmake gcc openssl-devel openssl tar curl libcurl-devel krb5-devel make |& tee -a "$LOG_FILE"
     configureAndInstall |& tee -a "$LOG_FILE"
     ;;
- "sles-12.5" | "sles-15.1")
+ "sles-12.5" | "sles-15.1" | "sles-15.2")
     printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
     printf -- "Installing dependencies... it may take some time.\n"
     sudo zypper install -y patch mariadb unixODBC unixODBC-devel git cmake gcc libopenssl-devel openssl glibc-locale tar curl libcurl-devel krb5-devel pcre-devel |& tee -a "$LOG_FILE"
