@@ -97,7 +97,7 @@ function configureAndInstall() {
         "sles"* | "rhel"*)
             echo $DISTRO
             cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off  -DWITH_SSL=OPENSSL -DCMAKE_INSTALL_PREFIX=/usr/local
-            make
+            cmake --build . --config RelWithDebInfo
             sudo make install
             ;;
     esac
