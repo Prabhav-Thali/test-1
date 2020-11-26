@@ -91,7 +91,7 @@ function configureAndInstall() {
         "ubuntu"*)
             echo $DISTRO
             cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off  -DWITH_SSL=OPENSSL -DCMAKE_INSTALL_PREFIX=/usr/local  -DODBC_LIB_DIR=/usr/lib/s390x-linux-gnu/
-            make
+            cmake --build . --config RelWithDebInfo
             sudo make install
             ;;
         "sles"* | "rhel"*)
@@ -218,6 +218,8 @@ EOF
 
         #Run tests
         cd $SOURCE_ROOT/mariadb-connector-odbc/test
+        export ODBCINI="$PWD/odbc.ini"
+        export ODBCSYSINI=$PWD
         ctest 2>&1 |& tee -a "$LOG_FILE"
         mysqladmin -u root --password="rootpass" shutdown
         case $DISTRO in
