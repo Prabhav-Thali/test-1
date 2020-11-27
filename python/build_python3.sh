@@ -122,7 +122,7 @@ function runTest() {
         if [[ "$TESTS" == "true" ]]; then
                 printf -- "TEST Flag is set, continue with running test \n" >> "$LOG_FILE"
                 cd "$CURDIR/Python-${PACKAGE_VERSION}"
-                make test 2>&1| tee -a test_results.log     
+                xvfb-run make buildbottest TESTOPTS="-j4 -uall,-cpu" | tee -a test_results.log     
 
                 grep "Tests result: SUCCESS" test_results.log
 
@@ -226,7 +226,7 @@ case "$DISTRO" in
 "ubuntu-18.04" | "ubuntu-20.04"  | "ubuntu-20.10")
         printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "${LOG_FILE}"
         sudo apt-get update
-        sudo apt-get install -y gcc g++ libbz2-dev libdb-dev libffi-dev libgdbm-dev liblzma-dev libncurses-dev libreadline-dev libsqlite3-dev libssl-dev make tar tk-dev uuid-dev wget xz-utils zlib1g-dev
+        sudo apt-get install -y xvfb gcc g++ libbz2-dev libdb-dev libffi-dev libgdbm-dev liblzma-dev libncurses-dev libreadline-dev libsqlite3-dev libssl-dev make tar tk-dev uuid-dev wget xz-utils zlib1g-dev
         configureAndInstall |& tee -a "${LOG_FILE}"
         ;;
 
