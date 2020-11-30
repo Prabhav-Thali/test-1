@@ -122,7 +122,7 @@ function runTest() {
         if [[ "$TESTS" == "true" ]]; then
                 printf -- "TEST Flag is set, continue with running test \n" >> "$LOG_FILE"
                 cd "$CURDIR/Python-${PACKAGE_VERSION}"
-                xvfb-run make buildbottest TESTOPTS="-j4 -uall,-cpu" | tee -a test_results.log     
+                xvfb-run make buildbottest TESTOPTS="-j4 -uall,-cpu" | tee -a test_results.log        
 
                 grep "Tests result: SUCCESS" test_results.log
 
@@ -130,9 +130,9 @@ function runTest() {
 
                         sed -n '/tests failed/,/tests skipped/p' test_results.log | sort | uniq >> tests_failed.log
                         sed -n '/test_/p' tests_failed.log >> rerun_tests.log 
-		fi
-                        printf -- 'Below TC's failed, Run  them individually\n'
-                        cat rerun_tests.log 
+
+                        printf -- 'Below TC failuures were observed, run individually\n'
+			cat rerun_tests.log 
 
                         if [[ $? != 0 ]]; then
                                 printf -- '**********************************************************************************************************\n'
