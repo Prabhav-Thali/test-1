@@ -162,7 +162,7 @@ cat <<EOF |& sudo tee -a /etc/odbcinst.ini
 Trace     = no
 TraceFile = /tmp/maodbc_trace.log
 [maodbc_test]
-Driver      = /usr/local/lib/libmaodbc.so
+Driver      = /usr/local/lib/mariadb/libmaodbc.so
 DESCRIPTION = MariaDB ODBC Connector
 Threading   = 0
 IconvEncoding=UTF16
