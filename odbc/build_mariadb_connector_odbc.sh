@@ -147,14 +147,17 @@ function runTest() {
         case $DISTRO in
             "ubuntu"*)
 cat <<EOF |& sudo tee -a  /etc/odbc.ini
+[ODBC Data Sources]
+maodbc_test=MariaDB ODBC Connector Test
+
 [maodbc_test]
-Driver      = maodbc_test
-DESCRIPTION = MariaDB ODBC Connector Test
-SERVER      = localhost
-PORT        = 3306
-DATABASE    = test
-UID         = root
-PASSWORD    = rootpass
+Driver=maodbc_test
+DESCRIPTION=MariaDB ODBC Connector Test
+SERVER=localhost
+PORT=3306
+DATABASE=test
+UID=root
+PASSWORD=rootpass
 EOF
 cat <<EOF |& sudo tee -a /etc/odbcinst.ini
 [ODBC]
@@ -218,7 +221,7 @@ EOF
 
         #Run tests
         cd $SOURCE_ROOT/mariadb-connector-odbc/test
-        export ODBCINI="$PWD/odbc.ini"
+        export ODBCINI="/etc/odbc.ini"
         export ODBCSYSINI=$PWD
         ctest -V 2>&1 |& tee -a "$LOG_FILE"
         mysqladmin -u root --password="rootpass" shutdown
