@@ -150,7 +150,7 @@ function runTest() {
         ctest 2>&1 |& tee -a "$LOG_FILE"
         mysqladmin -u root --password="rootpass" shutdown
         case $DISTRO in
-            "ubuntu-16.04" | "rhel-7.6" | "rhel-7.7" | "rhel-7.8")
+            "rhel-7.8" | "rhel-7.9")
                 if cat "$LOG_FILE" | grep -q "odbc_connstring (Failed)"; then
                     echo "Expected failures found!"
                     exit 0
