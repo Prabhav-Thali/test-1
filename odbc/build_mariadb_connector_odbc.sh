@@ -142,87 +142,11 @@ function runTest() {
         export TEST_DSN=maodbc_test
         export TEST_UID=root
         export TEST_PASSWORD=rootpass
-
-        #Edit odbc.ini and odbcinst.ini
-        case $DISTRO in
-            "ubuntu"*)
-cat <<EOF |& sudo tee -a  /etc/odbc.ini
-[ODBC Data Sources]
-maodbc_test=MariaDB ODBC Connector Test
-
-[maodbc_test]
-Driver=maodbc_test
-DESCRIPTION=MariaDB ODBC Connector Test
-SERVER=localhost
-PORT=3306
-DATABASE=test
-UID=root
-PASSWORD=rootpass
-EOF
-cat <<EOF |& sudo tee -a /etc/odbcinst.ini
-[ODBC]
-# Change to "yes" to turn on tracing
-Trace     = no
-TraceFile = /tmp/maodbc_trace.log
-[maodbc_test]
-Driver      = /usr/local/lib/mariadb/libmaodbc.so
-DESCRIPTION = MariaDB ODBC Connector
-Threading   = 0
-IconvEncoding=UTF16
-EOF
-;;
-            "rhel"*)
-cat <<EOF |& sudo tee -a /etc/odbc.ini
-[maodbc_test]
-Driver      = maodbc_test
-DESCRIPTION = MariaDB ODBC Connector Test
-SERVER      = localhost
-PORT        = 3306
-DATABASE    = test
-UID         = root
-PASSWORD    = rootpass
-EOF
-cat <<EOF |& sudo tee -a /etc/odbcinst.ini
-[ODBC]
-# Change to "yes" to turn on tracing
-Trace     = no
-TraceFile = /tmp/maodbc_trace.log
-[maodbc_test]
-Driver      = /usr/local/lib64/libmaodbc.so
-DESCRIPTION = MariaDB ODBC Connector
-Threading   = 0
-IconvEncoding=UTF16
-EOF
-;;
-            "sles"*)
-cat <<EOF |& sudo tee -a /etc/unixODBC/odbc.ini
-[maodbc_test]
-Driver      = maodbc_test
-DESCRIPTION = MariaDB ODBC Connector Test
-SERVER      = localhost
-PORT        = 3306
-DATABASE    = test
-UID         = root
-PASSWORD    = rootpass
-EOF
-cat <<EOF |& sudo tee -a /etc/unixODBC/odbcinst.ini
-[ODBC]
-# Change to "yes" to turn on tracing
-Trace     = no
-TraceFile = /tmp/maodbc_trace.log
-[maodbc_test]
-Driver      = /usr/local/lib64/libmaodbc.so
-DESCRIPTION = MariaDB ODBC Connector
-Threading   = 0
-IconvEncoding=UTF16
-EOF
-;;
-        esac
-
         #Run tests
         cd $SOURCE_ROOT/mariadb-connector-odbc/test
-        export ODBCINI="/etc/odbc.ini"
+        export ODBCINI=$PWD
         export ODBCSYSINI=$PWD
+        sed -i 's/PASSWORD=/PASSWORD=rootpass/' odbc.ini
         ctest 2>&1 |& tee -a "$LOG_FILE"
         mysqladmin -u root --password="rootpass" shutdown
         case $DISTRO in
