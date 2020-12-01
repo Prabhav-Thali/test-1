@@ -146,7 +146,7 @@ function runTest() {
         cd $SOURCE_ROOT/mariadb-connector-odbc/test
         export ODBCINI=$PWD
         export ODBCSYSINI=$PWD
-        sed -i 's/PASSWORD=/PASSWORD=rootpass/' $SOURCE_ROOT/mariadb-connector-odbc/test/odbc.ini
+        sed -i 's//PASSWORD    =/PASSWORD    =rootpass/' $SOURCE_ROOT/mariadb-connector-odbc/test/odbc.ini
         ctest 2>&1 |& tee -a "$LOG_FILE"
         mysqladmin -u root --password="rootpass" shutdown
         case $DISTRO in
