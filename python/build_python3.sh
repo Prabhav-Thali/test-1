@@ -130,9 +130,62 @@ function runTest() {
 
                         sed -n '/tests failed/,/tests skipped/p' test_results.log | sort | uniq >> tests_failed.log
                         sed -n '/test_/p' tests_failed.log >> rerun_tests.log 
+			
+			cat > expected_failures.log << EOF
+    test_generators test_multiprocessing_fork
+    test_multiprocessing_forkserver test_multiprocessing_spawn
+    test_pdb test_regrtest test_signal test_ssl test_threading
+EOF
 
                         printf -- 'Below TC failuures were observed, run individually\n'
-			cat rerun_tests.log 
+			#!/bin/bash
+			input1="$CURDIR/Python-${PACKAGE_VERSION}/rerun_tests.log"
+			input2="$CURDIR/Python-${PACKAGE_VERSION}/expected_failures.log"
+			while IFS= read -r line
+			do
+			  #echo "$line"
+			  for word in $line
+			do
+			    echo $word >> temp_ex.txt
+			done
+			done < "$input2"
+
+
+			while IFS= read -r line
+			do
+			  #echo "$line"
+			  for word in $line
+			do
+			    echo $word >> temp_op.txt
+			done
+			done < "$input1"
+
+			File="$CURDIR/Python-${PACKAGE_VERSION}/temp_ex.txt"
+			input="$CURDIR/Python-${PACKAGE_VERSION}/temp_op.txt"
+
+			while IFS= read -r line
+			do
+			  if grep -q $line "$File"; then
+			  #Some Actions # SomeString was found
+			  continue
+			  else
+			  #echo $line
+			  make test TESTOPTS="-v $line"
+			   if [[ $? != 0 ]]; then
+			      #echo $line failed intermittently
+			      arrVar+=($line)
+			   fi
+			  fi
+
+			done < "$input"
+
+			echo "Following packages failed intermittently"
+			
+			for value in "${arrVar[@]}"
+			do
+			     echo $value
+			done
+
 
                         if [[ $? != 0 ]]; then
                                 printf -- '**********************************************************************************************************\n'
