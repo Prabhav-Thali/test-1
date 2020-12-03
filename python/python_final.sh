@@ -136,8 +136,8 @@ function runTest() {
 EOF
                         printf -- 'Below TC failuures were observed, run individually\n'
                         #cat rerun_tests.log
-                        input1="/home/test/temp/Python-3.9.0/rerun_tests.log"
-                        input2="/home/test/temp/Python-3.9.0/expected_failures.log"
+                        input1="$CURDIR/Python-${PACKAGE_VERSION}/rerun_tests.log"
+                        input2="$CURDIR/Python-${PACKAGE_VERSION}/expected_failures.log"
                         while IFS= read -r line
                         do
                           #echo "$line"
@@ -157,8 +157,8 @@ EOF
                         done
                         done < "$input1"
 
-                        File="/home/test/temp/Python-3.9.0/temp_ex.txt"
-                        input="/home/test/temp/Python-3.9.0/temp_op.txt"
+                        File="$CURDIR/Python-${PACKAGE_VERSION}/temp_ex.txt"
+                        input="$CURDIR/Python-${PACKAGE_VERSION}/temp_op.txt"
 
                         while IFS= read -r line
                         do
