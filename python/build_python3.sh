@@ -138,7 +138,6 @@ function runTest() {
 EOF
 
                         printf -- 'Below TC failuures were observed, run individually\n'
-			#!/bin/bash
 			input1="$CURDIR/Python-${PACKAGE_VERSION}/rerun_tests.log"
 			input2="$CURDIR/Python-${PACKAGE_VERSION}/expected_failures.log"
 			while IFS= read -r line
@@ -184,22 +183,16 @@ EOF
 			if [ ${arrVar[@]} -eq 0 ]; then
     			echo "All tests have passed successfully!"
 			else
+			printf -- '**********************************************************************************************************\n'
+                        printf -- 'Unexpected test failures detected. Try running the tests again: make test\n'
+                        printf -- 'Or try running them individually using the command: make test TESTOPTS="-v <test_name>" \n'
+                        printf -- '**********************************************************************************************************\n\n'
     			for value in "${arrVar[@]}"
 			do
 			     echo $value
 			done
-			
+			exit 1
 			fi
-
-                        if [[ $? != 0 ]]; then
-                                printf -- '**********************************************************************************************************\n'
-                                printf -- 'Unexpected test failures detected. Try running the tests again: make test\n'
-                                printf -- 'Or try running them individually using the command: make test TESTOPTS="-v <test_name>" \n'
-                                printf -- '**********************************************************************************************************\n\n'
-                                exit 1
-                        else
-                                echo "Expected test failures seen, these tests pass on rerun."
-                        fi    
                 else
                         printf -- "Tests completed successfully. \n" 
                 fi
