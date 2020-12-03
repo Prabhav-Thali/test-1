@@ -64,14 +64,14 @@ function cleanup() {
 function build_openssl() {
         cd "${CURDIR}"
         wget https://www.openssl.org/source/openssl-1.1.1h.tar.gz
-	tar -xzvf openssl-1.1.1h.tar.gz
-	cd openssl-1.1.1h
-	./config --prefix=/usr/local --openssldir=/usr/local
-	make
-  	sudo make install
-   	sudo ldconfig /usr/local/lib64
+        tar -xzvf openssl-1.1.1h.tar.gz
+        cd openssl-1.1.1h
+        ./config --prefix=/usr/local --openssldir=/usr/local
+        make
+        sudo make install
+        sudo ldconfig /usr/local/lib64
 
-	export PATH=/usr/local/bin:$PATH
+        export PATH=/usr/local/bin:$PATH
         export LDFLAGS="-L/usr/local/lib/ -L/usr/local/lib64/"
         export LD_LIBRARY_PATH="/usr/local/lib/ /usr/local/lib64/"
         export CPPFLAGS="-I/usr/local/include/ -I/usr/local/include/openssl"
@@ -122,79 +122,84 @@ function runTest() {
         if [[ "$TESTS" == "true" ]]; then
                 printf -- "TEST Flag is set, continue with running test \n" >> "$LOG_FILE"
                 cd "$CURDIR/Python-${PACKAGE_VERSION}"
-                xvfb-run make buildbottest TESTOPTS="-j4 -uall,-cpu" | tee -a test_results.log        
+                xvfb-run make buildbottest TESTOPTS="-j4 -uall,-cpu" | tee -a test_results.log
 
                 grep "Tests result: SUCCESS" test_results.log
 
-                if [[ $? != 0 ]]; then      
-
+                if [[ $? != 0 ]]; then
                         sed -n '/tests failed/,/tests skipped/p' test_results.log | sort | uniq >> tests_failed.log
-                        sed -n '/test_/p' tests_failed.log >> rerun_tests.log 
-			
-			cat > expected_failures.log << EOF
+                        sed -n '/test_/p' tests_failed.log >> rerun_tests.log
+                        cat > expected_failures.log << EOF
     test_generators test_multiprocessing_fork
     test_multiprocessing_forkserver test_multiprocessing_spawn
     test_pdb test_regrtest test_signal test_ssl test_threading
 EOF
-
                         printf -- 'Below TC failuures were observed, run individually\n'
-			input1="$CURDIR/Python-${PACKAGE_VERSION}/rerun_tests.log"
-			input2="$CURDIR/Python-${PACKAGE_VERSION}/expected_failures.log"
-			while IFS= read -r line
-			do
-			  #echo "$line"
-			  for word in $line
-			do
-			    echo $word >> temp_ex.txt
-			done
-			done < "$input2"
+                        #cat rerun_tests.log
+                        input1="/home/test/temp/Python-3.9.0/rerun_tests.log"
+                        input2="/home/test/temp/Python-3.9.0/expected_failures.log"
+                        while IFS= read -r line
+                        do
+                          #echo "$line"
+                          for word in $line
+                        do
+                            echo $word >> temp_ex.txt
+                        done
+                        done < "$input2"
 
 
-			while IFS= read -r line
-			do
-			  #echo "$line"
-			  for word in $line
-			do
-			    echo $word >> temp_op.txt
-			done
-			done < "$input1"
+                        while IFS= read -r line
+                        do
+                          #echo "$line"
+                          for word in $line
+                        do
+                            echo $word >> temp_op.txt
+                        done
+                        done < "$input1"
 
-			File="$CURDIR/Python-${PACKAGE_VERSION}/temp_ex.txt"
-			input="$CURDIR/Python-${PACKAGE_VERSION}/temp_op.txt"
+                        File="/home/test/temp/Python-3.9.0/temp_ex.txt"
+                        input="/home/test/temp/Python-3.9.0/temp_op.txt"
 
-			while IFS= read -r line
-			do
-			  if grep -q $line "$File"; then
-			  #Some Actions # SomeString was found
-			  continue
-			  else
-			  #echo $line
-			  make test TESTOPTS="-v $line"
-			   if [[ $? != 0 ]]; then
-			      #echo $line failed intermittently
-			      arrVar+=($line)
-			   fi
-			  fi
+                        while IFS= read -r line
+                        do
+                          if grep -q $line "$File"; then
+                          #Some Actions # SomeString was found
+                          continue
+                          else
+                          #echo $line
+                          make test TESTOPTS="-v $line"
+                           if [[ $? != 0 ]]; then
+                              #echo $line failed intermittently
+                              arrVar+=($line)
+                           fi
+                          fi
 
-			done < "$input"
+                        done < "$input"
 
-			echo "Following packages failed intermittently"
-			
-			if [ ${#arrVar[@]} -eq 0 ]; then
-    			echo "All tests have passed successfully!"
-			else
-			printf -- '**********************************************************************************************************\n'
-                        printf -- 'Unexpected test failures detected. Try running the tests again: make test\n'
-                        printf -- 'Or try running them individually using the command: make test TESTOPTS="-v <test_name>" \n'
-                        printf -- '**********************************************************************************************************\n\n'
-    			for value in "${arrVar[@]}"
-			do
-			     echo $value
-			done
-			exit 1
-			fi
+                        echo "Following packages failed intermittently"
+
+                        if [ ${#arrVar[@]} -eq 0 ]; then
+                        echo "All tests have passed successfully!"
+                        else
+                        for value in "${arrVar[@]}"
+                        do
+                             echo $value
+                        done
+
+                        fi
+
+
+                        if [[ $? != 0 ]]; then
+                                printf -- '**********************************************************************************************************\n'
+                                printf -- 'Unexpected test failures detected. Try running the tests again: make test\n'
+                                printf -- 'Or try running them individually using the command: make test TESTOPTS="-v <test_name>" \n'
+                                printf -- '**********************************************************************************************************\n\n'
+                                exit 1
+                        else
+                                echo "Expected test failures seen, these tests pass on rerun."
+                        fi
                 else
-                        printf -- "Tests completed successfully. \n" 
+                        printf -- "Tests completed successfully. \n"
                 fi
         fi
         set -e
