@@ -181,7 +181,7 @@ EOF
 
 			echo "Following packages failed intermittently"
 			
-			if [ ${#errors[@]} -eq 0 ]; then
+			if [ ${arrVar[@]} -eq 0 ]; then
     			echo "All tests have passed successfully!"
 			else
     			for value in "${arrVar[@]}"
